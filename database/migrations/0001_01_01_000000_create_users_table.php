@@ -104,7 +104,7 @@ return new class extends Migration
             $table->string('sip', 50)->nullable(); // Surat Ijin Praktek
             $table->timestamps();
             
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
         
         // Petugas Administrasi
@@ -116,7 +116,7 @@ return new class extends Migration
             $table->string('nomor_hp', 15)->nullable();
             $table->timestamps();
             
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
         
         // Pasien
@@ -201,7 +201,7 @@ return new class extends Migration
             $table->timestamps();
             
             // Implementasi rekomendasi 4 - Relasi Tabel
-            $table->foreign('id_pasien')->references('id_pasien')->on('pasien');
+            $table->foreign('id_pasien')->references('id_pasien')->on('pasien')->onDelete('cascade');
             $table->foreign('id_dokter')->references('id_dokter')->on('dokter');
             $table->foreign('cara_pembayaran')->references('id')->on('master_cara_pembayaran');
         });
@@ -227,7 +227,7 @@ return new class extends Migration
             
             // Implementasi rekomendasi 4 - Relasi Tabel
             $table->foreign('id_kunjungan')->references('id_kunjungan')->on('kunjungan');
-            $table->foreign('id_pasien')->references('id_pasien')->on('pasien');
+            $table->foreign('id_pasien')->references('id_pasien')->on('pasien')->onDelete('cascade');
             $table->foreign('id_dokter')->references('id_dokter')->on('dokter');
         });
         
@@ -255,7 +255,7 @@ return new class extends Migration
             $table->timestamps();
             
             // Implementasi rekomendasi 4 - Relasi Tabel
-            $table->foreign('id_pasien')->references('id_pasien')->on('pasien');
+            $table->foreign('id_pasien')->references('id_pasien')->on('pasien')->onDelete('cascade');
             $table->foreign('id_kunjungan')->references('id_kunjungan')->on('kunjungan');
         });
         
@@ -283,7 +283,7 @@ return new class extends Migration
             $table->timestamps();
             
             // Implementasi rekomendasi 4 - Relasi Tabel
-            $table->foreign('id_pasien')->references('id_pasien')->on('pasien');
+            $table->foreign('id_pasien')->references('id_pasien')->on('pasien')->onDelete('cascade');
             $table->foreign('id_kunjungan')->references('id_kunjungan')->on('kunjungan');
         });
         
@@ -319,7 +319,7 @@ return new class extends Migration
             $table->timestamps();
             
             // Implementasi rekomendasi 4 - Relasi Tabel
-            $table->foreign('id_pasien')->references('id_pasien')->on('pasien');
+            $table->foreign('id_pasien')->references('id_pasien')->on('pasien')->onDelete('cascade');
             $table->foreign('id_kunjungan')->references('id_kunjungan')->on('kunjungan');
         });
         
@@ -340,7 +340,7 @@ return new class extends Migration
             $table->timestamps();
             
             // Implementasi rekomendasi 4 - Relasi Tabel
-            $table->foreign('id_pasien')->references('id_pasien')->on('pasien');
+            $table->foreign('id_pasien')->references('id_pasien')->on('pasien')->onDelete('cascade');
             $table->foreign('id_kunjungan')->references('id_kunjungan')->on('kunjungan');
             $table->foreign('kode_icd')->references('kode')->on('master_diagnosa');
         });
@@ -363,7 +363,7 @@ return new class extends Migration
             $table->timestamps();
             
             // Implementasi rekomendasi 4 - Relasi Tabel
-            $table->foreign('id_pasien')->references('id_pasien')->on('pasien');
+            $table->foreign('id_pasien')->references('id_pasien')->on('pasien')->onDelete('cascade');
             $table->foreign('id_kunjungan')->references('id_kunjungan')->on('kunjungan');
         });
         
@@ -406,7 +406,7 @@ return new class extends Migration
             $table->timestamps();
             
             // Implementasi rekomendasi 4 - Relasi Tabel
-            $table->foreign('id_pasien')->references('id_pasien')->on('pasien');
+            $table->foreign('id_pasien')->references('id_pasien')->on('pasien')->onDelete('cascade');
             $table->foreign('id_kunjungan')->references('id_kunjungan')->on('kunjungan');
             $table->foreign('kode_icd')->references('kode')->on('master_diagnosa');
         });
@@ -424,7 +424,7 @@ return new class extends Migration
             $table->timestamps();
             
             // Implementasi rekomendasi 4 - Relasi Tabel
-            $table->foreign('id_pasien')->references('id_pasien')->on('pasien');
+            $table->foreign('id_pasien')->references('id_pasien')->on('pasien')->onDelete('cascade');
             $table->foreign('id_kunjungan')->references('id_kunjungan')->on('kunjungan')->nullable();
             $table->foreign('uploaded_by')->references('id')->on('users');
         });
@@ -451,7 +451,7 @@ return new class extends Migration
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
+            $table->string('user_id', 20)->nullable();
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
             $table->longText('payload');

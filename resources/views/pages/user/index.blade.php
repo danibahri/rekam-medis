@@ -1,13 +1,13 @@
 @extends('layouts.master')
 
-@section('title', 'Data Pasien')
+@section('title', 'User')
 
-@section('description', 'Data Pasien - Rekam Medis')
+@section('description', 'User - Rekam Medis')
 
 @section('content')
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg">
-            <h1 class="text-3xl font-bold mb-4 bg-white py-5 pl-3 rounded shadow text-gray-700">Data Pasien</h1>
+            <h1 class="text-3xl font-bold mb-4 bg-white py-5 pl-3 rounded shadow text-gray-700">Data User</h1>
             <div class="flex items-center justify-between mt-10 flex-wrap pb-4">
                 <div class="flex gap-4">
                     <a type="button" href="{{ route('add.pasien') }}"
@@ -57,56 +57,48 @@
                     <thead class="text-xs text-gray-700 uppercase bg-white border-b-1">
                         <tr>
                             {{-- <th class="p-4">
-                                <input type="checkbox"
-                                    class="w-4 h-4 text-amber-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-amber-400 focus:ring-2">
-                            </th> --}}
+                            <input type="checkbox"
+                                class="w-4 h-4 text-amber-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-amber-400 focus:ring-2">
+                        </th> --}}
                             <th class="px-6 py-3">Nama</th>
-                            <th class="px-6 py-3">Tempat Lahir</th>
-                            <th class="px-6 py-3">Jenis Kelamin</th>
+                            <th class="px-6 py-3">No. Hp</th>
                             <th class="px-6 py-3">Alamat</th>
+                            <th class="px-6 py-3">Role</th>
+                            <th class="px-6 py-3">Dibuat</th>
                             <th class="px-6 py-3">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if ($data_pasien->isEmpty())
+                        @if ($data_user->isEmpty())
                             <tr class="bg-white hover:bg-gray-100">
                                 <td colspan="5" class="text-center p-4">Tidak ada data pasien</td>
                             </tr>
                         @else
-                            @foreach ($data_pasien as $item)
+                            @foreach ($data_user as $user)
                                 <tr class="bg-white hover:bg-gray-100">
                                     {{-- <td class="p-4">
-                                    <input type="checkbox"
-                                        class="w-4 h-4 text-amber-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-amber-400 focus:ring-2">
-                                </td> --}}
+                                <input type="checkbox"
+                                    class="w-4 h-4 text-amber-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-amber-400 focus:ring-2">
+                            </td> --}}
                                     <th class="flex items-center px-6 py-4 whitespace-nowrap">
-                                        {{ $item->nama_lengkap }}
+                                        {{ $user->nama }}
                                     </th>
                                     <td class="px-6 py-4">
-                                        {{ $item->tempat_lahir }}
+                                        {{ $user->nomor_hp }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        @if ($item->jenis_kelamin == 0)
-                                            Tidak Diketahui
-                                        @elseif($item->jenis_kelamin == 1)
-                                            Laki-laki
-                                        @elseif($item->jenis_kelamin == 2)
-                                            Perempuan
-                                        @elseif($item->jenis_kelamin == 3)
-                                            Tidak dapat ditentukan
-                                        @elseif($item->jenis_kelamin == 4)
-                                            Tidak Mengisi
-                                        @endif
+                                        {{ $user->alamat }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ $item->alamat_lengkap }}
+                                        {{ $user->role }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $user->created_at->translatedFormat('d F Y') }}
                                     </td>
                                     <td class="px-6 py-4">
                                         <a href="#" class="font-medium text-blue-600 hover:underline">Lihat |</a>
                                         <a href="#" class="font-medium text-amber-600 hover:underline">Edit |</a>
-                                        {{-- delete --}}
-                                        <form action="{{ route('delete.pasien', $item->id_pasien) }}" method="POST"
-                                            class="inline">
+                                        <form action="{{ route('delete.user', $user->id) }}" method="POST" class="inline">
                                             @csrf
                                             <button type="submit"
                                                 class="font-medium text-red-600 hover:underline cursor-pointer">Delete</button>

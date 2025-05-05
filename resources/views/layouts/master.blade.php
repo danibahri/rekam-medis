@@ -17,6 +17,7 @@
             @include('partials.footer')
         </footer>
     </main>
+    @include('sweetalert::alert')
     @stack('scripts')
 </body>
 

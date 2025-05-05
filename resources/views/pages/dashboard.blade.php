@@ -8,8 +8,9 @@
     <!-- Content -->
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg">
-            <h1 class="text-3xl font-bold mb-4 bg-white py-5 pl-3 rounded shadow">Dashboard</h1>
-            <div class="grid grid-cols-1 mb-6 mt-40">
+            <h1 class="text-3xl font-bold mb-4 bg-white py-5 pl-3 rounded shadow text-gray-700">Dashboard -
+                {{ Auth::user()->username }}</h1>
+            <div class="grid grid-cols-1 mb-6 lg:mt-40">
                 <div
                     class="flex lg:relative items-center justify-between p-6 bg-white border border-gray-200 rounded-lg shadow hover:shadow-md transition-shadow duration-300">
                     <div>
@@ -22,7 +23,6 @@
                 </div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
-                <!-- Card 1: Rata-rata Kunjungan -->
                 <div
                     class="p-6 bg-white border border-gray-200 rounded-lg shadow hover:shadow-md transition-shadow duration-300">
                     <div class="flex items-center space-x-4">
@@ -32,7 +32,7 @@
                                 <path d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 11V5h2v6H9zm0 2h2v2H9v-2z" />
                             </svg>
                         </div>
-                        <div>
+                        <div class="overflow-hidden">
                             <p class="text-sm text-gray-500">Rata-rata Kunjungan</p>
                             <p class="text-xl font-semibold text-gray-800">150/hari</p>
                         </div>
@@ -49,7 +49,7 @@
                                     d="M10 2a6 6 0 016 6v1a6 6 0 01-6 6 6 6 0 01-6-6V8a6 6 0 016-6zm0 14c3.314 0 6-2.686 6-6H4c0 3.314 2.686 6 6 6z" />
                             </svg>
                         </div>
-                        <div>
+                        <div class="overflow-hidden">
                             <p class="text-sm text-gray-500">Pasien Baru</p>
                             <p class="text-xl font-semibold text-gray-800">45 orang</p>
                         </div>
@@ -66,7 +66,7 @@
                                     d="M3 3a1 1 0 000 2h1v11a1 1 0 001 1h10a1 1 0 001-1V5h1a1 1 0 100-2H3zm3 4h2v7H6V7zm4 3h2v4h-2v-4z" />
                             </svg>
                         </div>
-                        <div>
+                        <div class="overflow-hidden">
                             <p class="text-sm text-gray-500">Kunjungan/Bulan</p>
                             <p class="text-xl font-semibold text-gray-800">1.200 kunjungan</p>
                         </div>

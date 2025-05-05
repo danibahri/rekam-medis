@@ -476,24 +476,64 @@
                         <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Dokumen Pendukung</h2>
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block mb-2 text-sm font-medium text-gray-900" for="foto_pasien_path">Foto
-                                    Pasien</label>
-                                <input
-                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                                    id="foto_pasien_path" name="foto_pasien_path" type="file" accept="image/*">
-                                <p class="mt-1 text-sm text-gray-400">SVG, PNG, JPG atau JPEG (Max. 2MB)</p>
+                                <div id="image-preview"
+                                    class="w-full p-6 mb-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
+                                    <input id="foto_pasien_path" type="file" class="hidden" accept="image/*" />
+                                    <label for="foto_pasien_path" class="cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor"
+                                            class="w-8 h-8 text-gray-700 mx-auto mb-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                                        </svg>
+                                        <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Upload picture</h5>
+                                        <p class="font-normal text-sm text-gray-400 md:px-6">Choose photo size should be
+                                            less than <b class="text-gray-600">2mb</b></p>
+                                        <p class="font-normal text-sm text-gray-400 md:px-6">and should be in <b
+                                                class="text-gray-600">JPG, PNG, or GIF</b> format.</p>
+                                        <span id="filename" class="text-gray-500 bg-gray-200 z-50"></span>
+                                    </label>
+                                </div>
+                                <div class="flex items-center justify-center">
+                                    <div class="w-full">
+                                        <label
+                                            class="w-full text-white bg-[#050708] hover:bg-[#050708]/90 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 flex items-center justify-center mr-2 mb-2 cursor-pointer">
+                                            <span class="text-center ml-2">Upload</span>
+                                        </label>
+                                    </div>
+                                </div>
                                 @error('foto_pasien_path')
                                     <span class="text-red-400 text-xs">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div>
-                                <label class="block mb-2 text-sm font-medium text-gray-900"
-                                    for="tanda_tangan_pasien_path">Tanda Tangan Pasien</label>
-                                <input
-                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                                    id="tanda_tangan_pasien_path" name="tanda_tangan_pasien_path" type="file"
-                                    accept="image/*">
-                                <p class="mt-1 text-sm text-gray-400">SVG, PNG, JPG atau JPEG (Max. 2MB)</p>
+                                <div id="image-preview"
+                                    class="w-full p-6 mb-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
+                                    <input id="tanda_tangan_pasien_path" type="file" class="hidden"
+                                        accept="image/*" />
+                                    <label for="tanda_tangan_pasien_path" class="cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor"
+                                            class="w-8 h-8 text-gray-700 mx-auto mb-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                                        </svg>
+                                        <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Upload picture</h5>
+                                        <p class="font-normal text-sm text-gray-400 md:px-6">Choose photo size should be
+                                            less than <b class="text-gray-600">2mb</b></p>
+                                        <p class="font-normal text-sm text-gray-400 md:px-6">and should be in <b
+                                                class="text-gray-600">JPG, PNG, or GIF</b> format.</p>
+                                        <span id="filename" class="text-gray-500 bg-gray-200 z-50"></span>
+                                    </label>
+                                </div>
+                                <div class="flex items-center justify-center">
+                                    <div class="w-full">
+                                        <label
+                                            class="w-full text-white bg-[#050708] hover:bg-[#050708]/90 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 flex items-center justify-center mr-2 mb-2 cursor-pointer">
+                                            <span class="text-center ml-2">Upload</span>
+                                        </label>
+                                    </div>
+                                </div>
                                 @error('tanda_tangan_pasien_path')
                                     <span class="text-red-400 text-xs">{{ $message }}</span>
                                 @enderror
@@ -516,46 +556,98 @@
             </div>
         </div>
     </div>
-
-    @push('scripts')
-        <script>
-            // Script untuk menangani checkbox 'sama dengan alamat KTP'
-            document.addEventListener('DOMContentLoaded', function() {
-                const sameAsKtpCheckbox = document.getElementById('same_as_ktp');
-
-                sameAsKtpCheckbox.addEventListener('change', function() {
-                    if (this.checked) {
-                        // Salin nilai dari alamat KTP ke alamat domisili
-                        document.getElementById('alamat_domisili').value = document.getElementById(
-                            'alamat_lengkap').value;
-                        document.getElementById('domisili_rt').value = document.getElementById('rt').value;
-                        document.getElementById('domisili_rw').value = document.getElementById('rw').value;
-                        document.getElementById('domisili_kelurahan_desa').value = document.getElementById(
-                            'kelurahan_desa').value;
-                        document.getElementById('domisili_kecamatan').value = document.getElementById(
-                            'kecamatan').value;
-                        document.getElementById('domisili_kota_kabupaten').value = document.getElementById(
-                            'kota_kabupaten').value;
-                        document.getElementById('domisili_kode_pos').value = document.getElementById('kode_pos')
-                            .value;
-                        document.getElementById('domisili_provinsi').value = document.getElementById('provinsi')
-                            .value;
-                        document.getElementById('domisili_negara').value = document.getElementById('negara')
-                            .value;
-                    } else {
-                        // Kosongkan field alamat domisili
-                        document.getElementById('alamat_domisili').value = '';
-                        document.getElementById('domisili_rt').value = '';
-                        document.getElementById('domisili_rw').value = '';
-                        document.getElementById('domisili_kelurahan_desa').value = '';
-                        document.getElementById('domisili_kecamatan').value = '';
-                        document.getElementById('domisili_kota_kabupaten').value = '';
-                        document.getElementById('domisili_kode_pos').value = '';
-                        document.getElementById('domisili_provinsi').value = '';
-                        document.getElementById('domisili_negara').value = 'Indonesia';
-                    }
-                });
-            });
-        </script>
-    @endpush
 @endsection
+
+@push('scripts')
+    <script>
+        const uploadInput = document.getElementById('upload');
+        const filenameLabel = document.getElementById('filename');
+        const imagePreview = document.getElementById('image-preview');
+
+        // Check if the event listener has been added before
+        let isEventListenerAdded = false;
+
+        uploadInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+
+            if (file) {
+                filenameLabel.textContent = file.name;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.innerHTML =
+                        `<img src="${e.target.result}" class="max-h-48 rounded-lg mx-auto" alt="Image preview" />`;
+                    imagePreview.classList.remove('border-dashed', 'border-2', 'border-gray-400');
+
+                    // Add event listener for image preview only once
+                    if (!isEventListenerAdded) {
+                        imagePreview.addEventListener('click', () => {
+                            uploadInput.click();
+                        });
+
+                        isEventListenerAdded = true;
+                    }
+                };
+                reader.readAsDataURL(file);
+            } else {
+                filenameLabel.textContent = '';
+                imagePreview.innerHTML =
+                    `<div class="bg-gray-200 h-48 rounded-lg flex items-center justify-center text-gray-500">No image preview</div>`;
+                imagePreview.classList.add('border-dashed', 'border-2', 'border-gray-400');
+
+                // Remove the event listener when there's no image
+                imagePreview.removeEventListener('click', () => {
+                    uploadInput.click();
+                });
+
+                isEventListenerAdded = false;
+            }
+        });
+
+        uploadInput.addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
+    </script>
+@endpush
+
+@push('scripts')
+    <script>
+        // Script untuk menangani checkbox 'sama dengan alamat KTP'
+        document.addEventListener('DOMContentLoaded', function() {
+            const sameAsKtpCheckbox = document.getElementById('same_as_ktp');
+
+            sameAsKtpCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    // Salin nilai dari alamat KTP ke alamat domisili
+                    document.getElementById('alamat_domisili').value = document.getElementById(
+                        'alamat_lengkap').value;
+                    document.getElementById('domisili_rt').value = document.getElementById('rt').value;
+                    document.getElementById('domisili_rw').value = document.getElementById('rw').value;
+                    document.getElementById('domisili_kelurahan_desa').value = document.getElementById(
+                        'kelurahan_desa').value;
+                    document.getElementById('domisili_kecamatan').value = document.getElementById(
+                        'kecamatan').value;
+                    document.getElementById('domisili_kota_kabupaten').value = document.getElementById(
+                        'kota_kabupaten').value;
+                    document.getElementById('domisili_kode_pos').value = document.getElementById('kode_pos')
+                        .value;
+                    document.getElementById('domisili_provinsi').value = document.getElementById('provinsi')
+                        .value;
+                    document.getElementById('domisili_negara').value = document.getElementById('negara')
+                        .value;
+                } else {
+                    // Kosongkan field alamat domisili
+                    document.getElementById('alamat_domisili').value = '';
+                    document.getElementById('domisili_rt').value = '';
+                    document.getElementById('domisili_rw').value = '';
+                    document.getElementById('domisili_kelurahan_desa').value = '';
+                    document.getElementById('domisili_kecamatan').value = '';
+                    document.getElementById('domisili_kota_kabupaten').value = '';
+                    document.getElementById('domisili_kode_pos').value = '';
+                    document.getElementById('domisili_provinsi').value = '';
+                    document.getElementById('domisili_negara').value = 'Indonesia';
+                }
+            });
+        });
+    </script>
+@endpush
