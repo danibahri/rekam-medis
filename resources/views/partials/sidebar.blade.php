@@ -122,7 +122,7 @@
                                 d="m1 1 4 4 4-4" />
                         </svg>
                     </button>
-                    <ul id="setting" class="hidden py-2 space-y-2">
+                    <ul id="setting" class="hidden py-2 space-y-2 border-2 border-white rounded-lg">
                         <li>
                             <a href="{{ route('show.user') }}"
                                 class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:text-black hover:bg-white">User</a>

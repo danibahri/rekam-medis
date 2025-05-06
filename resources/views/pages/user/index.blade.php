@@ -10,10 +10,9 @@
             <h1 class="text-3xl font-bold mb-4 bg-white py-5 pl-3 rounded shadow text-gray-700">Data User</h1>
             <div class="flex items-center justify-between mt-10 flex-wrap pb-4">
                 <div class="flex gap-4">
-                    <a type="button" href="{{ route('add.pasien') }}"
+                    <a type="button" href="{{ route('add.user') }}"
                         class="text-sm px-3 py-1.5 bg-amber-300 hover:bg-amber-500 focus:ring-amber-300 focus:ring-2 text-white rounded cursor-pointer">+
-                        Registrasi
-                        Pasien</a>
+                        Tambah User </a>
                     <button id="dropdownActionButton" data-dropdown-toggle="dropdownAction"
                         class="inline-flex items-center text-gray-700 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5"
                         type="button">
@@ -49,7 +48,7 @@
                     </div>
                     <input type="text" id="table-search-pasien"
                         class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-amber-400 focus:border-amber-400"
-                        placeholder="Search for pasien...">
+                        placeholder="Search for User...">
                 </div>
             </div>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
