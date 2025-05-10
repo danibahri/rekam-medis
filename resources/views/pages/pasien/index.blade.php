@@ -60,6 +60,7 @@
                                 <input type="checkbox"
                                     class="w-4 h-4 text-amber-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-amber-400 focus:ring-2">
                             </th> --}}
+                            <th scope="col" class="px-6 py-3">No. Rekam Medis</th>
                             <th class="px-6 py-3">Nama</th>
                             <th class="px-6 py-3">Tempat Lahir</th>
                             <th class="px-6 py-3">Jenis Kelamin</th>
@@ -79,7 +80,11 @@
                                     <input type="checkbox"
                                         class="w-4 h-4 text-amber-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-amber-400 focus:ring-2">
                                 </td> --}}
-                                    <th class="flex items-center px-6 py-4 whitespace-nowrap">
+                                    <th scope="row"
+                                        class="flex items-center px-6 py-4 whitespace-nowrap font-medium text-gray-900">
+                                        {{ $item->nomor_rekam_medis }}
+                                    </th>
+                                    <th class="px-6 py-4">
                                         {{ $item->nama_lengkap }}
                                     </th>
                                     <td class="px-6 py-4">

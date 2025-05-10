@@ -115,7 +115,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         </svg>
-                        <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Setting</span>
+                        <span
+                            class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap cursor-pointer">Setting</span>
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 10 6">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

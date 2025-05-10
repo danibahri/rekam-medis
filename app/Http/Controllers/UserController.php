@@ -22,10 +22,14 @@ class UserController extends Controller
 
     public function delete_user($id)
     {   
+        Alert::question('Yakin?', 'Data akan dihapus!')
+            ->showConfirmButton('Ya, hapus!', '#3085d6')
+            ->showCancelButton('Batal', '#aaa')
+            ->reverseButtons();
         $user = User::find($id);
         if ($user) {
             $user->delete();
-            Alert::success('Berhasil', 'Data User Berhasil Dihapus');
+            // Alert::success('Berhasil', 'Data User Berhasil Dihapus');
             return redirect()->route('show.user')->with('success', 'User deleted successfully');
         }
         Alert::error('Gagal', 'Data Pasien Gagal Dihapus');
