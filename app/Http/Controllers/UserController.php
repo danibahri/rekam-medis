@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use RealRashid\SweetAlert\Facades\Alert;
-use Illuminate\Support\Facades\Storage;
+use SweetAlert2\Laravel\Swal;
+
 
 class UserController extends Controller
 {
@@ -22,23 +22,25 @@ class UserController extends Controller
 
     public function delete_user($id)
     {   
-        Alert::question('Yakin?', 'Data akan dihapus!')
-            ->showConfirmButton('Ya, hapus!', '#3085d6')
-            ->showCancelButton('Batal', '#aaa')
-            ->reverseButtons();
         $user = User::find($id);
-        if ($user) {
-            $user->delete();
-            // Alert::success('Berhasil', 'Data User Berhasil Dihapus');
-            return redirect()->route('show.user')->with('success', 'User deleted successfully');
+
+        try{
+            if ($user) {
+                $user->delete();
+                return redirect()->route('show.user')->with('success', 'User deleted successfully');
+            }
+        } catch (\Exception $e) {
+            Swal::error([
+                'title' => 'Error',
+                'text' => 'Tidak dapat menghapus user atau user sedang digunakan ditempat lain',
+            ]);
+            return redirect()->route('show.user')->with('error', 'Failed to delete user');
         }
-        Alert::error('Gagal', 'Data Pasien Gagal Dihapus');
         return redirect()->route('show.user')->with('error', 'User not found');
     }
 
     public function store_user(Request $request)
     {
-        // Validate request
         $validated = $request->validate([
             'username' => 'required|string|max:50|unique:users',
             'password' => 'required|string|min:6|confirmed',
@@ -51,10 +53,8 @@ class UserController extends Controller
         ]);
 
         try {
-            // Generate ID with date for better uniqueness
             $id = 'USR' . rand(1000, 9999);
 
-            // Prepare data array explicitly
             $userData = [
                 'id' => $id,
                 'username' => $validated['username'],
@@ -80,12 +80,10 @@ class UserController extends Controller
                 throw new \Exception('Failed to create user record');
             }
 
-            Alert::success('Berhasil', 'Data User berhasil dibuat');
             return redirect()->route('show.user');
 
         } catch (\Exception $e) {
-            \Log::error('User Creation Error: ' . $e->getMessage());
-            Alert::error('Gagal', 'Data User gagal dibuat: ' . $e->getMessage());
+            // \Log::error('User Creation Error: ' . $e->getMessage());
             return redirect()
                 ->back()
                 ->withInput();

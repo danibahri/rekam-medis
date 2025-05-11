@@ -8,15 +8,14 @@
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg">
             <h1 class="text-3xl font-bold mb-4 bg-white py-5 pl-3 rounded shadow text-gray-700">Registrasi Pasien</h1>
-
             <div class="bg-white rounded-lg shadow p-6">
-                <form action="" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('store.pasien') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <!-- Data Identitas Utama -->
-                    {{-- <div class="mb-6">
+                    <div class="mb-6">
                         <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Data Identitas Utama</h2>
                         <div class="grid md:grid-cols-2 gap-6">
-                            <div>
+                            {{-- <div>
                                 <label for="id_pasien" class="block mb-2 text-sm font-medium text-gray-900">ID
                                     Pasien</label>
                                 <input type="text" id="id_pasien" name="id_pasien"
@@ -25,7 +24,7 @@
                                 @error('id_pasien')
                                     <span class="text-red-400 text-xs">{{ $message }}</span>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <div>
                                 <label for="nomor_rekam_medis" class="block mb-2 text-sm font-medium text-gray-900">Nomor
                                     Rekam Medis</label>
@@ -36,9 +35,9 @@
                                     <span class="text-red-400 text-xs">{{ $message }}</span>
                                 @enderror
                             </div>
-
                         </div>
-                    </div> --}}
+                    </div>
+
                     <!-- Data Pribadi -->
                     <div class="mb-6">
                         <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Data Pribadi</h2>
@@ -118,10 +117,16 @@
                                 <select id="jenis_kelamin" name="jenis_kelamin"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5">
                                     <option value="" selected disabled>Pilih Jenis Kelamin</option>
-                                    <option value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>
+                                    <option value="0" {{ old('jenis_kelamin') == '0' ? 'selected' : '' }}>
+                                        Tdak diketahui jenis kelamin pasien</option>
+                                    <option value="1" {{ old('jenis_kelamin') == '1' ? 'selected' : '' }}>
                                         Laki-laki</option>
-                                    <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>
+                                    <option value="2" {{ old('jenis_kelamin') == '2' ? 'selected' : '' }}>
                                         Perempuan</option>
+                                    <option value="3" {{ old('jenis_kelamin') == '3' ? 'selected' : '' }}>
+                                        Tidak dapat ditentukan</option>
+                                    <option value="4" {{ old('jenis_kelamin') == '4' ? 'selected' : '' }}>
+                                        Tidak mengisi</option>
                                 </select>
                                 @error('jenis_kelamin')
                                     <span class="text-red-400 text-xs">{{ $message }}</span>
@@ -132,17 +137,18 @@
                                 <select id="agama" name="agama"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5">
                                     <option value="" selected disabled>Pilih Agama</option>
-                                    <option value="Islam" {{ old('agama') == 'Islam' ? 'selected' : '' }}>Islam</option>
-                                    <option value="Kristen" {{ old('agama') == 'Kristen' ? 'selected' : '' }}>Kristen
+                                    <option value="1" {{ old('agama') == '1' ? 'selected' : '' }}>Islam</option>
+                                    <option value="2" {{ old('agama') == '2' ? 'selected' : '' }}>Kristen
+                                        (Protestan)
                                     </option>
-                                    <option value="Katolik" {{ old('agama') == 'Katolik' ? 'selected' : '' }}>Katolik
+                                    <option value="3" {{ old('agama') == '3' ? 'selected' : '' }}>Katolik
                                     </option>
-                                    <option value="Hindu" {{ old('agama') == 'Hindu' ? 'selected' : '' }}>Hindu</option>
-                                    <option value="Buddha" {{ old('agama') == 'Buddha' ? 'selected' : '' }}>Buddha
+                                    <option value="4" {{ old('agama') == '4' ? 'selected' : '' }}>Hindu</option>
+                                    <option value="5" {{ old('agama') == '5' ? 'selected' : '' }}>Buddha
                                     </option>
-                                    <option value="Konghucu" {{ old('agama') == 'Konghucu' ? 'selected' : '' }}>Konghucu
+                                    <option value="6" {{ old('agama') == '6' ? 'selected' : '' }}>Konghucu
                                     </option>
-                                    <option value="Lainnya" {{ old('agama') == 'Lainnya' ? 'selected' : '' }}>Lainnya
+                                    <option value="7" {{ old('agama') == '7' ? 'selected' : '' }}>Lainnya
                                     </option>
                                 </select>
                                 @error('agama')
@@ -399,19 +405,18 @@
                                 <select id="pendidikan" name="pendidikan"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5">
                                     <option value="" selected disabled>Pilih Pendidikan</option>
-                                    <option value="Tidak Sekolah"
-                                        {{ old('pendidikan') == 'Tidak Sekolah' ? 'selected' : '' }}>Tidak Sekolah</option>
-                                    <option value="SD" {{ old('pendidikan') == 'SD' ? 'selected' : '' }}>SD</option>
-                                    <option value="SMP" {{ old('pendidikan') == 'SMP' ? 'selected' : '' }}>SMP</option>
-                                    <option value="SMA/SMK" {{ old('pendidikan') == 'SMA/SMK' ? 'selected' : '' }}>SMA/SMK
+                                    <option value="1" {{ old('pendidikan') == '1' ? 'selected' : '' }}>Tidak Sekolah
                                     </option>
-                                    <option value="D1" {{ old('pendidikan') == 'D1' ? 'selected' : '' }}>D1</option>
-                                    <option value="D2" {{ old('pendidikan') == 'D2' ? 'selected' : '' }}>D2</option>
-                                    <option value="D3" {{ old('pendidikan') == 'D3' ? 'selected' : '' }}>D3</option>
-                                    <option value="D4/S1" {{ old('pendidikan') == 'D4/S1' ? 'selected' : '' }}>D4/S1
+                                    <option value="2" {{ old('pendidikan') == '2' ? 'selected' : '' }}>SD</option>
+                                    <option value="3" {{ old('pendidikan') == '3' ? 'selected' : '' }}>SMP</option>
+                                    <option value="4" {{ old('pendidikan') == '4' ? 'selected' : '' }}>SMA/SMK
                                     </option>
-                                    <option value="S2" {{ old('pendidikan') == 'S2' ? 'selected' : '' }}>S2</option>
-                                    <option value="S3" {{ old('pendidikan') == 'S3' ? 'selected' : '' }}>S3</option>
+                                    <option value="5" {{ old('pendidikan') == '5' ? 'selected' : '' }}>D1-D3
+                                        Sederajat</option>
+                                    <option value="6" {{ old('pendidikan') == '6' ? 'selected' : '' }}>D4</option>
+                                    <option value="7" {{ old('pendidikan') == '7' ? 'selected' : '' }}>S1</option>
+                                    <option value="8" {{ old('pendidikan') == '8' ? 'selected' : '' }}>S2
+                                    </option>
                                 </select>
                                 @error('pendidikan')
                                     <span class="text-red-400 text-xs">{{ $message }}</span>
@@ -420,9 +425,21 @@
                             <div>
                                 <label for="pekerjaan"
                                     class="block mb-2 text-sm font-medium text-gray-900">Pekerjaan</label>
-                                <input type="text" id="pekerjaan" name="pekerjaan"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5"
-                                    placeholder="Pekerjaan" value="{{ old('pekerjaan') }}">
+                                <select id="pekerjaan" name="pekerjaan"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5">
+                                    <option value="" selected disabled>Pilih pekerjaan</option>
+                                    <option value="0" {{ old('pekerjaan') == '0' ? 'selected' : '' }}>Tidak Bekerja
+                                    </option>
+                                    <option value="1" {{ old('pekerjaan') == '1' ? 'selected' : '' }}>PNS
+                                    </option>
+                                    <option value="2" {{ old('pekerjaan') == '2' ? 'selected' : '' }}>TNI/POLRI
+                                    </option>
+                                    <option value="3" {{ old('pekerjaan') == '3' ? 'selected' : '' }}>BUMN
+                                    </option>
+                                    <option value="4" {{ old('pekerjaan') == '4' ? 'selected' : '' }}>Pegawai
+                                        Swasta/Wirausaha
+                                    </option>
+                                </select>
                                 @error('pekerjaan')
                                     <span class="text-red-400 text-xs">{{ $message }}</span>
                                 @enderror
@@ -433,16 +450,16 @@
                                 <select id="status_pernikahan" name="status_pernikahan"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5">
                                     <option value="" selected disabled>Pilih Status Pernikahan</option>
-                                    <option value="Belum Menikah"
-                                        {{ old('status_pernikahan') == 'Belum Menikah' ? 'selected' : '' }}>Belum Menikah
+                                    <option value="1" {{ old('status_pernikahan') == '1' ? 'selected' : '' }}>Belum
+                                        Menikah
                                     </option>
-                                    <option value="Menikah" {{ old('status_pernikahan') == 'Menikah' ? 'selected' : '' }}>
+                                    <option value="2" {{ old('status_pernikahan') == '2' ? 'selected' : '' }}>
                                         Menikah</option>
-                                    <option value="Cerai Hidup"
-                                        {{ old('status_pernikahan') == 'Cerai Hidup' ? 'selected' : '' }}>Cerai Hidup
+                                    <option value="3" {{ old('status_pernikahan') == '3' ? 'selected' : '' }}>Cerai
+                                        Hidup
                                     </option>
-                                    <option value="Cerai Mati"
-                                        {{ old('status_pernikahan') == 'Cerai Mati' ? 'selected' : '' }}>Cerai Mati
+                                    <option value="4" {{ old('status_pernikahan') == '4' ? 'selected' : '' }}>Cerai
+                                        Mati
                                     </option>
                                 </select>
                                 @error('status_pernikahan')
@@ -455,14 +472,12 @@
                                 <select id="cara_pembayaran" name="cara_pembayaran"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5">
                                     <option value="" selected disabled>Pilih Cara Pembayaran</option>
-                                    <option value="Umum" {{ old('cara_pembayaran') == 'Umum' ? 'selected' : '' }}>Umum
+                                    <option value="1" {{ old('cara_pembayaran') == '1' ? 'selected' : '' }}>JKN
                                     </option>
-                                    <option value="BPJS" {{ old('cara_pembayaran') == 'BPJS' ? 'selected' : '' }}>BPJS
+                                    <option value="2" {{ old('cara_pembayaran') == '2' ? 'selected' : '' }}>Mandiri
                                     </option>
-                                    <option value="Asuransi" {{ old('cara_pembayaran') == 'Asuransi' ? 'selected' : '' }}>
+                                    <option value="3" {{ old('cara_pembayaran') == '3' ? 'selected' : '' }}>
                                         Asuransi</option>
-                                    <option value="Perusahaan"
-                                        {{ old('cara_pembayaran') == 'Perusahaan' ? 'selected' : '' }}>Perusahaan</option>
                                 </select>
                                 @error('cara_pembayaran')
                                     <span class="text-red-400 text-xs">{{ $message }}</span>
@@ -472,7 +487,7 @@
                     </div>
 
                     <!-- Dokumen Pendukung -->
-                    <div class="mb-6">
+                    {{-- <div class="mb-6">
                         <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Dokumen Pendukung</h2>
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
@@ -507,7 +522,7 @@
                                     <span class="text-red-400 text-xs">{{ $message }}</span>
                                 @enderror
                             </div>
-                            {{-- <div>
+                            <div>
                                 <div id="image-preview"
                                     class="w-full p-6 mb-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
                                     <input id="tanda_tangan_pasien_path" type="file" class="hidden"
@@ -538,9 +553,9 @@
                                 @error('tanda_tangan_pasien_path')
                                     <span class="text-red-400 text-xs">{{ $message }}</span>
                                 @enderror
-                            </div> --}}
+                            </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!-- Tombol Submit dan Reset -->
                     <div class="flex justify-end space-x-4">

@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use RealRashid\SweetAlert\Facades\Alert;
 use Carbon\Carbon;
+use SweetAlert2\Laravel\Swal;
+use Illuminate\Support\Facades\DB;
+
+
+
 
 class AuthController extends Controller
 {
@@ -26,7 +30,6 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        // Check if the credentials are valid
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $request->session()->put('user', [
@@ -35,7 +38,14 @@ class AuthController extends Controller
                 'role' => $user->role,
             ]);
             Auth::login($user);
-            Alert::success('Login berhasil', 'Selamat datang ' . $user->username);
+            Swal::toast([
+                'icon' => 'success',
+                'title' => 'Login berhasil',
+                'position' => 'top-end',
+                'timer' => 3000,
+                'showConfirmButton' => false,
+                'showLoading' => true,
+            ]);
             return redirect()->route('dashboard')->with('success', 'Login berhasil');
         } 
         return redirect('/login')->withErrors(['Email dan password tidak sesuai']);
@@ -43,17 +53,24 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        // Update last login time
+        // Update last login time tanpa save()
         $user = Auth::user();
         if ($user) {
-            $user->last_login =  Carbon::now();
-            $user->save();
+            DB::table('users')
+                ->where('id', $user->id)
+                ->update(['last_login' => Carbon::now()]);
         }
 
-        // logout
         $request->session()->flush();
         Auth::logout();
-        Alert::success('Logout berhasil', 'Anda telah keluar dari sistem');
+        Swal::toast([
+                'icon' => 'success',
+                'title' => 'Logout berhasil',
+                'position' => 'top-end',
+                'timer' => 3000,
+                'showConfirmButton' => false,
+                'showLoading' => true,
+            ]);
         return redirect('/login');
     }
 }
