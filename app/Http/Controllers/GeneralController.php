@@ -12,6 +12,7 @@ class GeneralController extends Controller
     {   
         $id = $id;
         $pasien = Pasien::find($id);
+        // dd($pasien);
         if (!$pasien) {
             Swal::error([
                 'title' => 'Error',
@@ -22,6 +23,7 @@ class GeneralController extends Controller
             ]);
             return redirect()->back()->with('error', 'Pasien not found');
         }
+        
         switch ($pasien->jenis_kelamin) {
             case 1:
                 $jenis_kelamin = 'Laki-laki';

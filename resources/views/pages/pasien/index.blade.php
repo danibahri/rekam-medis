@@ -11,7 +11,7 @@
             <div class="flex items-center justify-between mt-10 flex-wrap pb-4">
                 <div class="flex gap-4">
                     <a type="button" href="{{ route('add.pasien') }}"
-                        class="text-sm px-3 py-1.5 bg-amber-300 hover:bg-amber-500 focus:ring-amber-300 focus:ring-2 text-white rounded cursor-pointer">+
+                        class="text-sm px-3 py-1.5 bg-amber-300 font-bold hover:bg-amber-500 focus:ring-amber-300 focus:ring-2 text-white rounded cursor-pointer">+
                         Registrasi
                         Pasien</a>
                 </div>

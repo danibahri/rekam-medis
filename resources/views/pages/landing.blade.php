@@ -1,8 +1,10 @@
 @extends('layouts.app')
 @section('title', 'Sistem Rekam Medis Digital')
+
+@section('description', 'Sistem Rekam Medis Digital - Aplikasi untuk mengelola data rekam medis pasien di rumah sakit.')
+
 @section('content')
-    <div class="min-h-screen bg-gradient-to-b from-amber-50 to-white">
-        <!-- Hero Section with Animations -->
+    <div class="max-w-7xl bg-gradient-to-b m-auto from-amber-50 to-white">
         <div class="container mx-auto px-4 py-16">
             <div class="flex flex-col md:flex-row items-center justify-between">
                 <div class="md:w-1/2 mb-8 md:mb-0">

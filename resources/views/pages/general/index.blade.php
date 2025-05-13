@@ -180,7 +180,6 @@
                         <div>
                             <h1 class="border-b pb-2">Persetujuan Pasien</h1>
                             <div class="flex flex-col md:flex-row gap-4 mt-4">
-
                             </div>
                         </div>
                     </div>

@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('guest')->except('logout');
-    // }
 
     public function index()
     {
@@ -76,6 +72,6 @@ class AuthController extends Controller
                 'showConfirmButton' => false,
                 'showLoading' => true,
             ]);
-        return redirect('/login');
+        return redirect('/');
     }
 }
