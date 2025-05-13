@@ -74,28 +74,36 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const deleteButtons = document.querySelectorAll('.btn-delete');
+            // Mendaftarkan event listener untuk delete buttons dengan delegasi event
+            document.addEventListener('click', function(e) {
+                const target = e.target;
 
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    const form = button.closest('form');
+                // Periksa apakah yang diklik adalah tombol delete
+                if (target && target.classList.contains('btn-delete')) {
+                    console.log('Delete button clicked');
+                    const form = target.closest('form');
 
-                    Swal.fire({
-                        title: 'Apakah kamu yakin?',
-                        text: "Data pasien akan dihapus secara permanen.",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#3085d6',
-                        confirmButtonText: 'Ya, hapus!',
-                        cancelButtonText: 'Batal'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            form.submit();
-                        }
-                    });
-                });
+                    if (form) {
+                        Swal.fire({
+                            title: 'Apakah kamu yakin?',
+                            text: "Data User akan dihapus secara permanen.",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Ya, hapus!',
+                            cancelButtonText: 'Batal'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        });
+                    }
+                }
             });
+
+            // Log untuk debugging
+            console.log('Delete handler registered with event delegation');
         });
     </script>
 @endpush

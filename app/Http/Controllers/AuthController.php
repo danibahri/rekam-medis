@@ -23,6 +23,11 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
+    public function landing()
+    {
+        return view('pages.landing');
+    }
+
     public function login(Request $request)
     {
         $credentials = $request->validate([

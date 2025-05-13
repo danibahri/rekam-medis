@@ -27,6 +27,12 @@ class UserController extends Controller
         try{
             if ($user) {
                 $user->delete();
+                Swal::success([
+                    'title' => 'Success',
+                    'text' => 'User berhasil dihapus',
+                    'icon' => 'success',
+                    'timer' => 3000,
+                ]);
                 return redirect()->route('show.user')->with('success', 'User deleted successfully');
             }
         } catch (\Exception $e) {

@@ -3,6 +3,7 @@
 
 <head>
     @include('partials.head')
+    @stack('styles')
 </head>
 
 <body>
