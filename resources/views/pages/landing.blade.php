@@ -160,7 +160,6 @@
             }
         }
 
-        /* Animation Classes */
         .animate-fade-in-up {
             animation: fadeInUp 0.8s ease-out forwards;
         }

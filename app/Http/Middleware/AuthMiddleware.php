@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use SweetAlert2\Laravel\Swal;
+
 
 class AuthMiddleware
 {
@@ -16,8 +18,15 @@ class AuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Check if the user is authenticated
-        if (Auth::check()) {
+        if (!Auth::check()) {
+            Swal::toast([
+                'icon' => 'warning',
+                'title' => 'Anda belum login',
+                'position' => 'top-end',
+                'timer' => 3000,
+                'showConfirmButton' => false,
+                'showLoading' => true,
+            ]);
             return redirect('/login');
         }
         return $next($request);

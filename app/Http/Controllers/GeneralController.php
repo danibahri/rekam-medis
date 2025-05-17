@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pasien;
 use SweetAlert2\Laravel\Swal;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
 
 class GeneralController extends Controller
 {
@@ -42,5 +44,26 @@ class GeneralController extends Controller
                 break;
             }
         return view('pages.general.index', compact('pasien', 'jenis_kelamin'));
+    }
+
+    public function download_pdf()
+    {
+        $filePath = 'public/pdf/general.pdf';
+        return Storage::download($filePath, 'general.pdf');
+    }
+
+    public function view_pdf()
+    {
+        // dd(Storage::exists('example.txt'));
+        $filePath = 'example.txt';
+        if (!Storage::exists($filePath)) {
+            abort(404, 'File not found.');
+        }
+
+        $file = Storage::get($filePath);
+        return new Response($file, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="general.pdf"'
+        ]);
     }
 }

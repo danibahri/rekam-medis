@@ -25,7 +25,7 @@ class AuthController extends Controller
     }
 
     public function login(Request $request)
-    {
+    { 
         $credentials = $request->validate([
             'username' => 'required',
             'password' => 'required',
@@ -54,7 +54,6 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        // Update last login time tanpa save()
         $user = Auth::user();
         if ($user) {
             DB::table('users')
