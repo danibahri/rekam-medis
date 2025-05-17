@@ -10,10 +10,12 @@
             <h1 class="text-3xl font-bold mb-4 bg-white py-5 pl-3 rounded shadow text-gray-700">Data Pasien</h1>
             <div class="flex items-center justify-between mt-10 flex-wrap pb-4">
                 <div class="flex gap-4">
-                    <a type="button" href="{{ route('add.pasien') }}"
-                        class="text-sm px-3 py-1.5 bg-amber-300 font-bold hover:bg-amber-500 focus:ring-amber-300 focus:ring-2 text-white rounded cursor-pointer">+
-                        Registrasi
-                        Pasien</a>
+                    @if (Auth::user()->role == 'admin' || Auth::user()->role == 'petugas')
+                        <a type="button" href="{{ route('add.pasien') }}"
+                            class="text-sm px-3 py-1.5 bg-amber-300 font-bold hover:bg-amber-500 focus:ring-amber-300 focus:ring-2 text-white rounded cursor-pointer">+
+                            Registrasi
+                            Pasien</a>
+                    @endif
                 </div>
             </div>
 
@@ -65,17 +67,21 @@
                                         {{ $item->alamat_lengkap }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-amber-600 hover:underline">Edit |</a>
-                                        <form action="{{ route('delete.pasien', $item->id_pasien) }}" method="POST"
-                                            class="inline delete-form">
-                                            @csrf
-                                            <button type="button"
-                                                class="font-medium text-red-600 hover:underline cursor-pointer btn-delete"
-                                                data-id="{{ $item->id_pasien }}">Delete |</button>
-                                        </form>
-                                        <a href="{{ route('show.general', $item->id_pasien) }}"
-                                            class="font-medium text-blue-600 hover:underline">General-Consent
-                                        </a>
+                                        @if (Auth::user()->role == 'admin' || Auth::user()->role == 'petugas')
+                                            <a href="#" class="font-medium text-amber-600 hover:underline">Edit |</a>
+                                            <form action="{{ route('delete.pasien', $item->id_pasien) }}" method="POST"
+                                                class="inline delete-form">
+                                                @csrf
+                                                <button type="button"
+                                                    class="font-medium text-red-600 hover:underline cursor-pointer btn-delete"
+                                                    data-id="{{ $item->id_pasien }}">Delete |</button>
+                                            </form>
+                                            <a href="{{ route('show.general', $item->id_pasien) }}"
+                                                class="font-medium text-blue-600 hover:underline">General-Consent |
+                                            </a>
+                                        @endif
+                                        <a href="#" class="font-medium text-amber-600 hover:underline">Informed
+                                            Consent |</a>
                                     </td>
                                 </tr>
                             @endforeach

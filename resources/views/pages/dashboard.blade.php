@@ -34,7 +34,7 @@
                         </div>
                         <div class="overflow-hidden">
                             <p class="text-sm text-gray-500">Rata-rata Kunjungan</p>
-                            <p class="text-xl font-semibold text-gray-800">150/hari</p>
+                            <p class="text-xl font-semibold text-gray-800">{{ $rata_rata_kunjungan_per_hari }} /Hari</p>
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                         </div>
                         <div class="overflow-hidden">
                             <p class="text-sm text-gray-500">Pasien Baru</p>
-                            <p class="text-xl font-semibold text-gray-800">45 orang</p>
+                            <p class="text-xl font-semibold text-gray-800">{{ $pasien_baru }} orang</p>
                         </div>
                     </div>
                 </div>
@@ -67,8 +67,8 @@
                             </svg>
                         </div>
                         <div class="overflow-hidden">
-                            <p class="text-sm text-gray-500">Kunjungan/Bulan</p>
-                            <p class="text-xl font-semibold text-gray-800">1.200 kunjungan</p>
+                            <p class="text-sm text-gray-500">Total Kunjungan/Bulan</p>
+                            <p class="text-xl font-semibold text-gray-800">{{ $total_kunjungan_per_bulan }} kunjungan</p>
                         </div>
                     </div>
                 </div>

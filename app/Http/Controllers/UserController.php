@@ -84,11 +84,23 @@ class UserController extends Controller
 
             if (!$user) {
                 throw new \Exception('Failed to create user record');
-            }
-
+            }  
+            Swal::success([
+                'title' => 'Success',
+                'text' => 'User berhasil dibuat',
+                'icon' => 'success',
+                'timer' => 3000,
+            ]);
             return redirect()->route('show.user');
 
         } catch (\Exception $e) {
+            Swal::error([
+                'title' => 'Error',
+                'text' => 'Gagal membuat user ',
+                'icon' => 'error',
+                'timer' => 3000,
+            ]);
+
             // \Log::error('User Creation Error: ' . $e->getMessage());
             return redirect()
                 ->back()
