@@ -194,7 +194,7 @@ return new class extends Migration
             $table->date('tanggal_kunjungan')->index(); // Implementasi rekomendasi 2
             $table->time('waktu_kunjungan');
             $table->enum('jenis_kunjungan', ['baru', 'lama']);
-            $table->char('cara_pembayaran', 1);
+            $table->char('cara_pembayaran', 1)->nullable();
             $table->text('keluhan_utama')->nullable();
             $table->string('id_dokter', 20)->nullable();
             $table->enum('status', ['menunggu', 'dalam_pemeriksaan', 'selesai']);
@@ -239,17 +239,17 @@ return new class extends Migration
             $table->date('tanggal');
             $table->time('waktu');
             $table->enum('persetujuan_pasien', ['ya', 'tidak']);
-            $table->enum('informasi_pembayaran', ['setuju', 'tidak_setuju']);
-            $table->enum('informasi_hak_kewajiban', ['setuju', 'tidak_setuju']);
-            $table->enum('informasi_tata_tertib', ['setuju', 'tidak_setuju']);
-            $table->enum('kebutuhan_penterjemah', ['ya', 'tidak']);
-            $table->enum('kebutuhan_rohaniawan', ['ya', 'tidak']);
-            $table->enum('pelepasan_informasi', ['setuju', 'tidak_setuju']);
-            $table->enum('hasil_penunjang_penjamin', ['setuju', 'tidak_setuju']);
-            $table->enum('hasil_penunjang_peserta_didik', ['setuju', 'tidak_setuju']);
+            $table->enum('informasi_pembayaran', ['setuju', 'tidak_setuju'])->nullable();
+            $table->enum('informasi_hak_kewajiban', ['setuju', 'tidak_setuju'])->nullable();
+            $table->enum('informasi_tata_tertib', ['setuju', 'tidak_setuju'])->nullable();
+            $table->enum('kebutuhan_penterjemah', ['ya', 'tidak'])->nullable();
+            $table->enum('kebutuhan_rohaniawan', ['ya', 'tidak'])->nullable();
+            $table->enum('pelepasan_informasi', ['setuju', 'tidak_setuju'])->nullable();
+            $table->enum('hasil_penunjang_penjamin', ['setuju', 'tidak_setuju'])->nullable();
+            $table->enum('hasil_penunjang_peserta_didik', ['setuju', 'tidak_setuju'])->nullable();
             $table->text('anggota_keluarga_penerima_info')->nullable();
             $table->enum('fasyankes_rujukan', ['setuju', 'tidak_setuju']);
-            $table->string('tanda_tangan_pasien_path', 255)->nullable(); // Implementasi rekomendasi 1
+            $table->string('tanda_tangan_pasien_path', 255)->nullable(); 
             $table->string('penanggung_jawab', 100)->nullable();
             $table->string('petugas_pemberi_penjelasan', 100)->nullable();
             $table->timestamps();
@@ -336,7 +336,8 @@ return new class extends Migration
             $table->string('kode_icd', 10)->nullable();
             $table->text('terapi')->nullable();
             $table->text('anjuran')->nullable();
-            $table->string('tanda_tangan_dpjp_path', 255)->nullable(); // Implementasi rekomendasi 1
+            $table->unsignedBigInteger('biaya')->default(0);
+            $table->string('tanda_tangan_dpjp_path', 255)->nullable();
             $table->timestamps();
             
             // Implementasi rekomendasi 4 - Relasi Tabel

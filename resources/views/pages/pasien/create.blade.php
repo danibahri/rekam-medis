@@ -428,16 +428,23 @@
                                 <select id="pekerjaan" name="pekerjaan"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5">
                                     <option value="" selected disabled>Pilih pekerjaan</option>
-                                    <option value="0" {{ old('pekerjaan') == '0' ? 'selected' : '' }}>Tidak Bekerja
+                                    <option value="0" {{ old('pekerjaan') == '0' ? 'selected' : '' }}>Belum/Tidak
+                                        Bekerja
                                     </option>
-                                    <option value="1" {{ old('pekerjaan') == '1' ? 'selected' : '' }}>PNS
+                                    <option value="1" {{ old('pekerjaan') == '1' ? 'selected' : '' }}>
+                                        Pelajar/Mahasiswa
                                     </option>
-                                    <option value="2" {{ old('pekerjaan') == '2' ? 'selected' : '' }}>TNI/POLRI
+                                    <option value="2" {{ old('pekerjaan') == '2' ? 'selected' : '' }}>PNS
                                     </option>
-                                    <option value="3" {{ old('pekerjaan') == '3' ? 'selected' : '' }}>BUMN
+                                    <option value="3" {{ old('pekerjaan') == '3' ? 'selected' : '' }}>TNI/POLRI
                                     </option>
-                                    <option value="4" {{ old('pekerjaan') == '4' ? 'selected' : '' }}>Pegawai
-                                        Swasta/Wirausaha
+                                    <option value="4" {{ old('pekerjaan') == '4' ? 'selected' : '' }}>BUMN
+                                    </option>
+                                    <option value="5" {{ old('pekerjaan') == '5' ? 'selected' : '' }}>Swasta
+                                    </option>
+                                    <option value="6" {{ old('pekerjaan') == '6' ? 'selected' : '' }}>Wiraswasta
+                                    </option>
+                                    <option value="7" {{ old('pekerjaan') == '7' ? 'selected' : '' }}>Pensiunan
                                     </option>
                                 </select>
                                 @error('pekerjaan')

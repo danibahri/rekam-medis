@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,1080 +14,467 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->seedMasterJenisKelamin();
-        $this->seedMasterAgama();
-        $this->seedMasterPendidikan();
-        $this->seedMasterPekerjaan();
-        $this->seedMasterStatusPernikahan();
-        $this->seedMasterCaraPembayaran();
-        $this->seedMasterDiagnosa();
-        $this->seedKonfigurasiKlinik();
-        $this->seedUsers();
-        $this->seedDokter();
-        $this->seedPetugasAdministrasi();
-        $this->seedMasterObat();
-        $this->seedPasien();
-        $this->seedKunjungan();
-    }
-
-    /**
-     * Seed master_jenis_kelamin table
-     */
-    private function seedMasterJenisKelamin(): void
-    {
+        // Seed Master Jenis Kelamin
         DB::table('master_jenis_kelamin')->insert([
-            ['id' => '0', 'nama' => 'Tidak diketahui Jenis kelamin pasien', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '1', 'nama' => 'Laki-laki', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '2', 'nama' => 'Perempuan', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '3', 'nama' => 'Tidak dapat ditentukan', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '4', 'nama' => 'Tidak mengisi', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['id' => '0', 'nama' => 'Tidak diketahui Jenis kelamin pasien', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '1', 'nama' => 'Laki-laki', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '2', 'nama' => 'Perempuan', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '3', 'nama' => 'Tidak dapat ditentukan', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '4', 'nama' => 'Tidak mengisi', 'created_at' => now(), 'updated_at' => now()],
         ]);
-    }
 
-    /**
-     * Seed master_agama table
-     */
-    private function seedMasterAgama(): void
-    {
+        // Seed Master Agama
         DB::table('master_agama')->insert([
-            ['id' => '1', 'nama' => 'Islam', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '2', 'nama' => 'Kristen (Protestan)', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '3', 'nama' => 'Katolik', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '4', 'nama' => 'Hindu', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '5', 'nama' => 'Budha', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '6', 'nama' => 'Konghucu', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['id' => '1', 'nama' => 'Islam', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '2', 'nama' => 'Kristen', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '3', 'nama' => 'Katolik', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '4', 'nama' => 'Hindu', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '5', 'nama' => 'Buddha', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '6', 'nama' => 'Konghucu', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '7', 'nama' => 'Lainnya', 'created_at' => now(), 'updated_at' => now()],
         ]);
-    }
 
-    /**
-     * Seed master_pendidikan table
-     */
-    private function seedMasterPendidikan(): void
-    {
+        // Seed Master Pendidikan
         DB::table('master_pendidikan')->insert([
-            ['id' => '1', 'nama' => 'Tidak sekolah', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '2', 'nama' => 'SD', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '3', 'nama' => 'SLTP sederajat', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '4', 'nama' => 'SLTA sederajat', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '5', 'nama' => 'D1-D3 sederajat', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '6', 'nama' => 'D4', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '7', 'nama' => 'S1', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '8', 'nama' => 'S2', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['id' => '1', 'nama' => 'Tidak Sekolah', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '2', 'nama' => 'SD', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '3', 'nama' => 'SMP', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '4', 'nama' => 'SMA/SMK', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '5', 'nama' => 'D1-D3 Sederajat', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '6', 'nama' => 'D4', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '7', 'nama' => 'S1', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '8', 'nama' => 'S2', 'created_at' => now(), 'updated_at' => now()],
         ]);
-    }
 
-    /**
-     * Seed master_pekerjaan table
-     */
-    private function seedMasterPekerjaan(): void
-    {
+        // Seed Master Pekerjaan
         DB::table('master_pekerjaan')->insert([
-            ['id' => '0', 'nama' => 'Tidak bekerja', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '1', 'nama' => 'PNS', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '2', 'nama' => 'TNI/POLRI', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '3', 'nama' => 'BUMN', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '4', 'nama' => 'Pegawai Swasta/Wirausaha', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['id' => '0', 'nama' => 'Belum/Tidak Bekerja', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '1', 'nama' => 'Pelajar/Mahasiswa', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '2', 'nama' => 'PNS', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '3', 'nama' => 'TNI/POLRI', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '4', 'nama' => 'BUMN', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '5', 'nama' => 'Swasta', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '6', 'nama' => 'Wiraswasta', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '7', 'nama' => 'Pensiunan', 'created_at' => now(), 'updated_at' => now()],
         ]);
-    }
 
-    /**
-     * Seed master_status_pernikahan table
-     */
-    private function seedMasterStatusPernikahan(): void
-    {
+        // Seed Master Status Pernikahan
         DB::table('master_status_pernikahan')->insert([
-            ['id' => '1', 'nama' => 'Belum Kawin', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '2', 'nama' => 'Kawin', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '3', 'nama' => 'Cerai Hidup', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '4', 'nama' => 'Cerai Mati', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['id' => '1', 'nama' => 'Belum Menikah', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '2', 'nama' => 'Menikah', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '3', 'nama' => 'Cerai Hidup', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '4', 'nama' => 'Cerai Mati', 'created_at' => now(), 'updated_at' => now()],
         ]);
-    }
 
-    /**
-     * Seed master_cara_pembayaran table
-     */
-    private function seedMasterCaraPembayaran(): void
-    {
+        // Seed Master Cara Pembayaran
         DB::table('master_cara_pembayaran')->insert([
-            ['id' => '1', 'nama' => 'JKN', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '2', 'nama' => 'Mandiri', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['id' => '3', 'nama' => 'Asuransi', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['id' => '1', 'nama' => 'Umum/Tunai', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '2', 'nama' => 'BPJS Kesehatan', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '3', 'nama' => 'JKN', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => '4', 'nama' => 'Asuransi Lainnya', 'created_at' => now(), 'updated_at' => now()],
         ]);
-    }
-    
-    /**
-     * Seed master_diagnosa table with some sample ICD-10 codes
-     */
-    private function seedMasterDiagnosa(): void
-    {
+
+        // Seed Master Diagnosa (ICD-10)
         DB::table('master_diagnosa')->insert([
-            [
-                'kode' => 'A00',
-                'nama' => 'Cholera',
-                'deskripsi' => 'An intestinal infection caused by Vibrio cholerae',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'kode' => 'E11',
-                'nama' => 'Type 2 diabetes mellitus',
-                'deskripsi' => 'A metabolic disorder characterized by high blood sugar and insulin resistance',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'kode' => 'I10',
-                'nama' => 'Essential (primary) hypertension',
-                'deskripsi' => 'High blood pressure with no identifiable cause',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'kode' => 'J03.9',
-                'nama' => 'Acute tonsillitis, unspecified',
-                'deskripsi' => 'Inflammation of the tonsils',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'kode' => 'R50.9',
-                'nama' => 'Fever, unspecified',
-                'deskripsi' => 'Elevation of body temperature above normal range',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
+            ['kode' => 'A00', 'nama' => 'Cholera', 'deskripsi' => 'Infeksi usus akut yang disebabkan oleh bakteri Vibrio cholerae', 'created_at' => now(), 'updated_at' => now()],
+            ['kode' => 'J00', 'nama' => 'Acute nasopharyngitis [common cold]', 'deskripsi' => 'Infeksi saluran pernapasan atas akut', 'created_at' => now(), 'updated_at' => now()],
+            ['kode' => 'E11', 'nama' => 'Type 2 diabetes mellitus', 'deskripsi' => 'Diabetes tipe 2 (tidak tergantung insulin)', 'created_at' => now(), 'updated_at' => now()],
         ]);
-    }
 
-    /**
-     * Seed konfigurasi_klinik table
-     */
-    private function seedKonfigurasiKlinik(): void
-    {
+        // Seed Konfigurasi Klinik
         DB::table('konfigurasi_klinik')->insert([
-            [
-                'id' => 'KLN0001',
-                'nama_klinik' => 'Klinik Sehat Sentosa',
-                'alamat_klinik' => 'Jl. Kesehatan No. 123, Jakarta Selatan',
-                'telepon' => '021-7654321',
-                'email' => 'info@kliniksehatsentosa.com',
-                'logo_path' => null,
-                'kota' => 'Jakarta Selatan',
-                'kode_pos' => '12345',
-                'jam_operasional' => 'Senin-Jumat: 08:00-20:00, Sabtu: 08:00-15:00',
-                'pimpinan' => 'dr. Budi Santoso, Sp.PD',
-                'tanda_tangan_pimpinan_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]
+            'id' => 'KLN-001',
+            'nama_klinik' => 'Klinik Sehat Sentosa',
+            'alamat_klinik' => 'Jl. Merdeka No. 123, Kelurahan Sukajadi',
+            'telepon' => '0217654321',
+            'email' => 'info@kliniksehatsentosa.com',
+            'logo_path' => 'storage/logo/logo-klinik.png',
+            'kota' => 'Jakarta',
+            'kode_pos' => '12345',
+            'jam_operasional' => 'Senin-Sabtu: 08.00-20.00, Minggu: 09.00-16.00',
+            'pimpinan' => 'Dr. Indah Yuliarini, Sp.',
+            'tanda_tangan_pimpinan_path' => 'storage/tanda_tangan/pimpinan.png',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-    }
 
-    /**
-     * Seed users table
-     */
-    private function seedUsers(): void
-    {
-        // Admin user
+        // Seed Users
+        $adminUserId = 'USR-' . date('Ymd') . '001';
+        $dokterUserId = 'USR-' . date('Ymd') . '002';
+        $petugasUserId = 'USR-' . date('Ymd') . '003';
+        
         DB::table('users')->insert([
             [
-                'id' => 'USR001',
+                'id' => $adminUserId,
                 'username' => 'admin',
                 'password' => Hash::make('admin123'),
                 'role' => 'admin',
                 'nama' => 'Administrator',
-                'alamat' => 'Jakarta',
+                'alamat' => 'Jl. Admin No. 1',
                 'nomor_hp' => '08123456789',
                 'status' => true,
-                'foto_path' => null,
-                'tanda_tangan_path' => null,
-                'last_login' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]
-        ]);
-
-        // Dokter users
-        DB::table('users')->insert([
-            [
-                'id' => 'USR002',
-                'username' => 'dokter1',
-                'password' => Hash::make('dokter123'),
-                'role' => 'dokter',
-                'nama' => 'dr. Ani Wijaya',
-                'alamat' => 'Jl. Anggrek No. 45, Jakarta',
-                'nomor_hp' => '081234567890',
-                'status' => true,
-                'foto_path' => null,
-                'tanda_tangan_path' => null,
-                'last_login' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'foto_path' => 'storage/foto/admin.jpg',
+                'tanda_tangan_path' => 'storage/tanda_tangan/admin.png',
+                'last_login' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
-                'id' => 'USR003',
-                'username' => 'dokter2',
+                'id' => $dokterUserId,
+                'username' => 'dokter',
                 'password' => Hash::make('dokter123'),
                 'role' => 'dokter',
-                'nama' => 'dr. Rudi Hartono, Sp.PD',
-                'alamat' => 'Jl. Mawar No. 78, Jakarta',
-                'nomor_hp' => '081234567891',
+                'nama' => 'Dr. Indah Yuliarini, Sp.',
+                'alamat' => 'Jl. Dokter No. 1',
+                'nomor_hp' => '08234567890',
                 'status' => true,
-                'foto_path' => null,
-                'tanda_tangan_path' => null,
-                'last_login' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]
-        ]);
-
-        // Petugas administrasi users
-        DB::table('users')->insert([
-            [
-                'id' => 'USR004',
-                'username' => 'petugas1',
-                'password' => Hash::make('petugas123'),
-                'role' => 'petugas',
-                'nama' => 'Dina Sari',
-                'alamat' => 'Jl. Melati No. 12, Jakarta',
-                'nomor_hp' => '081234567892',
-                'status' => true,
-                'foto_path' => null,
-                'tanda_tangan_path' => null,
-                'last_login' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'foto_path' => 'storage/foto/dokter.jpg',
+                'tanda_tangan_path' => 'storage/tanda_tangan/dokter.png',
+                'last_login' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
-                'id' => 'USR005',
-                'username' => 'petugas2',
+                'id' => $petugasUserId,
+                'username' => 'petugas',
                 'password' => Hash::make('petugas123'),
                 'role' => 'petugas',
-                'nama' => 'Budi Setiawan',
-                'alamat' => 'Jl. Dahlia No. 34, Jakarta',
-                'nomor_hp' => '081234567893',
+                'nama' => 'Budi Santoso',
+                'alamat' => 'Jl. Petugas No. 1',
+                'nomor_hp' => '08345678901',
                 'status' => true,
-                'foto_path' => null,
-                'tanda_tangan_path' => null,
-                'last_login' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]
+                'foto_path' => 'storage/foto/petugas.jpg',
+                'tanda_tangan_path' => 'storage/tanda_tangan/petugas.png',
+                'last_login' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
-    }
 
-    /**
-     * Seed dokter table
-     */
-    private function seedDokter(): void
-    {
+        // Seed Dokter
         DB::table('dokter')->insert([
-            [
-                'id_dokter' => 'DOK001',
-                'user_id' => 'USR002',
-                'nama_dokter' => 'dr. Ani Wijaya',
-                'alamat' => 'Jl. Anggrek No. 45, Jakarta',
-                'nomor_hp' => '081234567890',
-                'spesialisasi' => 'Dokter Umum',
-                'sip' => '123/SIP/DKI/2023',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_dokter' => 'DOK002',
-                'user_id' => 'USR003',
-                'nama_dokter' => 'dr. Rudi Hartono, Sp.PD',
-                'alamat' => 'Jl. Mawar No. 78, Jakarta',
-                'nomor_hp' => '081234567891',
-                'spesialisasi' => 'Penyakit Dalam',
-                'sip' => '124/SIP/DKI/2023',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]
+            'id_dokter' => 'DOK-' . date('Ymd') . '001',
+            'user_id' => $dokterUserId,
+            'nama_dokter' => 'Dr. Indah Yuliarini, Sp.',
+            'alamat' => 'Jl. Dokter No. 1',
+            'nomor_hp' => '08234567890',
+            'spesialisasi' => 'Spesialis Penyakit Dalam',
+            'sip' => 'SIP-123/2023',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-    }
 
-    /**
-     * Seed petugas_administrasi table
-     */
-    private function seedPetugasAdministrasi(): void
-    {
+        // Seed Petugas Administrasi
         DB::table('petugas_administrasi')->insert([
-            [
-                'id_petugas' => 'PTG001',
-                'user_id' => 'USR004',
-                'nama_petugas' => 'Dina Sari',
-                'alamat' => 'Jl. Melati No. 12, Jakarta',
-                'nomor_hp' => '081234567892',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_petugas' => 'PTG002',
-                'user_id' => 'USR005',
-                'nama_petugas' => 'Budi Setiawan',
-                'alamat' => 'Jl. Dahlia No. 34, Jakarta',
-                'nomor_hp' => '081234567893',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]
+            'id_petugas' => 'PTG-' . date('Ymd') . '001',
+            'user_id' => $petugasUserId,
+            'nama_petugas' => 'Budi Santoso',
+            'alamat' => 'Jl. Petugas No. 1',
+            'nomor_hp' => '08345678901',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-    }
 
-    /**
-     * Seed master_obat table
-     */
-    private function seedMasterObat(): void
-    {
+        // Seed Pasien
+        $pasienId = 'PSN-' . date('Ymd') . '001';
+        DB::table('pasien')->insert([
+            'id_pasien' => $pasienId,
+            'nomor_rekam_medis' => 'RM0000001',
+            'nik' => '3674012345678901',
+            'nama_lengkap' => 'Siti Nurhaliza',
+            'nama_ibu_kandung' => 'Aminah',
+            'tempat_lahir' => 'Jakarta',
+            'tanggal_lahir' => '1990-05-15',
+            'jenis_kelamin' => '2',
+            'agama' => '1',
+            'suku' => 'Jawa',
+            'bahasa_dikuasai' => 'Indonesia',
+            'alamat_lengkap' => 'Jl. Mawar No. 10 RT 001 RW 002',
+            'rt' => '001',
+            'rw' => '002',
+            'kelurahan_desa' => 'Kelurahan Mawar',
+            'kecamatan' => 'Kecamatan Indah',
+            'kota_kabupaten' => 'Jakarta Selatan',
+            'kode_pos' => '12345',
+            'provinsi' => 'DKI Jakarta',
+            'negara' => 'Indonesia',
+            'alamat_domisili' => 'Jl. Mawar No. 10 RT 001 RW 002',
+            'domisili_rt' => '001',
+            'domisili_rw' => '002',
+            'domisili_kelurahan_desa' => 'Kelurahan Mawar',
+            'domisili_kecamatan' => 'Kecamatan Indah',
+            'domisili_kota_kabupaten' => 'Jakarta Selatan',
+            'domisili_kode_pos' => '12345',
+            'domisili_provinsi' => 'DKI Jakarta',
+            'domisili_negara' => 'Indonesia',
+            'telepon_rumah' => '0217654321',
+            'telepon_seluler' => '08123456789',
+            'pendidikan' => '6',
+            'pekerjaan' => '5',
+            'status_pernikahan' => '2',
+            'cara_pembayaran' => '1',
+            'foto_pasien_path' => 'storage/foto_pasien/siti.jpg',
+            'tanda_tangan_pasien_path' => 'storage/tanda_tangan_pasien/siti.png',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Seed Kunjungan
+        $kunjunganId = 'KJG-' . date('Ymd') . '001';
+        DB::table('kunjungan')->insert([
+            'id_kunjungan' => $kunjunganId,
+            'id_pasien' => $pasienId,
+            'tanggal_kunjungan' => date('Y-m-d'),
+            'waktu_kunjungan' => '09:30:00',
+            'jenis_kunjungan' => 'baru',
+            'cara_pembayaran' => '1',
+            'keluhan_utama' => 'Demam tinggi dan batuk selama 3 hari',
+            'id_dokter' => 'DOK-' . date('Ymd') . '001',
+            'status' => 'menunggu',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Seed Assessment
+        DB::table('assessment')->insert([
+            'id_assessment' => 'ASM-' . date('Ymd') . '001',
+            'id_kunjungan' => $kunjunganId,
+            'id_pasien' => $pasienId,
+            'tanggal_assessment' => date('Y-m-d'),
+            'keluhan_utama' => 'Demam tinggi dan batuk selama 3 hari',
+            'denyut_jantung' => '95',
+            'pernafasan' => '20',
+            'tekanan_darah' => '120/80',
+            'suhu_tubuh' => 38.5,
+            'riwayat_penyakit' => 'Tidak ada riwayat penyakit kronis',
+            'bagian_tubuh_sakit' => 'Tenggorokan dan dada',
+            'riwayat_alergi' => '4',
+            'detail_alergi' => 'Alergi debu',
+            'riwayat_pengobatan' => 'Paracetamol 3x1 sebelum ke klinik',
+            'id_dokter' => 'DOK-' . date('Ymd') . '001',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Seed General Consent
+        DB::table('general_consent')->insert([
+            'id_consent' => 'GCN-' . date('Ymd') . '001',
+            'id_pasien' => $pasienId,
+            'id_kunjungan' => $kunjunganId,
+            'tanggal' => date('Y-m-d'),
+            'waktu' => '09:45:00',
+            'persetujuan_pasien' => 'ya',
+            'informasi_pembayaran' => 'setuju',
+            'informasi_hak_kewajiban' => 'setuju',
+            'informasi_tata_tertib' => 'setuju',
+            'kebutuhan_penterjemah' => 'tidak',
+            'kebutuhan_rohaniawan' => 'tidak',
+            'pelepasan_informasi' => 'setuju',
+            'hasil_penunjang_penjamin' => 'setuju',
+            'hasil_penunjang_peserta_didik' => 'setuju',
+            'anggota_keluarga_penerima_info' => 'Ahmad (Suami)',
+            'fasyankes_rujukan' => 'setuju',
+            'tanda_tangan_pasien_path' => 'storage/tanda_tangan_pasien/siti.png',
+            'penanggung_jawab' => 'Ahmad',
+            'petugas_pemberi_penjelasan' => 'Budi Santoso',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Seed Informed Consent
+        DB::table('informed_consent')->insert([
+            'id_informed_consent' => 'ICN-' . date('Ymd') . '001',
+            'id_pasien' => $pasienId,
+            'id_kunjungan' => $kunjunganId,
+            'nama_dokter_pemberi_penjelasan' => 'Dr. Indah Yuliarini, Sp.',
+            'nama_petugas_pendamping' => 'Budi Santoso',
+            'nama_keluarga_pasien' => 'Ahmad',
+            'tindakan_dilakukan' => 'Pemeriksaan fisik dan penanganan demam',
+            'konsekuensi_tindakan' => 'Pasien akan merasa lebih baik setelah penanganan demam',
+            'persetujuan_tindakan' => 'ya',
+            'tanggal_penjelasan' => date('Y-m-d'),
+            'waktu_penjelasan' => '10:00:00',
+            'dokter_pemberi_penjelasan' => 'Dr. Indah Yuliarini, Sp.',
+            'penerima_penjelasan' => 'Siti Nurhaliza',
+            'tanda_tangan_dokter_path' => 'storage/tanda_tangan/dokter.png',
+            'tanda_tangan_penerima_path' => 'storage/tanda_tangan_pasien/siti.png',
+            'saksi_1' => 'Budi Santoso',
+            'tanda_tangan_saksi1_path' => 'storage/tanda_tangan/petugas.png',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Seed Master Obat
         DB::table('master_obat')->insert([
             [
-                'id_obat' => 'OBT001',
-                'nama_obat' => 'Paracetamol',
+                'id_obat' => 'OBT-001',
+                'nama_obat' => 'Paracetamol 500mg',
                 'bentuk_sediaan' => 'Tablet',
-                'satuan' => 'Strip',
+                'satuan' => 'Tablet',
                 'stok' => 100,
-                'harga' => 5000.00,
-                'gambar_obat_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'harga' => 2500.00,
+                'gambar_obat_path' => 'storage/obat/paracetamol.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
-                'id_obat' => 'OBT002',
-                'nama_obat' => 'Amoxicillin',
+                'id_obat' => 'OBT-002',
+                'nama_obat' => 'Amoxicillin 500mg',
                 'bentuk_sediaan' => 'Kapsul',
-                'satuan' => 'Strip',
+                'satuan' => 'Kapsul',
                 'stok' => 80,
-                'harga' => 15000.00,
-                'gambar_obat_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'harga' => 5000.00,
+                'gambar_obat_path' => 'storage/obat/amoxicillin.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
+
+        // Seed Tindakan
+        DB::table('tindakan')->insert([
+            'id_tindakan' => 'TND-' . date('Ymd') . '001',
+            'id_pasien' => $pasienId,
+            'id_kunjungan' => $kunjunganId,
+            'nama_tindakan' => 'Pemeriksaan Fisik',
+            'petugas_pelaksana' => 'Dr. Indah Yuliarini, Sp.',
+            'tanggal_tindakan' => date('Y-m-d'),
+            'waktu_mulai' => '10:15:00',
+            'waktu_selesai' => '10:30:00',
+            'alat_medis_digunakan' => 'Stetoskop, Termometer, Tensimeter',
+            'bmhp' => 'Alkohol swab, Kapas',
+            'catatan' => 'Pemeriksaan fisik menyeluruh, auskultasi paru, pengukuran tanda vital',
+            'dokumentasi_tindakan_path' => 'storage/dokumentasi/pemeriksaan_fisik.jpg',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Seed Resume Pasien
+        DB::table('resume_pasien')->insert([
+            'id_resume' => 'RSM-' . date('Ymd') . '001',
+            'id_pasien' => $pasienId,
+            'id_kunjungan' => $kunjunganId,
+            'tanggal_masuk' => date('Y-m-d'),
+            'tanggal_keluar' => date('Y-m-d'),
+            'nama_dpjp' => 'Dr. Indah Yuliarini, Sp.',
+            'anamnesa' => 'Pasien datang dengan keluhan demam tinggi dan batuk selama 3 hari. Tidak ada riwayat kontak dengan pasien COVID-19.',
+            'diagnosa' => 'Common Cold',
+            'kode_icd' => 'J00',
+            'terapi' => 'Paracetamol 3x1 setelah makan, Amoxicillin 3x1 setelah makan',
+            'anjuran' => 'Istirahat yang cukup, minum air putih yang banyak, kontrol 3 hari lagi jika keluhan tidak membaik',
+            'tanda_tangan_dpjp_path' => 'storage/tanda_tangan/dokter.png',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Seed Resep
+        $resepId = 'RSP-' . date('Ymd') . '001';
+        DB::table('resep')->insert([
+            'id_resep' => $resepId,
+            'id_pasien' => $pasienId,
+            'id_kunjungan' => $kunjunganId,
+            'tanggal_resep' => date('Y-m-d'),
+            'waktu_resep' => '10:45:00',
+            'tinggi_badan' => 165,
+            'berat_badan' => 55.5,
+            'dokter_penulis' => 'Dr. Indah Yuliarini, Sp.',
+            'nomor_telepon_dokter' => '08234567890',
+            'catatan_resep' => 'Minum obat setelah makan',
+            'tanda_tangan_dokter_path' => 'storage/tanda_tangan/dokter.png',
+            'pengkajian_resep' => '1',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Seed Detail Resep
+        DB::table('detail_resep')->insert([
+            [
+                'id_detail_resep' => 'DTR-' . date('Ymd') . '001',
+                'id_resep' => $resepId,
+                'id_obat' => 'OBT-001',
+                'nama_obat' => 'Paracetamol 500mg',
+                'bentuk_sediaan' => 'Tablet',
+                'jumlah_obat' => 10,
+                'metode_rute_pemberian' => 'Oral',
+                'dosis_obat' => '1 tablet',
+                'frekuensi_interval' => '3 kali sehari',
+                'aturan_tambahan' => 'Diminum setelah makan',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
-                'id_obat' => 'OBT003',
-                'nama_obat' => 'Omeprazole',
+                'id_detail_resep' => 'DTR-' . date('Ymd') . '002',
+                'id_resep' => $resepId,
+                'id_obat' => 'OBT-002',
+                'nama_obat' => 'Amoxicillin 500mg',
                 'bentuk_sediaan' => 'Kapsul',
-                'satuan' => 'Strip',
-                'stok' => 50,
-                'harga' => 20000.00,
-                'gambar_obat_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_obat' => 'OBT004',
-                'nama_obat' => 'Simvastatin',
-                'bentuk_sediaan' => 'Tablet',
-                'satuan' => 'Strip',
-                'stok' => 60,
-                'harga' => 25000.00,
-                'gambar_obat_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_obat' => 'OBT005',
-                'nama_obat' => 'Captopril',
-                'bentuk_sediaan' => 'Tablet',
-                'satuan' => 'Strip',
-                'stok' => 70,
-                'harga' => 18000.00,
-                'gambar_obat_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'jumlah_obat' => 10,
+                'metode_rute_pemberian' => 'Oral',
+                'dosis_obat' => '1 kapsul',
+                'frekuensi_interval' => '3 kali sehari',
+                'aturan_tambahan' => 'Diminum setelah makan',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
-    }
 
-    /**
-     * Seed sample pasien (optional)
-     */
-    private function seedSamplePasien(): void
-    {
-        DB::table('pasien')->insert([
-            [
-                'id_pasien' => 'PSN001',
-                'nomor_rekam_medis' => 'RM00001',
-                'nik' => '3101012304870001',
-                'nomor_identitas_lain' => null,
-                'nama_lengkap' => 'Ahmad Rizaldi',
-                'nama_ibu_kandung' => 'Siti Aminah',
-                'tempat_lahir' => 'Jakarta',
-                'tanggal_lahir' => '1987-04-23',
-                'jenis_kelamin' => '1',
-                'agama' => '1',
-                'suku' => 'Jawa',
-                'bahasa_dikuasai' => 'Indonesia, Inggris',
-                'alamat_lengkap' => 'Jl. Teratai No. 15',
-                'rt' => '003',
-                'rw' => '005',
-                'kelurahan_desa' => 'Cempaka Putih',
-                'kecamatan' => 'Cempaka Putih',
-                'kota_kabupaten' => 'Jakarta Pusat',
-                'kode_pos' => '10510',
-                'provinsi' => 'DKI Jakarta',
-                'negara' => 'Indonesia',
-                'alamat_domisili' => 'Jl. Teratai No. 15',
-                'domisili_rt' => '003',
-                'domisili_rw' => '005',
-                'domisili_kelurahan_desa' => 'Cempaka Putih',
-                'domisili_kecamatan' => 'Cempaka Putih',
-                'domisili_kota_kabupaten' => 'Jakarta Pusat',
-                'domisili_kode_pos' => '10510',
-                'domisili_provinsi' => 'DKI Jakarta',
-                'domisili_negara' => 'Indonesia',
-                'telepon_rumah' => '021-7654321',
-                'telepon_seluler' => '08123456789',
-                'pendidikan' => '7',
-                'pekerjaan' => '4',
-                'status_pernikahan' => '2',
-                'cara_pembayaran' => '2',
-                'foto_pasien_path' => null,
-                'tanda_tangan_pasien_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_pasien' => 'PSN002',
-                'nomor_rekam_medis' => 'RM00002',
-                'nik' => '3101015506900002',
-                'nomor_identitas_lain' => null,
-                'nama_lengkap' => 'Siti Nurhayati',
-                'nama_ibu_kandung' => 'Wati Suryani',
-                'tempat_lahir' => 'Bandung',
-                'tanggal_lahir' => '1990-06-15',
-                'jenis_kelamin' => '2',
-                'agama' => '1',
-                'suku' => 'Sunda',
-                'bahasa_dikuasai' => 'Indonesia',
-                'alamat_lengkap' => 'Jl. Mawar No. 8',
-                'rt' => '002',
-                'rw' => '003',
-                'kelurahan_desa' => 'Rawamangun',
-                'kecamatan' => 'Pulogadung',
-                'kota_kabupaten' => 'Jakarta Timur',
-                'kode_pos' => '13220',
-                'provinsi' => 'DKI Jakarta',
-                'negara' => 'Indonesia',
-                'alamat_domisili' => 'Jl. Mawar No. 8',
-                'domisili_rt' => '002',
-                'domisili_rw' => '003',
-                'domisili_kelurahan_desa' => 'Rawamangun',
-                'domisili_kecamatan' => 'Pulogadung',
-                'domisili_kota_kabupaten' => 'Jakarta Timur',
-                'domisili_kode_pos' => '13220',
-                'domisili_provinsi' => 'DKI Jakarta',
-                'domisili_negara' => 'Indonesia',
-                'telepon_rumah' => null,
-                'telepon_seluler' => '081234567890',
-                'pendidikan' => '5',
-                'pekerjaan' => '1',
-                'status_pernikahan' => '1',
-                'cara_pembayaran' => '1',
-                'foto_pasien_path' => null,
-                'tanda_tangan_pasien_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_pasien' => 'PSN003',
-                'nomor_rekam_medis' => 'RM00003',
-                'nik' => '3101012212650003',
-                'nomor_identitas_lain' => null,
-                'nama_lengkap' => 'Edi Sutrisno',
-                'nama_ibu_kandung' => 'Endang Susilowati',
-                'tempat_lahir' => 'Surabaya',
-                'tanggal_lahir' => '1965-12-22',
-                'jenis_kelamin' => '1',
-                'agama' => '2',
-                'suku' => 'Jawa',
-                'bahasa_dikuasai' => 'Indonesia',
-                'alamat_lengkap' => 'Jl. Kenanga No. 42',
-                'rt' => '005',
-                'rw' => '008',
-                'kelurahan_desa' => 'Johar Baru',
-                'kecamatan' => 'Johar Baru',
-                'kota_kabupaten' => 'Jakarta Pusat',
-                'kode_pos' => '10560',
-                'provinsi' => 'DKI Jakarta',
-                'negara' => 'Indonesia',
-                'alamat_domisili' => 'Jl. Kenanga No. 42',
-                'domisili_rt' => '005',
-                'domisili_rw' => '008',
-                'domisili_kelurahan_desa' => 'Johar Baru',
-                'domisili_kecamatan' => 'Johar Baru',
-                'domisili_kota_kabupaten' => 'Jakarta Pusat',
-                'domisili_kode_pos' => '10560',
-                'domisili_provinsi' => 'DKI Jakarta',
-                'domisili_negara' => 'Indonesia',
-                'telepon_rumah' => '021-5556789',
-                'telepon_seluler' => '08567891234',
-                'pendidikan' => '4',
-                'pekerjaan' => '3',
-                'status_pernikahan' => '2',
-                'cara_pembayaran' => '3',
-                'foto_pasien_path' => null,
-                'tanda_tangan_pasien_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]
+        // Seed Surat Keterangan
+        DB::table('surat_keterangan')->insert([
+            'id_surat' => 'SKT-' . date('Ymd') . '001',
+            'id_pasien' => $pasienId,
+            'id_kunjungan' => $kunjunganId,
+            'jenis_surat' => 'sakit',
+            'tanggal_surat' => date('Y-m-d'),
+            'tujuan_surat' => 'Untuk diberikan kepada yang bersangkutan',
+            'diagnosa' => 'Common Cold',
+            'kode_icd' => 'J00',
+            'lama_istirahat' => 3,
+            'tanggal_mulai' => date('Y-m-d'),
+            'tanggal_selesai' => date('Y-m-d', strtotime('+3 days')),
+            'dokter_pemeriksa' => 'Dr. Indah Yuliarini, Sp.',
+            'tanda_tangan_dokter_path' => 'storage/tanda_tangan/dokter.png',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Seed Dokumen Pasien
+        DB::table('dokumen_pasien')->insert([
+            'id_dokumen' => 'DOC-' . date('Ymd') . '001',
+            'id_pasien' => $pasienId,
+            'id_kunjungan' => $kunjunganId,
+            'jenis_dokumen' => 'Foto KTP',
+            'nama_dokumen' => 'KTP Siti Nurhaliza',
+            'file_path' => 'storage/dokumen/ktp_siti.jpg',
+            'keterangan' => 'Dokumen identitas pasien',
+            'uploaded_by' => $petugasUserId,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Seed Log Aktivitas
+        DB::table('log_aktivitas')->insert([
+            'user_id' => $petugasUserId,
+            'aktivitas' => 'Pendaftaran pasien baru',
+            'tabel' => 'pasien',
+            'id_referensi' => $pasienId,
+            'waktu' => now(),
+            'ip_address' => '192.168.1.1',
+        ]);
+
+        // Seed Password Reset Token
+        DB::table('password_reset_tokens')->insert([
+            'email' => 'admin@klinik.com',
+            'token' => Hash::make('random_token'),
+            'created_at' => now(),
+        ]);
+
+        // Seed Session
+        DB::table('sessions')->insert([
+            'id' => 'sess_' . md5(uniqid()),
+            'user_id' => $adminUserId,
+            'ip_address' => '192.168.1.1',
+            'user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'payload' => serialize(['_token' => 'example_token', 'user_id' => $adminUserId]),
+            'last_activity' => now()->timestamp,
         ]);
     }
-
-    /**
-     * Seed sample kunjungan (optional)
-     */
-    private function seedSampleKunjungan(): void
-    {
-        $currentDate = Carbon::now()->format('Y-m-d');
-        
-        DB::table('kunjungan')->insert([
-            [
-                'id_kunjungan' => 'KJN001',
-                'id_pasien' => 'PSN001',
-                'tanggal_kunjungan' => $currentDate,
-                'waktu_kunjungan' => '09:30:00',
-                'jenis_kunjungan' => 'baru',
-                'cara_pembayaran' => '2',
-                'keluhan_utama' => 'Demam, batuk, pilek sejak 2 hari yang lalu',
-                'id_dokter' => 'DOK001',
-                'status' => 'selesai',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_kunjungan' => 'KJN002',
-                'id_pasien' => 'PSN002',
-                'tanggal_kunjungan' => $currentDate,
-                'waktu_kunjungan' => '10:15:00',
-                'jenis_kunjungan' => 'baru',
-                'cara_pembayaran' => '1',
-                'keluhan_utama' => 'Nyeri perut bagian atas sejak semalam',
-                'id_dokter' => 'DOK002',
-                'status' => 'dalam_pemeriksaan',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_kunjungan' => 'KJN003',
-                'id_pasien' => 'PSN003',
-                'tanggal_kunjungan' => $currentDate,
-                'waktu_kunjungan' => '11:00:00',
-                'jenis_kunjungan' => 'baru',
-                'cara_pembayaran' => '3',
-                'keluhan_utama' => 'Kontrol tekanan darah tinggi',
-                'id_dokter' => 'DOK002',
-                'status' => 'menunggu',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]
-        ]);
-    }
-
-    /**
-     * Seed pasien data
-     */
-    private function seedPasien(): void
-    {
-        DB::table('pasien')->insert([
-            [
-                'id_pasien' => 'PSN001',
-                'nomor_rekam_medis' => 'RM00001',
-                'nik' => '3101012304870001',
-                'nomor_identitas_lain' => null,
-                'nama_lengkap' => 'Ahmad Rizaldi',
-                'nama_ibu_kandung' => 'Siti Aminah',
-                'tempat_lahir' => 'Jakarta',
-                'tanggal_lahir' => '1987-04-23',
-                'jenis_kelamin' => '1',
-                'agama' => '1',
-                'suku' => 'Jawa',
-                'bahasa_dikuasai' => 'Indonesia, Inggris',
-                'alamat_lengkap' => 'Jl. Teratai No. 15',
-                'rt' => '003',
-                'rw' => '005',
-                'kelurahan_desa' => 'Cempaka Putih',
-                'kecamatan' => 'Cempaka Putih',
-                'kota_kabupaten' => 'Jakarta Pusat',
-                'kode_pos' => '10510',
-                'provinsi' => 'DKI Jakarta',
-                'negara' => 'Indonesia',
-                'alamat_domisili' => 'Jl. Teratai No. 15',
-                'domisili_rt' => '003',
-                'domisili_rw' => '005',
-                'domisili_kelurahan_desa' => 'Cempaka Putih',
-                'domisili_kecamatan' => 'Cempaka Putih',
-                'domisili_kota_kabupaten' => 'Jakarta Pusat',
-                'domisili_kode_pos' => '10510',
-                'domisili_provinsi' => 'DKI Jakarta',
-                'domisili_negara' => 'Indonesia',
-                'telepon_rumah' => '021-7654321',
-                'telepon_seluler' => '08123456789',
-                'pendidikan' => '7',
-                'pekerjaan' => '4',
-                'status_pernikahan' => '2',
-                'cara_pembayaran' => '2',
-                'foto_pasien_path' => null,
-                'tanda_tangan_pasien_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_pasien' => 'PSN002',
-                'nomor_rekam_medis' => 'RM00002',
-                'nik' => '3101015506900002',
-                'nomor_identitas_lain' => null,
-                'nama_lengkap' => 'Siti Nurhayati',
-                'nama_ibu_kandung' => 'Wati Suryani',
-                'tempat_lahir' => 'Bandung',
-                'tanggal_lahir' => '1990-06-15',
-                'jenis_kelamin' => '2',
-                'agama' => '1',
-                'suku' => 'Sunda',
-                'bahasa_dikuasai' => 'Indonesia',
-                'alamat_lengkap' => 'Jl. Mawar No. 8',
-                'rt' => '002',
-                'rw' => '003',
-                'kelurahan_desa' => 'Rawamangun',
-                'kecamatan' => 'Pulogadung',
-                'kota_kabupaten' => 'Jakarta Timur',
-                'kode_pos' => '13220',
-                'provinsi' => 'DKI Jakarta',
-                'negara' => 'Indonesia',
-                'alamat_domisili' => 'Jl. Mawar No. 8',
-                'domisili_rt' => '002',
-                'domisili_rw' => '003',
-                'domisili_kelurahan_desa' => 'Rawamangun',
-                'domisili_kecamatan' => 'Pulogadung',
-                'domisili_kota_kabupaten' => 'Jakarta Timur',
-                'domisili_kode_pos' => '13220',
-                'domisili_provinsi' => 'DKI Jakarta',
-                'domisili_negara' => 'Indonesia',
-                'telepon_rumah' => null,
-                'telepon_seluler' => '081234567890',
-                'pendidikan' => '5',
-                'pekerjaan' => '1',
-                'status_pernikahan' => '1',
-                'cara_pembayaran' => '1',
-                'foto_pasien_path' => null,
-                'tanda_tangan_pasien_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_pasien' => 'PSN003',
-                'nomor_rekam_medis' => 'RM00003',
-                'nik' => '3101012212650003',
-                'nomor_identitas_lain' => null,
-                'nama_lengkap' => 'Edi Sutrisno',
-                'nama_ibu_kandung' => 'Endang Susilowati',
-                'tempat_lahir' => 'Surabaya',
-                'tanggal_lahir' => '1965-12-22',
-                'jenis_kelamin' => '1',
-                'agama' => '2',
-                'suku' => 'Jawa',
-                'bahasa_dikuasai' => 'Indonesia',
-                'alamat_lengkap' => 'Jl. Kenanga No. 42',
-                'rt' => '005',
-                'rw' => '008',
-                'kelurahan_desa' => 'Johar Baru',
-                'kecamatan' => 'Johar Baru',
-                'kota_kabupaten' => 'Jakarta Pusat',
-                'kode_pos' => '10560',
-                'provinsi' => 'DKI Jakarta',
-                'negara' => 'Indonesia',
-                'alamat_domisili' => 'Jl. Kenanga No. 42',
-                'domisili_rt' => '005',
-                'domisili_rw' => '008',
-                'domisili_kelurahan_desa' => 'Johar Baru',
-                'domisili_kecamatan' => 'Johar Baru',
-                'domisili_kota_kabupaten' => 'Jakarta Pusat',
-                'domisili_kode_pos' => '10560',
-                'domisili_provinsi' => 'DKI Jakarta',
-                'domisili_negara' => 'Indonesia',
-                'telepon_rumah' => '021-5556789',
-                'telepon_seluler' => '08567891234',
-                'pendidikan' => '4',
-                'pekerjaan' => '3',
-                'status_pernikahan' => '2',
-                'cara_pembayaran' => '3',
-                'foto_pasien_path' => null,
-                'tanda_tangan_pasien_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_pasien' => 'PSN004',
-                'nomor_rekam_medis' => 'RM00004',
-                'nik' => '3101014507800004',
-                'nomor_identitas_lain' => null,
-                'nama_lengkap' => 'Maya Lestari',
-                'nama_ibu_kandung' => 'Maimunah',
-                'tempat_lahir' => 'Medan',
-                'tanggal_lahir' => '1980-07-05',
-                'jenis_kelamin' => '2',
-                'agama' => '1',
-                'suku' => 'Melayu',
-                'bahasa_dikuasai' => 'Indonesia, Inggris',
-                'alamat_lengkap' => 'Jl. Anggrek No. 23',
-                'rt' => '004',
-                'rw' => '006',
-                'kelurahan_desa' => 'Kebon Jeruk',
-                'kecamatan' => 'Kebon Jeruk',
-                'kota_kabupaten' => 'Jakarta Barat',
-                'kode_pos' => '11530',
-                'provinsi' => 'DKI Jakarta',
-                'negara' => 'Indonesia',
-                'alamat_domisili' => 'Jl. Anggrek No. 23',
-                'domisili_rt' => '004',
-                'domisili_rw' => '006',
-                'domisili_kelurahan_desa' => 'Kebon Jeruk',
-                'domisili_kecamatan' => 'Kebon Jeruk',
-                'domisili_kota_kabupaten' => 'Jakarta Barat',
-                'domisili_kode_pos' => '11530',
-                'domisili_provinsi' => 'DKI Jakarta',
-                'domisili_negara' => 'Indonesia',
-                'telepon_rumah' => '021-5557890',
-                'telepon_seluler' => '081234543210',
-                'pendidikan' => '7',
-                'pekerjaan' => '4',
-                'status_pernikahan' => '2',
-                'cara_pembayaran' => '3',
-                'foto_pasien_path' => null,
-                'tanda_tangan_pasien_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_pasien' => 'PSN005',
-                'nomor_rekam_medis' => 'RM00005',
-                'nik' => '3101010102950005',
-                'nomor_identitas_lain' => null,
-                'nama_lengkap' => 'Budi Santoso',
-                'nama_ibu_kandung' => 'Ratna Dewi',
-                'tempat_lahir' => 'Jakarta',
-                'tanggal_lahir' => '1995-02-01',
-                'jenis_kelamin' => '1',
-                'agama' => '1',
-                'suku' => 'Betawi',
-                'bahasa_dikuasai' => 'Indonesia',
-                'alamat_lengkap' => 'Jl. Melati No. 45',
-                'rt' => '006',
-                'rw' => '009',
-                'kelurahan_desa' => 'Jatinegara',
-                'kecamatan' => 'Jatinegara',
-                'kota_kabupaten' => 'Jakarta Timur',
-                'kode_pos' => '13310',
-                'provinsi' => 'DKI Jakarta',
-                'negara' => 'Indonesia',
-                'alamat_domisili' => 'Jl. Melati No. 45',
-                'domisili_rt' => '006',
-                'domisili_rw' => '009',
-                'domisili_kelurahan_desa' => 'Jatinegara',
-                'domisili_kecamatan' => 'Jatinegara',
-                'domisili_kota_kabupaten' => 'Jakarta Timur',
-                'domisili_kode_pos' => '13310',
-                'domisili_provinsi' => 'DKI Jakarta',
-                'domisili_negara' => 'Indonesia',
-                'telepon_rumah' => null,
-                'telepon_seluler' => '085678901234',
-                'pendidikan' => '4',
-                'pekerjaan' => '4',
-                'status_pernikahan' => '1',
-                'cara_pembayaran' => '2',
-                'foto_pasien_path' => null,
-                'tanda_tangan_pasien_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_pasien' => 'PSN006',
-                'nomor_rekam_medis' => 'RM00006',
-                'nik' => '3101017504600006',
-                'nomor_identitas_lain' => null,
-                'nama_lengkap' => 'Sri Rahayu',
-                'nama_ibu_kandung' => 'Kartini',
-                'tempat_lahir' => 'Yogyakarta',
-                'tanggal_lahir' => '1960-04-15',
-                'jenis_kelamin' => '2',
-                'agama' => '1',
-                'suku' => 'Jawa',
-                'bahasa_dikuasai' => 'Indonesia, Jawa',
-                'alamat_lengkap' => 'Jl. Dahlia No. 12',
-                'rt' => '002',
-                'rw' => '005',
-                'kelurahan_desa' => 'Menteng',
-                'kecamatan' => 'Menteng',
-                'kota_kabupaten' => 'Jakarta Pusat',
-                'kode_pos' => '10310',
-                'provinsi' => 'DKI Jakarta',
-                'negara' => 'Indonesia',
-                'alamat_domisili' => 'Jl. Dahlia No. 12',
-                'domisili_rt' => '002',
-                'domisili_rw' => '005',
-                'domisili_kelurahan_desa' => 'Menteng',
-                'domisili_kecamatan' => 'Menteng',
-                'domisili_kota_kabupaten' => 'Jakarta Pusat',
-                'domisili_kode_pos' => '10310',
-                'domisili_provinsi' => 'DKI Jakarta',
-                'domisili_negara' => 'Indonesia',
-                'telepon_rumah' => '021-7891234',
-                'telepon_seluler' => '081234789012',
-                'pendidikan' => '3',
-                'pekerjaan' => '0',
-                'status_pernikahan' => '4',
-                'cara_pembayaran' => '1',
-                'foto_pasien_path' => null,
-                'tanda_tangan_pasien_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_pasien' => 'PSN007',
-                'nomor_rekam_medis' => 'RM00007',
-                'nik' => '3101012509850007',
-                'nomor_identitas_lain' => null,
-                'nama_lengkap' => 'Agus Hermawan',
-                'nama_ibu_kandung' => 'Sumiati',
-                'tempat_lahir' => 'Jakarta',
-                'tanggal_lahir' => '1985-09-25',
-                'jenis_kelamin' => '1',
-                'agama' => '1',
-                'suku' => 'Jawa',
-                'bahasa_dikuasai' => 'Indonesia',
-                'alamat_lengkap' => 'Jl. Cendana No. 78',
-                'rt' => '007',
-                'rw' => '012',
-                'kelurahan_desa' => 'Kebayoran Baru',
-                'kecamatan' => 'Kebayoran Baru',
-                'kota_kabupaten' => 'Jakarta Selatan',
-                'kode_pos' => '12150',
-                'provinsi' => 'DKI Jakarta',
-                'negara' => 'Indonesia',
-                'alamat_domisili' => 'Jl. Cendana No. 78',
-                'domisili_rt' => '007',
-                'domisili_rw' => '012',
-                'domisili_kelurahan_desa' => 'Kebayoran Baru',
-                'domisili_kecamatan' => 'Kebayoran Baru',
-                'domisili_kota_kabupaten' => 'Jakarta Selatan',
-                'domisili_kode_pos' => '12150',
-                'domisili_provinsi' => 'DKI Jakarta',
-                'domisili_negara' => 'Indonesia',
-                'telepon_rumah' => null,
-                'telepon_seluler' => '085678123456',
-                'pendidikan' => '7',
-                'pekerjaan' => '1',
-                'status_pernikahan' => '2',
-                'cara_pembayaran' => '2',
-                'foto_pasien_path' => null,
-                'tanda_tangan_pasien_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_pasien' => 'PSN008',
-                'nomor_rekam_medis' => 'RM00008',
-                'nik' => '3101011010920008',
-                'nomor_identitas_lain' => null,
-                'nama_lengkap' => 'Dewi Safitri',
-                'nama_ibu_kandung' => 'Nur Hasanah',
-                'tempat_lahir' => 'Tangerang',
-                'tanggal_lahir' => '1992-10-10',
-                'jenis_kelamin' => '2',
-                'agama' => '1',
-                'suku' => 'Sunda',
-                'bahasa_dikuasai' => 'Indonesia, Inggris',
-                'alamat_lengkap' => 'Jl. Gatot Subroto No. 32',
-                'rt' => '005',
-                'rw' => '007',
-                'kelurahan_desa' => 'Kuningan',
-                'kecamatan' => 'Setiabudi',
-                'kota_kabupaten' => 'Jakarta Selatan',
-                'kode_pos' => '12950',
-                'provinsi' => 'DKI Jakarta',
-                'negara' => 'Indonesia',
-                'alamat_domisili' => 'Jl. Gatot Subroto No. 32',
-                'domisili_rt' => '005',
-                'domisili_rw' => '007',
-                'domisili_kelurahan_desa' => 'Kuningan',
-                'domisili_kecamatan' => 'Setiabudi',
-                'domisili_kota_kabupaten' => 'Jakarta Selatan',
-                'domisili_kode_pos' => '12950',
-                'domisili_provinsi' => 'DKI Jakarta',
-                'domisili_negara' => 'Indonesia',
-                'telepon_rumah' => '021-8765432',
-                'telepon_seluler' => '081234987654',
-                'pendidikan' => '7',
-                'pekerjaan' => '4',
-                'status_pernikahan' => '2',
-                'cara_pembayaran' => '3',
-                'foto_pasien_path' => null,
-                'tanda_tangan_pasien_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_pasien' => 'PSN009',
-                'nomor_rekam_medis' => 'RM00009',
-                'nik' => '3101010807700009',
-                'nomor_identitas_lain' => null,
-                'nama_lengkap' => 'Hendra Gunawan',
-                'nama_ibu_kandung' => 'Siti Fatimah',
-                'tempat_lahir' => 'Semarang',
-                'tanggal_lahir' => '1970-07-08',
-                'jenis_kelamin' => '1',
-                'agama' => '1',
-                'suku' => 'Jawa',
-                'bahasa_dikuasai' => 'Indonesia',
-                'alamat_lengkap' => 'Jl. Ahmad Yani No. 55',
-                'rt' => '003',
-                'rw' => '006',
-                'kelurahan_desa' => 'Cawang',
-                'kecamatan' => 'Kramat Jati',
-                'kota_kabupaten' => 'Jakarta Timur',
-                'kode_pos' => '13630',
-                'provinsi' => 'DKI Jakarta',
-                'negara' => 'Indonesia',
-                'alamat_domisili' => 'Jl. Ahmad Yani No. 55',
-                'domisili_rt' => '003',
-                'domisili_rw' => '006',
-                'domisili_kelurahan_desa' => 'Cawang',
-                'domisili_kecamatan' => 'Kramat Jati',
-                'domisili_kota_kabupaten' => 'Jakarta Timur',
-                'domisili_kode_pos' => '13630',
-                'domisili_provinsi' => 'DKI Jakarta',
-                'domisili_negara' => 'Indonesia',
-                'telepon_rumah' => null,
-                'telepon_seluler' => '081234567891',
-                'pendidikan' => '5',
-                'pekerjaan' => '3',
-                'status_pernikahan' => '3',
-                'cara_pembayaran' => '2',
-                'foto_pasien_path' => null,
-                'tanda_tangan_pasien_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_pasien' => 'PSN010',
-                'nomor_rekam_medis' => 'RM00010',
-                'nik' => '3101013003890010',
-                'nomor_identitas_lain' => null,
-                'nama_lengkap' => 'Linda Susanti',
-                'nama_ibu_kandung' => 'Maryati',
-                'tempat_lahir' => 'Bandung',
-                'tanggal_lahir' => '1989-03-30',
-                'jenis_kelamin' => '2',
-                'agama' => '3',
-                'suku' => 'Sunda',
-                'bahasa_dikuasai' => 'Indonesia, Sunda',
-                'alamat_lengkap' => 'Jl. Pemuda No. 67',
-                'rt' => '004',
-                'rw' => '008',
-                'kelurahan_desa' => 'Rawamangun',
-                'kecamatan' => 'Pulogadung',
-                'kota_kabupaten' => 'Jakarta Timur',
-                'kode_pos' => '13220',
-                'provinsi' => 'DKI Jakarta',
-                'negara' => 'Indonesia',
-                'alamat_domisili' => 'Jl. Pemuda No. 67',
-                'domisili_rt' => '004',
-                'domisili_rw' => '008',
-                'domisili_kelurahan_desa' => 'Rawamangun',
-                'domisili_kecamatan' => 'Pulogadung',
-                'domisili_kota_kabupaten' => 'Jakarta Timur',
-                'domisili_kode_pos' => '13220',
-                'domisili_provinsi' => 'DKI Jakarta',
-                'domisili_negara' => 'Indonesia',
-                'telepon_rumah' => '021-8642135',
-                'telepon_seluler' => '087654321098',
-                'pendidikan' => '7',
-                'pekerjaan' => '4',
-                'status_pernikahan' => '1',
-                'cara_pembayaran' => '1',
-                'foto_pasien_path' => null,
-                'tanda_tangan_pasien_path' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]
-        ]);
-    }
-
-    /**
-     * Seed kunjungan data
-     */
-    private function seedKunjungan(): void
-    {
-        $currentDate = Carbon::now()->format('Y-m-d');
-        $yesterday = Carbon::now()->subDay()->format('Y-m-d');
-        $lastWeek = Carbon::now()->subWeek()->format('Y-m-d');
-        
-        DB::table('kunjungan')->insert([
-            [
-                'id_kunjungan' => 'KJN001',
-                'id_pasien' => 'PSN001',
-                'tanggal_kunjungan' => $currentDate,
-                'waktu_kunjungan' => '09:30:00',
-                'jenis_kunjungan' => 'baru',
-                'cara_pembayaran' => '2',
-                'keluhan_utama' => 'Demam, batuk, pilek sejak 2 hari yang lalu',
-                'id_dokter' => 'DOK001',
-                'status' => 'selesai',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_kunjungan' => 'KJN002',
-                'id_pasien' => 'PSN002',
-                'tanggal_kunjungan' => $currentDate,
-                'waktu_kunjungan' => '10:15:00',
-                'jenis_kunjungan' => 'baru',
-                'cara_pembayaran' => '1',
-                'keluhan_utama' => 'Nyeri perut bagian atas sejak semalam',
-                'id_dokter' => 'DOK002',
-                'status' => 'dalam_pemeriksaan',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_kunjungan' => 'KJN003',
-                'id_pasien' => 'PSN003',
-                'tanggal_kunjungan' => $currentDate,
-                'waktu_kunjungan' => '11:00:00',
-                'jenis_kunjungan' => 'baru',
-                'cara_pembayaran' => '3',
-                'keluhan_utama' => 'Kontrol tekanan darah tinggi',
-                'id_dokter' => 'DOK002',
-                'status' => 'menunggu',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_kunjungan' => 'KJN004',
-                'id_pasien' => 'PSN004',
-                'tanggal_kunjungan' => $yesterday,
-                'waktu_kunjungan' => '14:30:00',
-                'jenis_kunjungan' => 'baru',
-                'cara_pembayaran' => '3',
-                'keluhan_utama' => 'Sakit kepala dan mual sejak 3 hari yang lalu',
-                'id_dokter' => 'DOK001',
-                'status' => 'selesai',
-                'created_at' => Carbon::now()->subDay(),
-                'updated_at' => Carbon::now()->subDay()
-            ],
-            [
-                'id_kunjungan' => 'KJN005',
-                'id_pasien' => 'PSN005',
-                'tanggal_kunjungan' => $yesterday,
-                'waktu_kunjungan' => '15:45:00',
-                'jenis_kunjungan' => 'baru',
-                'cara_pembayaran' => '2',
-                'keluhan_utama' => 'Gatal-gatal pada kulit sejak 1 minggu',
-                'id_dokter' => 'DOK001',
-                'status' => 'selesai',
-                'created_at' => Carbon::now()->subDay(),
-                'updated_at' => Carbon::now()->subDay()
-            ],
-        ]);
-    }
-
 }

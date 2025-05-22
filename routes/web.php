@@ -7,6 +7,8 @@ use App\Http\Controllers\PasienController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AuthMiddleware;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PemeriksaanController;
+use App\Http\Controllers\LaporanController;
 
 
 
@@ -26,7 +28,12 @@ Route::middleware(AuthMiddleware::class)->group(function(){
     Route::post('/create/pasien', [PasienController::class, 'store_pasien'])->name('store.pasien');
     Route::post('/delete-pasien/{id}', [PasienController::class, 'delete_pasien'])->name('delete.pasien');
     
-    Route::get('/general-consent/{id}', [GeneralController::class, 'swow_general'])->name('show.general');
+    // general-consent
+    Route::get('/general-consent/{id}', [GeneralController::class, 'index'])->name('show.general');
+    Route::post('/create/general-consent', [GeneralController::class, 'store_general'])->name('store.general');
+
+    // pemeriksaan
+    Route::get('/pemeriksaan-klinis', [PemeriksaanController::class, 'index'])->name('show.pemeriksaan');
 
     // download pdf
     Route::get('/pdf/download', [GeneralController::class, 'download_pdf'])->name('download.pdf');
@@ -37,4 +44,7 @@ Route::middleware(AuthMiddleware::class)->group(function(){
     Route::get('/create/user', [UserController::class, 'add_user'])->name('add.user');
     Route::post('/create/user', [UserController::class, 'store_user'])->name('store.user');
     Route::post('/delete-user/{id}', [UserController::class, 'delete_user'])->name('delete.user');
+
+    // laporan Kunjungan
+    Route::get('/laporan-kunjungan', [LaporanController::class, 'index'])->name('laporan.kunjungan');
 });

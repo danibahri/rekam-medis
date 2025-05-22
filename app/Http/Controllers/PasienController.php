@@ -58,7 +58,7 @@ class PasienController extends Controller
             'telepon_rumah' => 'nullable|string|max:15',
             'telepon_seluler' => 'nullable|string|max:15',
             'pendidikan' => 'nullable|in:1,2,3,4,5,6,7,8',
-            'pekerjaan' => 'nullable|in:0,1,2,3,4',
+            'pekerjaan' => 'nullable|in:0,1,2,3,4,5,6,7',
             'status_pernikahan' => 'nullable|in:1,2,3,4',
             'cara_pembayaran' => 'nullable|in:1,2,3,4',
         ],[
@@ -101,9 +101,9 @@ class PasienController extends Controller
             'telepon_seluler.max' => 'Telepon Seluler maksimal 15 karakter',
             'telepon_rumah.max' => 'Telepon Rumah maksimal 15 karakter',
         ]);
-
         try {
             $id = 'PSN' . rand(1000, 9999);
+            // dd($validated);
 
             $pasien = Pasien::create([
                 'id_pasien' => $id,
@@ -159,6 +159,12 @@ class PasienController extends Controller
             return redirect()->route('show.pasien')->with('success', 'Pasien created successfully');
 
         } catch (\Exception $e) {
+            Swal::error([
+                'title' => 'Error',
+                'text' => 'Terjadi kesalahan saat menyimpan data pasien.',
+                'icon' => 'error',
+                'timer' => 3000,
+            ]);
             return redirect()
                 ->back()
                 ->withInput();

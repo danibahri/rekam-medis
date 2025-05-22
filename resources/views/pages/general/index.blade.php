@@ -112,8 +112,9 @@
             {{-- form --}}
             <div class="bg-white rounded-lg shadow p-6">
                 <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Data Pribadi</h2>
-                <form action="" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('store.general') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="id_pasien" value="{{ $pasien->id_pasien }}">
                     <div class="pt-5 grid md:grid-cols-2 gap-6">
                         <div>
                             <label for="nama_lengkap" class="block mb-2 text-sm font-medium text-gray-900">Nama
@@ -164,7 +165,7 @@
                             <div class="flex flex-col md:flex-row gap-4 mt-4">
                                 <div
                                     class="flex items-center ps-4 border border-gray-200 rounded-sm w-full cursor-pointer">
-                                    <input id="persetujuan_pasien-1" type="radio" value=""
+                                    <input id="persetujuan_pasien-1" type="radio" value="ya"
                                         name="persetujuan_pasien"
                                         class="w-4 h-4 text-amber-300 bg-gray-100 border-gray-300 rounded-sm focus:ring-amber-300">
                                     <label for="persetujuan_pasien-1"
@@ -172,39 +173,74 @@
                                 </div>
                                 <div
                                     class="flex items-center ps-4 border border-gray-200 rounded-sm w-full cursor-pointer">
-                                    <input id="persetujuan_pasien-2" type="radio" value=""
+                                    <input id="persetujuan_pasien-2" type="radio" value="tidak"
                                         name="persetujuan_pasien"
                                         class="w-4 h-4 text-amber-300 bg-gray-100 border-gray-300 rounded-sm focus:ring-amber-300">
                                     <label for="persetujuan_pasien-2"
                                         class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Tidak Setuju</label>
                                 </div>
                             </div>
+                            @error('persetujuan_pasien')
+                                <span class="text-red-400 text-xs">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div>
+                            <h1 class="border-b pb-2">Fasyankes Rujukan</h1>
+                            <div class="flex flex-col md:flex-row gap-4 mt-4">
+                                <div
+                                    class="flex items-center ps-4 border border-gray-200 rounded-sm w-full cursor-pointer">
+                                    <input id="fasyankes_rujukan-1" type="radio" value="setuju"
+                                        name="fasyankes_rujukan"
+                                        class="w-4 h-4 text-amber-300 bg-gray-100 border-gray-300 rounded-sm focus:ring-amber-300">
+                                    <label for="fasyankes_rujukan-1"
+                                        class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Setuju</label>
+                                </div>
+                                <div
+                                    class="flex items-center ps-4 border border-gray-200 rounded-sm w-full cursor-pointer">
+                                    <input id="fasyankes_rujukan-2" type="radio" value="tidak_setuju"
+                                        name="fasyankes_rujukan"
+                                        class="w-4 h-4 text-amber-300 bg-gray-100 border-gray-300 rounded-sm focus:ring-amber-300">
+                                    <label for="fasyankes_rujukan-2"
+                                        class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Tidak Setuju</label>
+                                </div>
+                            </div>
+                            @error('fasyankes_rujukan')
+                                <span class="text-red-400 text-xs">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div>
                             <h1 class="border-b pb-2">Yang membuat pernyataan</h1>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                            <div class="grid grid-cols-1 gap-6 mt-4">
                                 <div class="bg-white rounded-lg overflow-hidden items-center">
+                                    {{-- File Input (HARUS DI LUAR preview box) --}}
+                                    <input id="upload-ttd-pasien" name="tanda_tangan_pasien_path" type="file"
+                                        class="hidden" accept="image/*" />
+
+                                    {{-- Preview Area --}}
                                     <div id="penanggung-jawab-preview"
-                                        class="max-w-sm p-6 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
-                                        <input id="penanggung-jawab" type="file" class="hidden" accept="image/*" />
-                                        <label for="penanggung-jawab" class="cursor-pointer">
+                                        class="p-6 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg mx-auto text-center cursor-pointer">
+                                        <label for="upload-ttd-pasien" class="cursor-pointer block">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor"
                                                 class="w-8 h-8 text-gray-700 mx-auto mb-4">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                                             </svg>
-                                            <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Upload
-                                                Gambar</h5>
+                                            <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Upload Gambar
+                                            </h5>
                                             <p class="font-normal text-sm text-gray-400 md:px-6">Unggah TTD Penanggung
-                                                jawab</p>
+                                                Jawab</p>
                                             <span id="penanggung-jawab-filename"
-                                                class="text-gray-500 bg-gray-200 z-50"></span>
+                                                class="text-gray-500 bg-gray-200 text-sm block mt-2"></span>
                                         </label>
                                     </div>
+                                    @error('tanda_tangan_pasien_path')
+                                        <span class="text-red-400 text-xs">{{ $message }}</span>
+                                    @enderror
                                     <div class="mt-4">
                                         <label for="penanggung_jawab"
-                                            class="block mb-2 text-sm font-medium text-gray-900">Nama Pasien</label>
+                                            class="block mb-2 text-sm font-medium text-gray-900">Nama Penanggung
+                                            Jawab</label>
                                         <input type="text" id="penanggung_jawab" name="penanggung_jawab"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5"
                                             placeholder="Nama Pembuat Pernyataan">
@@ -213,33 +249,35 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="bg-white rounded-lg overflow-hidden items-center">
-                                    <div id="petugas-preview"
-                                        class="max-w-sm p-6 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
-                                        <input id="petugas" type="file" class="hidden" accept="image/*" />
-                                        <label for="petugas" class="cursor-pointer">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor"
-                                                class="w-8 h-8 text-gray-700 mx-auto mb-4">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-                                            </svg>
-                                            <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Upload
-                                                Gambar</h5>
-                                            <p class="font-normal text-sm text-gray-400 md:px-6">Unggah TTD Petugas</p>
-                                            <span id="petugas-filename" class="text-gray-500 bg-gray-200 z-50"></span>
-                                        </label>
-                                    </div>
-                                    <div class="mt-4">
-                                        <label for="petugas" class="block mb-2 text-sm font-medium text-gray-900">Nama
-                                            Petugas</label>
-                                        <input type="text" id="petugas" name="petugas"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5"
-                                            placeholder="Nama Pembuat Pernyataan">
-                                        @error('petugas')
-                                            <span class="text-red-400 text-xs">{{ $message }}</span>
-                                        @enderror
-                                    </div>
+                            </div>
+                            <div class="bg-white rounded-lg overflow-hidden items-center">
+                                {{-- <div id="petugas-preview"
+                                    class="max-w-sm p-6 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
+                                    <input id="petugas" type="file" class="hidden" accept="image/*" />
+                                    <label for="petugas" class="cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor"
+                                            class="w-8 h-8 text-gray-700 mx-auto mb-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                                        </svg>
+                                        <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Upload
+                                            Gambar</h5>
+                                        <p class="font-normal text-sm text-gray-400 md:px-6">Unggah TTD Petugas</p>
+                                        <span id="petugas-filename" class="text-gray-500 bg-gray-200 z-50"></span>
+                                    </label>
+                                </div> --}}
+                                <div class="mt-4">
+                                    <label for="petugas_pemberi_penjelasan"
+                                        class="block mb-2 text-sm font-medium text-gray-900">Nama
+                                        Petugas</label>
+                                    <input type="text" id="petugas_pemberi_penjelasan"
+                                        name="petugas_pemberi_penjelasan"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5"
+                                        placeholder="petugas pemberi penjelasan">
+                                    @error('petugas_pemberi_penjelasan')
+                                        <span class="text-red-400 text-xs">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -250,7 +288,7 @@
                             Kembali
                         </a>
                         <button type="submit"
-                            class="text-white bg-amber-500 hover:bg-amber-600 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+                            class="text-white cursor-pointer bg-amber-500 hover:bg-amber-600 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
                             Simpan
                         </button>
                     </div>
@@ -267,49 +305,21 @@
             const filenameLabel = document.getElementById(filenameLabelId);
             const imagePreview = document.getElementById(previewContainerId);
 
-            let isEventListenerAdded = false;
-
-            const imageClickHandler = () => {
-                uploadInput.click();
-            };
-
             uploadInput.addEventListener('change', (event) => {
                 const file = event.target.files[0];
-
                 if (file) {
                     filenameLabel.textContent = file.name;
 
                     const reader = new FileReader();
                     reader.onload = (e) => {
-                        imagePreview.innerHTML =
+                        imagePreview.querySelector('label').innerHTML =
                             `<img src="${e.target.result}" class="max-h-48 rounded-lg mx-auto" alt="Image preview" />`;
-                        imagePreview.classList.remove('border-dashed', 'border-2', 'border-gray-400');
-
-                        if (!isEventListenerAdded) {
-                            imagePreview.addEventListener('click', imageClickHandler);
-                            isEventListenerAdded = true;
-                        }
                     };
                     reader.readAsDataURL(file);
-                } else {
-                    filenameLabel.textContent = '';
-                    imagePreview.innerHTML =
-                        `<div class="bg-gray-200 h-48 rounded-lg flex items-center justify-center text-gray-500">No image preview</div>`;
-                    imagePreview.classList.add('border-dashed', 'border-2', 'border-gray-400');
-
-                    if (isEventListenerAdded) {
-                        imagePreview.removeEventListener('click', imageClickHandler);
-                        isEventListenerAdded = false;
-                    }
                 }
-            });
-
-            uploadInput.addEventListener('click', (event) => {
-                event.stopPropagation();
             });
         }
 
-        setupImageUpload('penanggung-jawab', 'penanggung-jawab-filename', 'penanggung-jawab-preview');
-        setupImageUpload('petugas', 'petugas-filename', 'petugas-preview');
+        setupImageUpload('upload-ttd-pasien', 'penanggung-jawab-filename', 'penanggung-jawab-preview');
     </script>
 @endpush
