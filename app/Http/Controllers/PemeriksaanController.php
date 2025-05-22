@@ -8,6 +8,7 @@ class PemeriksaanController extends Controller
 {
     public function index()
     {
+        
         return view('pages.pemeriksaan.index');
     }
 }

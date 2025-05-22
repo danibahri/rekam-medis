@@ -333,7 +333,9 @@ return new class extends Migration
             $table->string('nama_dpjp', 100);
             $table->text('anamnesa')->nullable();
             $table->text('diagnosa')->nullable();
-            $table->string('kode_icd', 10)->nullable();
+            $table->string('kode_diagnosa', 10)->nullable();
+            $table->string('kode_icd9', 10)->nullable();
+            $table->string('kode_icd10', 10)->nullable();
             $table->text('terapi')->nullable();
             $table->text('anjuran')->nullable();
             $table->unsignedBigInteger('biaya')->default(0);
@@ -343,7 +345,7 @@ return new class extends Migration
             // Implementasi rekomendasi 4 - Relasi Tabel
             $table->foreign('id_pasien')->references('id_pasien')->on('pasien')->onDelete('cascade');
             $table->foreign('id_kunjungan')->references('id_kunjungan')->on('kunjungan');
-            $table->foreign('kode_icd')->references('kode')->on('master_diagnosa');
+            $table->foreign('kode_diagnosa')->references('kode')->on('master_diagnosa');
         });
         
         // Resep
@@ -396,7 +398,9 @@ return new class extends Migration
             $table->date('tanggal_surat');
             $table->string('tujuan_surat', 100)->nullable();
             $table->text('diagnosa')->nullable();
-            $table->string('kode_icd', 10)->nullable();
+            $table->string('kode_diagnosa', 10)->nullable();
+            $table->string('kode_icd9', 10)->nullable();
+            $table->string('kode_icd10', 10)->nullable();
             $table->integer('lama_istirahat')->nullable()->comment('dalam hari, untuk surat sakit');
             $table->date('tanggal_mulai')->nullable()->comment('untuk surat sakit');
             $table->date('tanggal_selesai')->nullable()->comment('untuk surat sakit');
@@ -409,7 +413,7 @@ return new class extends Migration
             // Implementasi rekomendasi 4 - Relasi Tabel
             $table->foreign('id_pasien')->references('id_pasien')->on('pasien')->onDelete('cascade');
             $table->foreign('id_kunjungan')->references('id_kunjungan')->on('kunjungan');
-            $table->foreign('kode_icd')->references('kode')->on('master_diagnosa');
+            $table->foreign('kode_diagnosa')->references('kode')->on('master_diagnosa');
         });
         
         // Dokumen Pasien - Implementasi rekomendasi 1

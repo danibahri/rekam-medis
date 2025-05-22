@@ -63,8 +63,8 @@
                 @endif
                 <li>
                     <a href="{{ route('show.pemeriksaan') }}"
-                        class="flex items-center p-2 text-white hover:text-gray-900 rounded-lg hover:bg-gray-100 group">
-                        <svg class="w-5 h-5 text-white transition duration-75 group-hover:text-gray-900"
+                        class="flex items-center p-2 text-black hover:text-gray-900 rounded-lg  group {{ request()->is('pemeriksaan-klinis*') ? 'bg-gray-100' : 'hover:bg-gray-100 text-white' }}">
+                        <svg class="shrink-0 w-5 h-5 text-black transition duration-75 group-hover:text-gray-900 {{ request()->is('pemeriksaan-klinis*') ? '' : 'text-white' }}"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 22 21">
                             <path
@@ -76,7 +76,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#"
+                    <a href="{{ route('show.informed') }}"
                         class="flex items-center p-2 text-white hover:text-gray-900 rounded-lg hover:bg-gray-100 group">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">

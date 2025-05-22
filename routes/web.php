@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\InformedController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AuthMiddleware;
@@ -32,6 +33,9 @@ Route::middleware(AuthMiddleware::class)->group(function(){
     Route::get('/general-consent/{id}', [GeneralController::class, 'index'])->name('show.general');
     Route::post('/create/general-consent', [GeneralController::class, 'store_general'])->name('store.general');
 
+    // informed-consent
+    Route::get('/informed-consent', [InformedController::class, 'index'])->name('show.informed');
+
     // pemeriksaan
     Route::get('/pemeriksaan-klinis', [PemeriksaanController::class, 'index'])->name('show.pemeriksaan');
 
@@ -47,4 +51,5 @@ Route::middleware(AuthMiddleware::class)->group(function(){
 
     // laporan Kunjungan
     Route::get('/laporan-kunjungan', [LaporanController::class, 'index'])->name('laporan.kunjungan');
+    Route::get('/laporan/export/csv', [LaporanController::class, 'exportCsv'])->name('laporan.export.csv');
 });

@@ -51,7 +51,7 @@ class ResumePasien extends Model
         'nama_dpjp',
         'anamnesa',
         'diagnosa',
-        'kode_icd',
+        'kode_diagnosa',
         'terapi',
         'anjuran',
         'tanda_tangan_dpjp_path',
@@ -88,6 +88,6 @@ class ResumePasien extends Model
      */
     public function masterDiagnosa()
     {
-        return $this->belongsTo(MasterDiagnosa::class, 'kode_icd', 'kode');
+        return $this->belongsTo(MasterDiagnosa::class, 'kode_diagnosa', 'kode');
     }
 }

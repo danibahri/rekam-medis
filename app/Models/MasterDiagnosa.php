@@ -20,12 +20,12 @@ class MasterDiagnosa extends Model
     // Relasi dengan tabel resume_pasien
     public function resumePasien()
     {
-        return $this->hasMany(ResumePasien::class, 'kode_icd', 'kode');
+        return $this->hasMany(ResumePasien::class, 'kode_diagnosa', 'kode');
     }
     
     // Relasi dengan tabel surat_keterangan
     public function suratKeterangan()
     {
-        return $this->hasMany(SuratKeterangan::class, 'kode_icd', 'kode');
+        return $this->hasMany(SuratKeterangan::class, 'kode_diagnosa', 'kode');
     }
 }

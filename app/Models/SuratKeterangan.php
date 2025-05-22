@@ -50,7 +50,7 @@ class SuratKeterangan extends Model
         'tanggal_surat',
         'tujuan_surat',
         'diagnosa',
-        'kode_icd',
+        'kode_diagnosa',
         'lama_istirahat',
         'tanggal_mulai',
         'tanggal_selesai',
@@ -93,6 +93,6 @@ class SuratKeterangan extends Model
      */
     public function masterDiagnosa()
     {
-        return $this->belongsTo(MasterDiagnosa::class, 'kode_icd', 'kode');
+        return $this->belongsTo(MasterDiagnosa::class, 'kode_diagnosa', 'kode');
     }
 }

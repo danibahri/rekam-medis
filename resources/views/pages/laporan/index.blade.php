@@ -8,7 +8,11 @@
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg">
             <h1 class="text-3xl font-bold mb-4 bg-white py-5 pl-3 rounded shadow text-gray-700">Laporan Kunjungan Pasien</h1>
-            <div class="relative overflow-x-auto">
+            <a href="{{ route('laporan.export.csv') }}"
+                class="bg-amber-300 text-white px-4 py-2 rounded hover:bg-amber-700 mb-4 inline-block">
+                Export ke CSV
+            </a>
+            <div class="relative overflow-x-auto mt-5">
                 <table id="search-table" class="w-full text-sm text-left text-gray-700 border-t-4 border-amber-300 shadow-md">
                     <thead class="text-xs text-gray-700 uppercase bg-white border-b-1">
                         <tr>
@@ -32,8 +36,7 @@
                         @else
                             @foreach ($laporan as $item)
                                 <tr class="bg-white hover:bg-gray-100">
-                                    <th scope="row"
-                                        class="flex items-center px-6 py-4 whitespace-nowrap font-medium text-gray-900">
+                                    <th scope="row" class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">
                                         {{ $item->pasien->nomor_rekam_medis }}
                                     </th>
                                     <td class="px-6 py-4">
@@ -73,7 +76,7 @@
                                         @endforeach
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ $item->kode_icd }}
+                                        {{ $item->kode_icd9 ? $item->kode_icd9 : '-' }}
                                     </td>
                                     <td class="px-6 py-4">
                                         @if ($item->kunjungan->cara_pembayaran == 1)
