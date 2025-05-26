@@ -77,7 +77,7 @@
                 </li>
                 <li>
                     <a href="{{ route('show.informed') }}"
-                        class="flex items-center p-2 text-white hover:text-gray-900 rounded-lg hover:bg-gray-100 group">
+                        class="flex items-center p-2 text-black hover:text-gray-900 rounded-lg  group {{ request()->is('informed-consent*') ? 'bg-gray-100' : 'hover:bg-gray-100 text-white' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -88,7 +88,7 @@
                 </li>
                 <li>
                     <a href="{{ route('laporan.kunjungan') }}"
-                        class="flex items-center p-2 text-white hover:text-gray-900 rounded-lg hover:bg-gray-100 group">
+                        class="flex items-center p-2 text-black hover:text-gray-900 rounded-lg  group {{ request()->is('laporan-kunjungan*') ? 'bg-gray-100' : 'hover:bg-gray-100 text-white' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"

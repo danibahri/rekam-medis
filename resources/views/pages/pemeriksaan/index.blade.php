@@ -163,8 +163,9 @@
                                 </button>
                             </div>
                         </div>
+
                         <!-- Subjective Section -->
-                        <div class="p-4 border-b">
+                        <div class="p-4">
                             <form action="" method="POST" enctype="multipart/form-data">
                                 <div class="grid">
                                     <div class="grid items-center mb-3 w-full">
@@ -199,47 +200,132 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="grid lg:grid-cols-3 gap-3 mb-3">
+                                        <div class="grid items-center mb-3 w-full">
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">
+                                                Denyut Jantung<span class="text-red-500">*</span>
+                                            </label>
+                                            <div class="flex w-full">
+                                                <input type="text" id="nomor_rekam_medis" name="nomor_rekam_medis"
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5"
+                                                    placeholder="" value="">
+                                            </div>
+                                        </div>
+                                        <div class="grid items-center mb-3 w-full">
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">
+                                                Tekanan Darah<span class="text-red-500">*</span>
+                                            </label>
+                                            <div class="flex w-full">
+                                                <input type="text" id="nomor_rekam_medis" name="nomor_rekam_medis"
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5"
+                                                    placeholder="" value="">
+                                            </div>
+                                        </div>
+                                        <div class="grid items-center mb-3 w-full">
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">
+                                                Suhu Tubuh<span class="text-red-500">*</span>
+                                            </label>
+                                            <div class="flex w-full">
+                                                <input type="text" id="nomor_rekam_medis" name="nomor_rekam_medis"
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5"
+                                                    placeholder="" value="">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="mb-3">
                                         <label class="block text-sm font-medium text-gray-700 mb-1">
-                                            Riwayat Kesehatan Saat Ini <span class="text-red-500">*</span>
+                                            Riwayat penyakit <span class="text-red-500">*</span>
                                         </label>
                                         <div class="flex">
                                             <textarea class="flex-grow p-2 border rounded focus:ring-amber-400 focus:border-amber-400" rows="2"></textarea>
                                         </div>
                                     </div>
                                 </div>
+                                {{-- button --}}
+                                <div class="flex justify-end mt-4">
+                                    <button type="submit"
+                                        class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded">
+                                        Simpan
+                                    </button>
+                                </div>
                             </form>
                         </div>
 
                         <!-- Objective Section -->
                         <div class="p-4">
-                            <div class="flex justify-between items-center mb-3">
-                                <h3 class="font-semibold">Objective</h3>
+                            <div class="flex justify-between items-center mb-3 border-b">
+                                <h3 class="font-semibold">Riwayat Alergi</h3>
                                 <button class="text-amber-600 hover:text-amber-800">
                                     <i class="fas fa-circle-check"></i>
                                 </button>
                             </div>
-
-                            <form>
-                                <div class="mb-4">
-                                    <h4 class="text-sm font-medium text-gray-700 mb-2">Tanda - tanda Vital</h4>
-                                    <div class="flex mb-2">
-                                        <div class="w-28 text-sm text-gray-500 flex items-center">Keadaan Umum</div>
-                                        <div class="w-16 text-sm text-gray-500 flex items-center">:</div>
-                                        <input type="text" value="Baik"
-                                            class="flex-grow p-2 border rounded focus:ring-amber-400 focus:border-amber-400">
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="grid items-center mb-3 w-full">
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                                            Obat <span class="text-red-500">*</span>
+                                        </label>
+                                        <div class="flex w-full">
+                                            <input type="text" id="nomor_rekam_medis" name="nomor_rekam_medis"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5"
+                                                placeholder="" value="">
+                                        </div>
+                                    </div>
+                                    <div class="grid items-center mb-3 w-full">
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                                            Makanan <span class="text-red-500">*</span>
+                                        </label>
+                                        <div class="flex w-full">
+                                            <input type="text" id="nomor_rekam_medis" name="nomor_rekam_medis"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5"
+                                                placeholder="" value="">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="mb-4">
-                                    <h4 class="text-sm font-medium text-gray-700 mb-2">Pemeriksaan Lain</h4>
-                                    <div class="flex mb-2">
-                                        <div class="w-28 text-sm text-gray-500 flex items-center">Tinggi Badan <span
-                                                class="text-red-500">*</span></div>
-                                        <div class="w-16 text-sm text-gray-500 flex items-center">:</div>
-                                        <input type="text" value="160"
-                                            class="w-24 p-2 border rounded focus:ring-amber-400 focus:border-amber-400">
-                                        <span class="ml-2 bg-amber-500 text-white px-3 py-2 rounded">cm</span>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="grid items-center mb-3 w-full">
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                                            Udara <span class="text-red-500">*</span>
+                                        </label>
+                                        <div class="flex w-full">
+                                            <input type="text" id="nomor_rekam_medis" name="nomor_rekam_medis"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5"
+                                                placeholder="" value="">
+                                        </div>
                                     </div>
+                                    <div class="grid items-center mb-3 w-full">
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                                            lain-lainnya <span class="text-red-500">*</span>
+                                        </label>
+                                        <div class="flex w-full">
+                                            <input type="text" id="nomor_rekam_medis" name="nomor_rekam_medis"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5"
+                                                placeholder="" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                                        Riwayat pengobatan <span class="text-red-500">*</span>
+                                    </label>
+                                    <div class="flex">
+                                        <textarea class="flex-grow p-2 border rounded focus:ring-amber-400 focus:border-amber-400" rows="2"></textarea>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                                        Riwayat pengobatan <span class="text-red-500">*</span>
+                                    </label>
+                                    <div class="flex">
+                                        <textarea class="flex-grow p-2 border rounded focus:ring-amber-400 focus:border-amber-400" rows="2"></textarea>
+                                    </div>
+                                </div>
+                                {{-- button --}}
+                                <div class="flex justify-end mt-4">
+                                    <button type="submit"
+                                        class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded">
+                                        Simpan
+                                    </button>
                                 </div>
                             </form>
                         </div>

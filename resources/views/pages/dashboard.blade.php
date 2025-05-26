@@ -22,6 +22,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
                 <div
                     class="p-6 bg-white border border-gray-200 rounded-lg shadow hover:shadow-md transition-shadow duration-300">
