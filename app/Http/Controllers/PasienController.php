@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dokter;
 use Illuminate\Http\Request;
 use App\Models\Pasien;
 use SweetAlert2\Laravel\Swal;
+use App\Models\Kunjungan;
 
 class PasienController extends Controller
 {
     public function show_pasien()
     {
         $data_pasien = Pasien::with(['jenisKelamin', 'agama', 'pendidikan', 'pekerjaan', 'statusPernikahan', 'caraPembayaran'])->get();
-        return view('pages.pasien.index', compact('data_pasien'));
+        $data_dokter = Dokter::all();
+        return view('pages.pasien.index', compact('data_pasien', 'data_dokter'));
     }
 
     public function profile_pasien($id)
@@ -110,8 +113,7 @@ class PasienController extends Controller
             'telepon_rumah.max' => 'Telepon Rumah maksimal 15 karakter',
         ]);
         try {
-            $id = 'PSN' . rand(1000, 9999);
-            // dd($validated);
+            $id = 'PSN' . time() . rand(100, 999);
 
             $pasien = Pasien::create([
                 'id_pasien' => $id,
@@ -176,6 +178,60 @@ class PasienController extends Controller
                 ->back()
                 ->withInput();
         }
+    }
+
+    public function store_kunjungan(Request $request)
+    {
+        $validated = $request->validate([
+            'id_pasien' => 'required',
+            'id_dokter' => 'required',
+        ]);
+
+        $cek_kunjungan = Kunjungan::where('id_pasien', $validated['id_pasien'])->count();
+
+        // jenis kunjungan
+        $jenis_kunjungan = 'baru';
+        if ($cek_kunjungan > 0) {
+            $jenis_kunjungan = 'lama';
+        }
+
+        try {
+            // id_kunjungan
+            $id_kunjungan = 'KJG-' . time() . rand(100, 999);
+            $kunjungan = Kunjungan::create([
+                'id_kunjungan' => $id_kunjungan,
+                'id_pasien' => $validated['id_pasien'],
+                'tanggal_kunjungan' => now(),
+                'waktu_kunjungan' => now()->format('H:i:s'),
+                'jenis_kunjungan' => $jenis_kunjungan,
+                'cara_pembayaran' => null,
+                'keluhan_utama' => null,
+                'id_dokter' => $validated['id_dokter'],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            if ($kunjungan) {
+                Swal::success([
+                    'title' => 'Success',
+                    'text' => 'Pasien telah di tambahkan ke antrian',
+                    'icon' => 'success',
+                    'timer' => 3000,
+                ]);
+                return redirect()->route('show.pasien')->with('success', 'Kunjungan created successfully');
+            }
+        } catch (\Throwable $th) {
+            Swal::error([
+                'title' => 'Error',
+                'text' => 'Terjadi kesalahan saat menyimpan data kunjungan.',
+                'icon' => 'error',
+                'timer' => 3000,
+            ]);
+            return redirect()
+                ->back();
+        }
+
+        return redirect()->back();
     }
 
     public function delete_pasien($id)

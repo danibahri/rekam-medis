@@ -21,19 +21,23 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form class="p-4 md:p-5">
+            <form method="POST" action="{{ route('store-kunjungan.pasien') }}" enctype="multipart/form-data"
+                class="p-4 md:p-5">
+                @csrf
                 <div class="mb-4 grid grid-cols-2 gap-4">
+                    <input type="text" name="id_pasien" id="id_pasien" value="{{ $item->id_pasien }}" hidden>
                     <div class="col-span-2">
-                        <label for="name" class="mb-2 block text-sm font-medium text-gray-900">Nomor Rekam
+                        <label for="nomor_rekam_medis" class="mb-2 block text-sm font-medium text-gray-900">Nomor Rekam
                             Medis</label>
-                        <input type="text" name="name" id="name" value="{{ $item->nomor_rekam_medis }}"
+                        <input type="text" name="nomor_rekam_medis" id="nomor_rekam_medis"
+                            value="{{ $item->nomor_rekam_medis }}"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-600 focus:ring-amber-600"
                             required readonly>
                     </div>
-                    <div class="col-span-2">
-                        <label for="name" class="mb-2 block text-sm font-medium text-gray-900">Nomor Induk
+                    <div class="col-span-2 sm:col-span-1">
+                        <label for="nik" class="mb-2 block text-sm font-medium text-gray-900">Nomor Induk
                             Keluarga</label>
-                        <input type="text" name="name" id="name" value="{{ $item->nik }}"
+                        <input type="text" name="nik" id="nik" value="{{ $item->nik }}"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-600 focus:ring-amber-600"
                             required readonly>
                     </div>
@@ -44,13 +48,28 @@
                             required readonly>
                     </div>
                     <div class="col-span-2 sm:col-span-1">
-                        <label for="price" class="mb-2 block text-sm font-medium text-gray-900">Jenis Kelamin</label>
-                        <input type="text" name="price" id="price" value="{{ $item->jenis_kelamin }}"
+                        <label for="jenis_kalamin" class="mb-2 block text-sm font-medium text-gray-900">Jenis
+                            Kelamin</label>
+                        <input type="text" name="jenis_kalamin" id="jenis_kalamin" value="{{ $item->jenis_kelamin }}"
                             class="hidden w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-600 focus:ring-amber-600"
                             required readonly>
-                        <input type="text" name="price" id="price" value="{{ $item->jenisKelamin->nama }}"
+                        <input type="text" name="jenis_kalamin_2" id="jenis_kalamin_2"
+                            value="{{ $item->jenisKelamin->nama }}"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-600 focus:ring-amber-600"
                             required readonly>
+                    </div>
+                    <div class="col-span-2 sm:col-span-1">
+                        <label for="id_dokter" class="mb-2 block text-sm font-medium text-gray-900">Dokter
+                            Pemeriksa</label>
+                        <select id="id_dokter" name="id_dokter"
+                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-500 focus:ring-amber-500">
+                            @foreach ($data_dokter as $dokter)
+                                <option value="{{ $dokter->id_dokter }}"
+                                    {{ old('dokter') == $dokter->id_dokter ? 'selected' : '' }}">
+                                    {{ $dokter->nama_dokter }} - {{ $dokter->spesialisasi }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-span-2 mt-5">
                         @php
@@ -79,9 +98,11 @@
                                             <tr>
                                                 <td class="px-6 py-4">
                                                     {{ \Carbon\Carbon::parse($kunjungan->tanggal_kunjungan)->translatedFormat('d F Y') }}
+                                                    -
+                                                    {{ \Carbon\Carbon::parse($kunjungan->waktu_kunjungan)->translatedFormat('H:i') }}
                                                 </td>
-                                                <td class="px-6 py-4">{{ $kunjungan->keluhan_utama }}</td>
-                                                <td class="px-6 py-4">{{ $kunjungan->dokter->nama_dokter }}</td>
+                                                <td class="px-6 py-4">{{ $kunjungan->keluhan_utama ?? '-' }}</td>
+                                                <td class="px-6 py-4">{{ $kunjungan->dokter->nama_dokter ?? '-' }}</td>
                                                 <td class="px-6 py-4">
                                                     @if ($kunjungan->status == 'menunggu')
                                                         <span
