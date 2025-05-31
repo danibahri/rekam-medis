@@ -8,12 +8,20 @@ use SweetAlert2\Laravel\Swal;
 
 class PasienController extends Controller
 {
-    public function show_pasien(){
-        $data_pasien = Pasien::all();
+    public function show_pasien()
+    {
+        $data_pasien = Pasien::with(['jenisKelamin', 'agama', 'pendidikan', 'pekerjaan', 'statusPernikahan', 'caraPembayaran'])->get();
         return view('pages.pasien.index', compact('data_pasien'));
     }
 
-    public function add_pasien(){
+    public function profile_pasien($id)
+    {
+        $pasien = Pasien::with(['jenisKelamin', 'agama', 'pendidikan', 'pekerjaan', 'statusPernikahan', 'caraPembayaran'])->findOrFail($id);
+        return view('pages.pasien.profile', compact('pasien'));
+    }
+
+    public function add_pasien()
+    {
         return view('pages.pasien.create');
     }
 
@@ -31,7 +39,7 @@ class PasienController extends Controller
             'agama' => 'nullable|in:1,2,3,4,5,6,7',
             'suku' => 'nullable|string|max:50',
             'bahasa_dikuasai' => 'nullable|string|max:100',
-            
+
             // Alamat KTP
             'alamat_lengkap' => 'required|string',
             'rt' => 'nullable|string|max:5',
@@ -61,7 +69,7 @@ class PasienController extends Controller
             'pekerjaan' => 'nullable|in:0,1,2,3,4,5,6,7',
             'status_pernikahan' => 'nullable|in:1,2,3,4',
             'cara_pembayaran' => 'nullable|in:1,2,3,4',
-        ],[
+        ], [
             'nomor_rekam_medis.required' => 'Nomor Rekam Medis tidak boleh kosong',
             'nomor_rekam_medis.unique' => 'Nomor Rekam Medis sudah terdaftar',
             'nik.unique' => 'NIK sudah terdaftar',
@@ -118,7 +126,7 @@ class PasienController extends Controller
                 'agama' => $validated['agama'],
                 'suku' => $validated['suku'],
                 'bahasa_dikuasai' => $validated['bahasa_dikuasai'],
-                
+
                 // Alamat KTP
                 'alamat_lengkap' => $validated['alamat_lengkap'],
                 'rt' => $validated['rt'],
@@ -135,7 +143,7 @@ class PasienController extends Controller
                 'domisili_rt' => $validated['domisili_rt'],
                 'domisili_rw' => $validated['domisili_rw'],
                 'domisili_kelurahan_desa' => $validated['domisili_kelurahan_desa'],
-                'domisili_kecamatan' => $validated['domisili_kecamatan'], 
+                'domisili_kecamatan' => $validated['domisili_kecamatan'],
                 'domisili_kota_kabupaten' => $validated['domisili_kota_kabupaten'],
                 'domisili_provinsi' => $validated['domisili_provinsi'],
                 'domisili_kode_pos' => $validated['domisili_kode_pos'],
@@ -157,7 +165,6 @@ class PasienController extends Controller
                 'timer' => 3000,
             ]);
             return redirect()->route('show.pasien')->with('success', 'Pasien created successfully');
-
         } catch (\Exception $e) {
             Swal::error([
                 'title' => 'Error',
@@ -171,13 +178,14 @@ class PasienController extends Controller
         }
     }
 
-    public function delete_pasien($id){
+    public function delete_pasien($id)
+    {
         $pasien = Pasien::find($id);
         if (!$pasien) {
             return redirect()->route('show.pasien')->with('error', 'Pasien not found');
         }
 
-        try{
+        try {
             if ($pasien) {
                 $pasien->delete();
                 Swal::success([
@@ -191,7 +199,7 @@ class PasienController extends Controller
         } catch (\Exception $e) {
             Swal::error([
                 'title' => 'Error',
-                'text' => 'Tidak dapat menghapus pasien atau pasien sedang digunakan ditempat lain',
+                'text' => 'Tidak dapat menghapus pasien atau data pasien sedang digunakan',
             ]);
             return redirect()->route('show.pasien')->with('error', 'Failed to delete pasien');
         }

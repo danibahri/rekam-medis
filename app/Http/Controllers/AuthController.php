@@ -25,7 +25,7 @@ class AuthController extends Controller
     }
 
     public function login(Request $request)
-    { 
+    {
         $credentials = $request->validate([
             'username' => 'required',
             'password' => 'required',
@@ -48,7 +48,7 @@ class AuthController extends Controller
                 'showLoading' => true,
             ]);
             return redirect()->route('dashboard')->with('success', 'Login berhasil');
-        } 
+        }
         return redirect('/login')->withErrors(['Email dan password tidak sesuai']);
     }
 
@@ -64,13 +64,13 @@ class AuthController extends Controller
         $request->session()->flush();
         Auth::logout();
         Swal::toast([
-                'icon' => 'success',
-                'title' => 'Logout berhasil',
-                'position' => 'top-end',
-                'timer' => 3000,
-                'showConfirmButton' => false,
-                'showLoading' => true,
-            ]);
+            'icon' => 'success',
+            'title' => 'Logout berhasil',
+            'position' => 'top-end',
+            'timer' => 3000,
+            'showConfirmButton' => false,
+            'showLoading' => true,
+        ]);
         return redirect('/');
     }
 }

@@ -1,9 +1,9 @@
 <!-- Button toggle -->
 <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar"
     type="button"
-    class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+    class="ms-3 mt-2 inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 sm:hidden">
     <span class="sr-only">Open sidebar</span>
-    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <svg class="h-6 w-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
         <path clip-rule="evenodd" fill-rule="evenodd"
             d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
         </path>
@@ -12,19 +12,19 @@
 
 <!-- Sidebar -->
 <aside id="default-sidebar"
-    class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+    class="fixed left-0 top-0 z-40 h-screen w-64 -translate-x-full transition-transform sm:translate-x-0"
     aria-label="Sidebar">
-    <div class="h-full px-3 py-4 overflow-y-auto bg-amber-300 shadow-2xl">
+    <div class="h-full overflow-y-auto bg-amber-400 px-3 py-4 shadow-2xl">
         <div>
             <!-- Logo -->
-            <div class="flex items-center justify-center mb-4">
+            <div class="mb-4 flex items-center justify-center">
                 <img src="{{ asset('icon/favicon.png') }}" class="w-32" alt="">
             </div>
             <ul class="space-y-2 font-medium">
                 <li>
                     <a href="{{ route('dashboard') }}"
-                        class="flex items-center p-2 text-black hover:text-gray-900 rounded-lg  group {{ request()->is('dashboard') ? 'bg-gray-100' : 'hover:bg-gray-100 text-white' }}">
-                        <svg class="w-5 h-5 text-black transition duration-75 group-hover:text-gray-900 {{ request()->is('dashboard') ? '' : 'text-white' }}"
+                        class="{{ request()->is('dashboard') ? 'bg-gray-100' : 'hover:bg-gray-100 text-white' }} group flex items-center rounded-lg p-2 text-black hover:text-gray-900">
+                        <svg class="{{ request()->is('dashboard') ? '' : 'text-white' }} h-5 w-5 text-black transition duration-75 group-hover:text-gray-900"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 22 21">
                             <path
@@ -37,34 +37,20 @@
                 </li>
                 <li>
                     <a href="{{ route('show.pasien') }}"
-                        class="flex items-center p-2 text-black hover:text-gray-900 rounded-lg hover:bg-gray-100 group {{ request()->is('*pasien') ? 'bg-gray-100' : 'text-white' }}">
-                        <svg class="shrink-0 w-5 h-5 text-black transition duration-75 group-hover:text-gray-900 {{ request()->is('*pasien') ? '' : 'text-white' }}"
+                        class="{{ request()->is('*pasien') ? 'bg-gray-100' : 'text-white' }} group flex items-center rounded-lg p-2 text-black hover:bg-gray-100 hover:text-gray-900">
+                        <svg class="{{ request()->is('*pasien') ? '' : 'text-white' }} h-5 w-5 shrink-0 text-black transition duration-75 group-hover:text-gray-900"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 18 18">
                             <path
                                 d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
                         </svg>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Registrasi Pasien</span>
+                        <span class="ms-3 flex-1 whitespace-nowrap">Data Pasien</span>
                     </a>
                 </li>
-                @if (Auth::user()->role == 'admin' || Auth::user()->role == 'petugas')
-                    <li>
-                        <a href="#"
-                            class="flex items-center p-2 text-white hover:text-gray-900 rounded-lg hover:bg-gray-100 group">
-                            <svg class="shrink-0 w-5 h-5 text-white transition duration-75 group-hover:text-gray-900"
-                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                viewBox="0 0 20 20">
-                                <path
-                                    d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z" />
-                            </svg>
-                            <span class="flex-1 ms-3 whitespace-nowrap">General Consent</span>
-                        </a>
-                    </li>
-                @endif
                 <li>
                     <a href="{{ route('show.pemeriksaan') }}"
-                        class="flex items-center p-2 text-black hover:text-gray-900 rounded-lg  group {{ request()->is('pemeriksaan-klinis*') ? 'bg-gray-100' : 'hover:bg-gray-100 text-white' }}">
-                        <svg class="shrink-0 w-5 h-5 text-black transition duration-75 group-hover:text-gray-900 {{ request()->is('pemeriksaan-klinis*') ? '' : 'text-white' }}"
+                        class="{{ request()->is('pemeriksaan-klinis*') ? 'bg-gray-100' : 'hover:bg-gray-100 text-white' }} group flex items-center rounded-lg p-2 text-black hover:text-gray-900">
+                        <svg class="{{ request()->is('pemeriksaan-klinis*') ? '' : 'text-white' }} h-5 w-5 shrink-0 text-black transition duration-75 group-hover:text-gray-900"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 22 21">
                             <path
@@ -72,23 +58,12 @@
                             <path
                                 d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
                         </svg>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Pemeriksaan Klinis</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('show.informed') }}"
-                        class="flex items-center p-2 text-black hover:text-gray-900 rounded-lg  group {{ request()->is('informed-consent*') ? 'bg-gray-100' : 'hover:bg-gray-100 text-white' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                        </svg>
-                        <span class="ms-3">Informed Consent</span>
+                        <span class="ms-3 flex-1 whitespace-nowrap">Pemeriksaan Klinis</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('laporan.kunjungan') }}"
-                        class="flex items-center p-2 text-black hover:text-gray-900 rounded-lg  group {{ request()->is('laporan-kunjungan*') ? 'bg-gray-100' : 'hover:bg-gray-100 text-white' }}">
+                        class="{{ request()->is('laporan-kunjungan*') ? 'bg-gray-100' : 'hover:bg-gray-100 text-white' }} group flex items-center rounded-lg p-2 text-black hover:text-gray-900">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -99,7 +74,7 @@
                 </li>
                 <li>
                     <a href="#"
-                        class="flex items-center p-2 text-white hover:text-gray-900 rounded-lg hover:bg-gray-100 group">
+                        class="group flex items-center rounded-lg p-2 text-white hover:bg-gray-100 hover:text-gray-900">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -109,13 +84,13 @@
                     </a>
                 </li>
             </ul>
-            <p class="text-white mt-4">Account</p>
+            <p class="mt-4 text-white">Account</p>
             {{-- user setting --}}
-            <ul class="mt-1 space-y-2 font-medium border-t border-white pt-2">
+            <ul class="mt-1 space-y-2 border-t border-white pt-2 font-medium">
                 @if (Auth::user()->role == 'dokter' || Auth::user()->role == 'petugas')
                     <li>
                         <a href="{{ route('logout') }}"
-                            class="flex items-center p-2 text-white hover:text-gray-900 rounded-lg hover:bg-gray-100 group">
+                            class="group flex items-center rounded-lg p-2 text-white hover:bg-gray-100 hover:text-gray-900">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -128,7 +103,7 @@
                 @if (Auth::user()->role == 'admin')
                     <li>
                         <button type="button"
-                            class="flex items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:text-black hover:bg-white"
+                            class="group flex w-full items-center rounded-lg p-2 text-base text-white transition duration-75 hover:bg-white hover:text-black"
                             aria-controls="setting" data-collapse-toggle="setting">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -138,21 +113,21 @@
                                     d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                             </svg>
                             <span
-                                class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap cursor-pointer">Setting</span>
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="none" viewBox="0 0 10 6">
+                                class="ms-3 flex-1 cursor-pointer whitespace-nowrap text-left rtl:text-right">Setting</span>
+                            <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 10 6">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="m1 1 4 4 4-4" />
                             </svg>
                         </button>
-                        <ul id="setting" class="hidden py-2 space-y-2 border-2 border-white rounded-lg">
+                        <ul id="setting" class="hidden space-y-2 rounded-lg border-2 border-white py-2">
                             <li>
                                 <a href="{{ route('show.user') }}"
-                                    class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:text-black hover:bg-white">User</a>
+                                    class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-white hover:text-black">User</a>
                             </li>
                             <li>
                                 <a href="{{ route('logout') }}"
-                                    class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:text-black hover:bg-white">Logout</a>
+                                    class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-white hover:text-black">Logout</a>
                             </li>
                         </ul>
                     </li>

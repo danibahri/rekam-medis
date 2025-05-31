@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PemeriksaanController;
 use App\Http\Controllers\LaporanController;
 
-
-
 // Route::redirect('/', '/login');
 Route::get('/', [AuthController::class, 'landing'])->name('landing');
 Route::get('/login', [AuthController::class, 'index'])->name('login');
@@ -22,19 +20,20 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 // check auth middleware
-Route::middleware(AuthMiddleware::class)->group(function(){
+Route::middleware(AuthMiddleware::class)->group(function () {
+
+    Route::fallback(function () {
+        return response()->view('errors.404', [], 404);
+    });
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // pasien
     Route::get('/pasien', [PasienController::class, 'show_pasien'])->name('show.pasien');
+    Route::get('/profile/{id}/pasien', [PasienController::class, 'profile_pasien'])->name('profile.pasien');
     Route::get('/create/pasien', [PasienController::class, 'add_pasien'])->name('add.pasien');
     Route::post('/create/pasien', [PasienController::class, 'store_pasien'])->name('store.pasien');
     Route::post('/delete-pasien/{id}', [PasienController::class, 'delete_pasien'])->name('delete.pasien');
-    
-    // general-consent
-    Route::get('/general-consent/{id}', [GeneralController::class, 'index'])->name('show.general');
-    Route::post('/create/general-consent', [GeneralController::class, 'store_general'])->name('store.general');
-
-    // informed-consent
-    Route::get('/informed-consent', [InformedController::class, 'index'])->name('show.informed');
 
     // pemeriksaan
     Route::get('/pemeriksaan-klinis', [PemeriksaanController::class, 'index'])->name('show.pemeriksaan');
