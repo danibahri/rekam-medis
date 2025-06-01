@@ -1,9 +1,6 @@
 @extends('layouts.master')
-
 @section('title', 'Registrasi Data Pasien')
-
 @section('description', 'Registrasi Data Pasien - Rekam Medis')
-
 @section('content')
     <div class="p-4 sm:ml-64">
         <div class="rounded-lg border-2 border-dashed border-gray-200 p-4">

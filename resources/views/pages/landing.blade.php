@@ -1,32 +1,30 @@
 @extends('layouts.app')
 @section('title', 'Sistem Rekam Medis Digital')
-
 @section('description', 'Sistem Rekam Medis Digital - Aplikasi untuk mengelola data rekam medis pasien di rumah sakit.')
-
 @section('content')
-    <div class="max-w-7xl bg-gradient-to-b m-auto from-amber-50 to-white">
+    <div class="m-auto max-w-7xl bg-gradient-to-b from-amber-50 to-white">
         <div class="container mx-auto px-4 py-16">
-            <div class="flex flex-col md:flex-row items-center justify-between">
-                <div class="md:w-1/2 mb-8 md:mb-0">
-                    <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4 animate-fade-in-up opacity-0">
+            <div class="flex flex-col items-center justify-between md:flex-row">
+                <div class="mb-8 md:mb-0 md:w-1/2">
+                    <h1 class="animate-fade-in-up mb-4 text-4xl font-bold text-gray-800 opacity-0 md:text-6xl">
                         Sistem Rekam Medis
                         <span
-                            class="text-amber-300 animate-text-gradient bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 bg-clip-text">Digital</span>
+                            class="animate-text-gradient bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 bg-clip-text text-amber-300">Digital</span>
                     </h1>
-                    <p class="text-lg text-gray-600 mb-6 animate-fade-in-up opacity-0 animation-delay-100">
+                    <p class="animate-fade-in-up animation-delay-100 mb-6 text-lg text-gray-600 opacity-0">
                         Manajemen data medis terintegrasi untuk pelayanan kesehatan yang lebih baik
                     </p>
                     <a href="{{ route('login') }}"
-                        class="inline-block bg-amber-300 hover:bg-amber-400 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 animate-fade-in-up opacity-0 animation-delay-200">
+                        class="animate-fade-in-up animation-delay-200 inline-block transform rounded-lg bg-amber-300 px-8 py-3 font-bold text-white opacity-0 transition-all duration-300 hover:scale-105 hover:bg-amber-400">
                         Masuk ke Sistem
                     </a>
                 </div>
-                <div class="md:w-1/2 relative">
+                <div class="relative md:w-1/2">
                     <div
-                        class="absolute -inset-8 bg-gradient-to-r from-amber-300 to-amber-400 rounded-xl blur-2xl opacity-30 animate-pulse-slow">
+                        class="animate-pulse-slow absolute -inset-8 rounded-xl bg-gradient-to-r from-amber-300 to-amber-400 opacity-30 blur-2xl">
                     </div>
                     <img src="{{ asset('icon/icon.png') }}" alt="Medical Record"
-                        class="rounded-lg drop-shadow-2xl relative animate-float">
+                        class="animate-float relative rounded-lg drop-shadow-2xl">
                 </div>
             </div>
         </div>
@@ -34,18 +32,18 @@
         <!-- Features Section with Staggered Animations -->
         <div class="bg-white py-16">
             <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12 animate-slide-in-left opacity-0">
+                <h2 class="animate-slide-in-left mb-12 text-center text-3xl font-bold text-gray-800 opacity-0">
                     Akses Sesuai Peran Anda
                 </h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
                     <!-- Admin Card -->
                     <div
-                        class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-card-pop opacity-0">
+                        class="animate-card-pop transform rounded-xl bg-white p-6 opacity-0 shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
                         <div
-                            class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mb-4 animate-icon-bounce">
+                            class="animate-icon-bounce mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-amber-100">
                             👨💻
                         </div>
-                        <h3 class="text-xl font-semibold mb-2">Administrator</h3>
+                        <h3 class="mb-2 text-xl font-semibold">Administrator</h3>
                         <p class="text-gray-600">
                             Mengelola sistem secara keseluruhan, manajemen pengguna, dan kontrol akses
                         </p>
@@ -53,12 +51,12 @@
 
                     <!-- Staff Card -->
                     <div
-                        class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-card-pop opacity-0 animation-delay-100">
+                        class="animate-card-pop animation-delay-100 transform rounded-xl bg-white p-6 opacity-0 shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
                         <div
-                            class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mb-4 animate-icon-bounce animation-delay-150">
+                            class="animate-icon-bounce animation-delay-150 mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-amber-100">
                             📋
                         </div>
-                        <h3 class="text-xl font-semibold mb-2">Petugas Administrasi</h3>
+                        <h3 class="mb-2 text-xl font-semibold">Petugas Administrasi</h3>
                         <p class="text-gray-600">
                             Menginput data pasien, mengelola jadwal, dan administrasi rekam medis
                         </p>
@@ -66,12 +64,12 @@
 
                     <!-- Doctor Card -->
                     <div
-                        class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-card-pop opacity-0 animation-delay-200">
+                        class="animate-card-pop animation-delay-200 transform rounded-xl bg-white p-6 opacity-0 shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
                         <div
-                            class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mb-4 animate-icon-bounce animation-delay-300">
+                            class="animate-icon-bounce animation-delay-300 mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-amber-100">
                             👩⚕️
                         </div>
-                        <h3 class="text-xl font-semibold mb-2">Dokter</h3>
+                        <h3 class="mb-2 text-xl font-semibold">Dokter</h3>
                         <p class="text-gray-600">
                             Mengakses riwayat pasien, mencatat diagnosis, dan memberikan resep digital
                         </p>
@@ -81,16 +79,16 @@
         </div>
 
         <!-- Animated CTA Section -->
-        <div class="py-16 animate-fade-in-up opacity-0 animation-delay-300">
+        <div class="animate-fade-in-up animation-delay-300 py-16 opacity-0">
             <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                <h2 class="mb-4 text-3xl font-bold text-gray-800">
                     Siap Menggunakan Sistem?
                 </h2>
-                <p class="text-gray-600 mb-8">
+                <p class="mb-8 text-gray-600">
                     Pilih peran Anda dan mulai kelola rekam medis dengan lebih efisien
                 </p>
                 <a href="{{ route('login') }}"
-                    class="bg-amber-300 hover:bg-amber-400 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-amber-200">
+                    class="transform rounded-lg bg-amber-300 px-8 py-3 font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-amber-400 hover:shadow-amber-200">
                     Masuk Sekarang
                 </a>
             </div>
