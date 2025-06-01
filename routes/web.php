@@ -35,8 +35,9 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     Route::post('/create-kunjungan/pasien', [PasienController::class, 'store_kunjungan'])->name('store-kunjungan.pasien');
 
     // pemeriksaan
-    Route::get('/pemeriksaan-klinis', [PemeriksaanController::class, 'index'])->name('show.pemeriksaan');
+    Route::get('/pemeriksaan-klinis/{id?}', [PemeriksaanController::class, 'index'])->name('show.pemeriksaan');
 
+    // user
     Route::get('/user', [UserController::class, 'index'])->name('show.user');
     Route::get('/create/user', [UserController::class, 'add_user'])->name('add.user');
     Route::post('/create/user', [UserController::class, 'store_user'])->name('store.user');

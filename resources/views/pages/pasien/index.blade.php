@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            <div class="relative overflow-x-auto">
+            <div class="relative">
                 <table id="search-table"
                     class="w-full border-t-4 border-amber-300 text-left text-sm text-gray-700 shadow-md">
                     <thead class="border-b-1 bg-white text-xs uppercase text-gray-700">

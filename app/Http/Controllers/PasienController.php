@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\Pasien;
 use SweetAlert2\Laravel\Swal;
 use App\Models\Kunjungan;
+use App\Models\MasterAgama;
+use App\Models\MasterCaraPembayaran;
+use App\Models\MasterJenisKelamin;
+use App\Models\MasterPekerjaan;
+use App\Models\MasterPendidikan;
+use App\Models\MasterStatusPernikahan;
 
 class PasienController extends Controller
 {
@@ -25,7 +31,13 @@ class PasienController extends Controller
 
     public function add_pasien()
     {
-        return view('pages.pasien.create');
+        $master_agama = MasterAgama::all();
+        $master_jenisKelamin = MasterJenisKelamin::all();
+        $master_pekerjaan = MasterPekerjaan::all();
+        $master_pendidikan = MasterPendidikan::all();
+        $master_pernikahan = MasterStatusPernikahan::all();
+        $master_pembayaran = MasterCaraPembayaran::all();
+        return view('pages.pasien.create', compact('master_agama', 'master_jenisKelamin', 'master_pekerjaan', 'master_pendidikan', 'master_pernikahan', 'master_pembayaran'));
     }
 
     public function store_pasien(Request $request)

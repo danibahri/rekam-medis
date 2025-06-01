@@ -1,6 +1,6 @@
 {{-- formulir terapi --}}
-<div id="terapi" class="rounded-lg bg-white shadow" role="tabpanel" aria-labelledby="terapi-tab">
-    <div class="flex items-center justify-between rounded-t-lg bg-amber-400 p-3">
+<div id="terapi" class="rounded-b-lg bg-white shadow" role="tabpanel" aria-labelledby="terapi-tab">
+    <div class="flex items-center justify-between bg-amber-600 p-3 pt-6">
         <h2 class="font-bold text-white">Formulir Terapi</h2>
         <div class="flex">
             <button class="mx-1 text-gray-600 hover:text-white">

@@ -3,12 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Kunjungan;
 
 class PemeriksaanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        
-        return view('pages.pemeriksaan.index');
+        $antrian = Kunjungan::whereIn('status', ['menunggu', 'dalam_pemeriksaan'])->get();
+
+        $kunjungan = null;
+        if ($request->id) {
+            $kunjungan = Kunjungan::find($request->id);
+        }
+
+        return view('pages.pemeriksaan.index', compact('antrian', 'kunjungan'));
     }
 }
