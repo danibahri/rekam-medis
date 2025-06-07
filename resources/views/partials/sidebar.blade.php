@@ -73,7 +73,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#"
+                    <a href="{{ route('pelepasan.informasi') }}"
                         class="group flex items-center rounded-lg p-2 text-white hover:bg-gray-100 hover:text-gray-900">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">

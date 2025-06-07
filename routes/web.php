@@ -8,6 +8,7 @@ use App\Http\Middleware\AuthMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PemeriksaanController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\PelepasanController;
 
 // Route::redirect('/', '/login');
 Route::get('/', [AuthController::class, 'landing'])->name('landing');
@@ -46,4 +47,8 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     // laporan Kunjungan
     Route::get('/laporan-kunjungan', [LaporanController::class, 'index'])->name('laporan.kunjungan');
     Route::get('/laporan/export/csv', [LaporanController::class, 'exportCsv'])->name('laporan.export.csv');
+
+    // pelepasan informasi
+    Route::get('/pelepasan-informasi', [PelepasanController::class, 'index'])->name('pelepasan.informasi');
+    Route::get('/pelepasan-informasi/{id}', [PelepasanController::class, 'show_pdf'])->name('pelepasan.informasi.pdf');
 });

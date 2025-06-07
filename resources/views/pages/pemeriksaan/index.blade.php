@@ -120,6 +120,14 @@
                                         Formulir Terapi
                                     </button>
                                 </li>
+                                <li class="me-2" role="presentation">
+                                    <button
+                                        class="inline-block cursor-pointer rounded-t-lg border-transparent p-4 text-white"
+                                        id="resep-tab" data-tabs-target="#resep" type="button" role="tab"
+                                        aria-controls="resep" aria-selected="false">
+                                        Resep Obat
+                                    </button>
+                                </li>
                             </ul>
                         </div>
                         <div id="default-tab-content" class="-translate-y-5 transform">
@@ -131,6 +139,9 @@
 
                             {{-- formulir informed consent --}}
                             @include('pages.pemeriksaan.formulir-terapi')
+
+                            {{-- formulir resep obat --}}
+                            @include('pages.pemeriksaan.resep')
                         </div>
                     @else
                         <div class="text-center font-semibold text-gray-700">
