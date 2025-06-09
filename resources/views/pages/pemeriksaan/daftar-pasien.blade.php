@@ -26,12 +26,19 @@
     <!-- Patient List -->
     <div class="h-screen overflow-y-auto rounded">
         @if (count($antrian) > 0)
+            @php
+                // reverse the order of the antrian array
+                // $antrian = $antrian->reverse();
+                $count = 1;
+            @endphp
             @foreach ($antrian as $item)
                 <a href="{{ route('show.pemeriksaan', $item->id_kunjungan) }}">
                     <div class="cursor-pointer border-b p-3 hover:bg-amber-50">
                         <div class="flex justify-between">
                             <span class="font-bold text-amber-800">{{ $item->pasien->nomor_rekam_medis }}</span>
-                            <span class="flex items-center rounded bg-amber-400 px-2 text-xs font-semibold">UMUM</span>
+                            <span
+                                class="flex items-center rounded bg-amber-400 px-2 text-xs font-semibold text-white">Antrian
+                                ke-{{ $count }}</span>
                         </div>
                         <div class="mt-1">
                             <div class="font-bold">{{ $item->pasien->nama_lengkap }}</div>
@@ -47,6 +54,9 @@
                         </div>
                     </div>
                 </a>
+                @php
+                    $count++;
+                @endphp
             @endforeach
         @else
             <div class="p-3 text-center text-gray-600">Tidak ada antrian</div>

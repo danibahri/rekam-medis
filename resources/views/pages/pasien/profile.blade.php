@@ -223,7 +223,8 @@
                         class="rounded-lg bg-amber-500 px-4 py-2 font-semibold text-white shadow transition duration-200 hover:bg-amber-600">
                         <i class="fas fa-print mr-2"></i>Cetak Profile
                     </a>
-                    <a href="{{ route('show.pasien') }}"
+                    {{-- href kembali back() --}}
+                    <a href="{{ url()->previous() }}"
                         class="rounded-lg bg-gray-300 px-4 py-2 font-semibold text-gray-700 shadow transition duration-200 hover:bg-gray-400">
                         <i class="fas fa-arrow-left mr-2"></i>Kembali
                     </a>
