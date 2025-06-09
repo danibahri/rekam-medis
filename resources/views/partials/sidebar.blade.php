@@ -83,6 +83,55 @@
                         <span class="ms-3">Pelepasan Informasi</span>
                     </a>
                 </li>
+                @if (Auth::user()->role == 'admin')
+                    <li>
+                        <button type="button"
+                            class="group flex w-full items-center rounded-lg p-2 text-base text-white transition duration-75 hover:bg-white hover:text-black"
+                            aria-controls="master-data" data-collapse-toggle="master-data">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125S3.75 19.903 3.75 17.625V6.375m16.5 0v3.563c0 2.278-3.694 4.125-8.25 4.125S3.75 12.216 3.75 9.938V6.375" />
+                            </svg>
+                            <span class="ms-3 flex-1 cursor-pointer whitespace-nowrap text-left rtl:text-right">Master
+                                Data</span>
+                            <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <ul id="master-data" class="hidden space-y-2 rounded-lg border-2 border-white py-2">
+                            <li>
+                                <a href="{{ route('master.agama') }}"
+                                    class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-white hover:text-black">Agama</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('master.cara-pembayaran') }}"
+                                    class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-white hover:text-black">Cara
+                                    Pembayaran</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('master.jenis-kelamin') }}"
+                                    class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-white hover:text-black">Jenis
+                                    Kelamin</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('master.pekerjaan') }}"
+                                    class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-white hover:text-black">Pekerjaan</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('master.pendidikan') }}"
+                                    class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-white hover:text-black">Pendidikan</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('master.status-pernikahan') }}"
+                                    class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-white hover:text-black">Status
+                                    Pernikahan</a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
             </ul>
             <p class="mt-4 text-white">Account</p>
             {{-- user setting --}}
@@ -114,8 +163,8 @@
                             </svg>
                             <span
                                 class="ms-3 flex-1 cursor-pointer whitespace-nowrap text-left rtl:text-right">Setting</span>
-                            <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 10 6">
+                            <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 10 6">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="m1 1 4 4 4-4" />
                             </svg>

@@ -74,12 +74,6 @@ class DatabaseSeeder extends Seeder
             ['id' => '4', 'nama' => 'Asuransi Lainnya', 'created_at' => now(), 'updated_at' => now()],
         ]);
 
-        // Seed Master Diagnosa (ICD-10)
-        DB::table('master_diagnosa')->insert([
-            ['kode' => 'A00', 'nama' => 'Cholera', 'deskripsi' => 'Infeksi usus akut yang disebabkan oleh bakteri Vibrio cholerae', 'created_at' => now(), 'updated_at' => now()],
-            ['kode' => 'J00', 'nama' => 'Acute nasopharyngitis [common cold]', 'deskripsi' => 'Infeksi saluran pernapasan atas akut', 'created_at' => now(), 'updated_at' => now()],
-            ['kode' => 'E11', 'nama' => 'Type 2 diabetes mellitus', 'deskripsi' => 'Diabetes tipe 2 (tidak tergantung insulin)', 'created_at' => now(), 'updated_at' => now()],
-        ]);
 
         // Seed Konfigurasi Klinik
         DB::table('konfigurasi_klinik')->insert([
@@ -102,7 +96,7 @@ class DatabaseSeeder extends Seeder
         $adminUserId = 'USR-' . date('Ymd') . '001';
         $dokterUserId = 'USR-' . date('Ymd') . '002';
         $petugasUserId = 'USR-' . date('Ymd') . '003';
-        
+
         DB::table('users')->insert([
             [
                 'id' => $adminUserId,
@@ -177,6 +171,7 @@ class DatabaseSeeder extends Seeder
 
         // Seed Pasien
         $pasienId = 'PSN-' . date('Ymd') . '001';
+        $pasienId2 = 'PSN-' . date('Ymd') . '002';
         DB::table('pasien')->insert([
             'id_pasien' => $pasienId,
             'nomor_rekam_medis' => 'RM0000001',
@@ -203,6 +198,49 @@ class DatabaseSeeder extends Seeder
             'domisili_rw' => '002',
             'domisili_kelurahan_desa' => 'Kelurahan Mawar',
             'domisili_kecamatan' => 'Kecamatan Indah',
+            'domisili_kota_kabupaten' => 'Jakarta Selatan',
+            'domisili_kode_pos' => '12345',
+            'domisili_provinsi' => 'DKI Jakarta',
+            'domisili_negara' => 'Indonesia',
+            'telepon_rumah' => '0217654321',
+            'telepon_seluler' => '08123456789',
+            'pendidikan' => '6',
+            'pekerjaan' => '5',
+            'status_pernikahan' => '2',
+            'cara_pembayaran' => '1',
+            'foto_pasien_path' => 'storage/foto_pasien/siti.jpg',
+            'tanda_tangan_pasien_path' => 'storage/tanda_tangan_pasien/siti.png',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+
+        DB::table('pasien')->insert([
+            'id_pasien' => $pasienId2,
+            'nomor_rekam_medis' => 'RM0000002',
+            'nik' => '3674012345678902',
+            'nama_lengkap' => 'Nurul Hidayah',
+            'nama_ibu_kandung' => 'Aminaha',
+            'tempat_lahir' => 'Jakarta',
+            'tanggal_lahir' => '1999-05-15',
+            'jenis_kelamin' => '2',
+            'agama' => '1',
+            'suku' => 'Jawa',
+            'bahasa_dikuasai' => 'Indonesia',
+            'alamat_lengkap' => 'Jl. Melati No. 20 RT 003 RW 004',
+            'rt' => '001',
+            'rw' => '002',
+            'kelurahan_desa' => 'Kelurahan Melati',
+            'kecamatan' => 'Kecamatan Melati',
+            'kota_kabupaten' => 'Jakarta Selatan',
+            'kode_pos' => '12345',
+            'provinsi' => 'DKI Jakarta',
+            'negara' => 'Indonesia',
+            'alamat_domisili' => 'Jl. Melati No. 20 RT 003 RW 004',
+            'domisili_rt' => '001',
+            'domisili_rw' => '002',
+            'domisili_kelurahan_desa' => 'Kelurahan Melati',
+            'domisili_kecamatan' => 'Kecamatan Melati',
             'domisili_kota_kabupaten' => 'Jakarta Selatan',
             'domisili_kode_pos' => '12345',
             'domisili_provinsi' => 'DKI Jakarta',

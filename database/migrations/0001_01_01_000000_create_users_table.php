@@ -53,14 +53,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // Master Diagnosa (ICD-10)
-        Schema::create('master_diagnosa', function (Blueprint $table) {
-            $table->string('kode', 10)->primary();
-            $table->string('nama', 255);
-            $table->text('deskripsi')->nullable();
-            $table->timestamps();
-        });
-
         // Konfigurasi Klinik
         Schema::create('konfigurasi_klinik', function (Blueprint $table) {
             $table->string('id', 10)->primary();
@@ -333,7 +325,6 @@ return new class extends Migration
             $table->string('nama_dpjp', 100);
             $table->text('anamnesa')->nullable();
             $table->text('diagnosa')->nullable();
-            $table->string('kode_diagnosa', 10)->nullable();
             $table->string('kode_icd9', 10)->nullable();
             $table->string('kode_icd10', 10)->nullable();
             $table->text('terapi')->nullable();
@@ -345,7 +336,6 @@ return new class extends Migration
             // Implementasi rekomendasi 4 - Relasi Tabel
             $table->foreign('id_pasien')->references('id_pasien')->on('pasien')->onDelete('cascade');
             $table->foreign('id_kunjungan')->references('id_kunjungan')->on('kunjungan');
-            $table->foreign('kode_diagnosa')->references('kode')->on('master_diagnosa');
         });
 
         // Resep
@@ -398,7 +388,6 @@ return new class extends Migration
             $table->date('tanggal_surat');
             $table->string('tujuan_surat', 100)->nullable();
             $table->text('diagnosa')->nullable();
-            $table->string('kode_diagnosa', 10)->nullable();
             $table->string('kode_icd9', 10)->nullable();
             $table->string('kode_icd10', 10)->nullable();
             $table->integer('lama_istirahat')->nullable()->comment('dalam hari, untuk surat sakit');
@@ -413,7 +402,6 @@ return new class extends Migration
             // Implementasi rekomendasi 4 - Relasi Tabel
             $table->foreign('id_pasien')->references('id_pasien')->on('pasien')->onDelete('cascade');
             $table->foreign('id_kunjungan')->references('id_kunjungan')->on('kunjungan');
-            $table->foreign('kode_diagnosa')->references('kode')->on('master_diagnosa');
         });
 
         // Dokumen Pasien - Implementasi rekomendasi 1
@@ -487,7 +475,6 @@ return new class extends Migration
         Schema::dropIfExists('users');
         Schema::dropIfExists('master_obat');
         Schema::dropIfExists('konfigurasi_klinik');
-        Schema::dropIfExists('master_diagnosa');
         Schema::dropIfExists('master_cara_pembayaran');
         Schema::dropIfExists('master_status_pernikahan');
         Schema::dropIfExists('master_pekerjaan');
