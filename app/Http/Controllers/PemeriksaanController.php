@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kunjungan;
+use App\Models\MasterJenisKelamin;
 
 class PemeriksaanController extends Controller
 {
@@ -16,6 +17,8 @@ class PemeriksaanController extends Controller
             $kunjungan = Kunjungan::find($request->id);
         }
 
-        return view('pages.pemeriksaan.index', compact('antrian', 'kunjungan'));
+        $master_jeniskelamin = MasterJenisKelamin::all();
+
+        return view('pages.pemeriksaan.index', compact('antrian', 'kunjungan', 'master_jeniskelamin'));
     }
 }

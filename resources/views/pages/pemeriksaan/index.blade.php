@@ -37,9 +37,11 @@
                                             </div>
                                         @endif
                                     </div>
-                                    <a href="{{ route('profile.pasien', $kunjungan->pasien->id_pasien ?? '-') }}"
-                                        class="mt-2 cursor-pointer rounded bg-amber-100 px-4 py-1 text-sm text-amber-800 hover:bg-amber-200">Lihat
-                                        Profile</a>
+                                    @if (!empty($kunjungan))
+                                        <a href="{{ route('profile.pasien', $kunjungan->pasien->id_pasien ?? '-') }}"
+                                            class="mt-2 cursor-pointer rounded bg-amber-100 px-4 py-1 text-sm text-amber-800 hover:bg-amber-200">Lihat
+                                            Profile</a>
+                                    @endif
                                 </div>
                                 {{-- detail pasien --}}
                                 <div class="flex-grow">

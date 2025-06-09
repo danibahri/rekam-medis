@@ -63,16 +63,10 @@
                 <select id="jenis_kelamin" name="jenis_kelamin"
                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400">
                     <option value="" selected disabled>Pilih Jenis Kelamin</option>
-                    <option value="0" {{ old('jenis_kelamin') == '0' ? 'selected' : '' }}>
-                        Tdak diketahui jenis kelamin pasien</option>
-                    <option value="1" {{ old('jenis_kelamin') == '1' ? 'selected' : '' }}>
-                        Laki-laki</option>
-                    <option value="2" {{ old('jenis_kelamin') == '2' ? 'selected' : '' }}>
-                        Perempuan</option>
-                    <option value="3" {{ old('jenis_kelamin') == '3' ? 'selected' : '' }}>
-                        Tidak dapat ditentukan</option>
-                    <option value="4" {{ old('jenis_kelamin') == '4' ? 'selected' : '' }}>
-                        Tidak mengisi</option>
+                    @foreach ($master_jeniskelamin as $item)
+                        <option value="{{ $item->id }}" {{ old('jenis_kelamin') == $item->id ? 'selected' : '' }}>
+                            {{ $item->nama }}</option>
+                    @endforeach
                 </select>
                 @error('jenis_kelamin')
                     <span class="text-xs text-red-400">{{ $message }}</span>
