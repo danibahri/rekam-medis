@@ -49,9 +49,7 @@
                                     <td class="px-6 py-4">
                                         <div>
                                             <a href="{{ route('pelepasan.informasi.pdf', $item->id_pasien) }}"
-                                                target="_blank" data-modal-target="modal-{{ $item->id_pasien }}"
-                                                data-modal-toggle="modal-{{ $item->id_pasien }}"
-                                                class="cursor-pointer text-yellow-500"
+                                                target="_blank" class="cursor-pointer text-yellow-500"
                                                 data-tooltip-target="tooltip-{{ $count }}-2"
                                                 data-tooltip-style="light">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

@@ -103,4 +103,7 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     // Pelepasan Informasi
     Route::get('/pelepasan-informasi', [PelepasanController::class, 'index'])->name('pelepasan.informasi');
     Route::get('/pelepasan-informasi/{id}', [PelepasanController::class, 'show_pdf'])->name('pelepasan.informasi.pdf');
+
+    // persetujuan pasien
+    Route::get('/persetujuan-pasien/{id}', [PelepasanController::class, 'persetujuan_pdf'])->name('persetujuan.pasien.pdf');
 });

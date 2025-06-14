@@ -30,17 +30,42 @@
                             <p class="font-semibold text-gray-700">No. Rekam Medis: {{ $pasien->nomor_rekam_medis ?? '-' }}
                             </p>
                             <p class="text-gray-700">ID Pasien: {{ $pasien->id_pasien ?? '-' }}</p>
-                            <div class="mt-4">
-                                <a href="{{ route('edit.pasien', $pasien->id_pasien) }}"
-                                    class="focus:ring-white-300 inline-flex items-center rounded-lg border px-4 py-2 text-sm font-medium text-white hover:shadow-xl focus:outline-none focus:ring-4">
-                                    <svg class="mr-2 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 20 20">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="m13.835 7.578-.005.007-7.137 7.137 2.139 2.138 7.143-7.142-2.14-2.14Zm-10.696 3.59 2.139 2.14 7.138-7.137.007-.005-2.141-2.141-7.143 7.143Zm1.433 4.261L2 12.852.051 18.684a1 1 0 0 0 1.265 1.264L7.147 18l-2.575-2.571Z" />
-                                    </svg>
-                                    Edit Data Pasien
-                                </a>
+                            <div class="mt-4 flex flex-col gap-2 md:flex-row">
+                                <div>
+                                    <a href="{{ route('edit.pasien', $pasien->id_pasien) }}" data-tooltip-target="tooltip-1"
+                                        data-tooltip-style="light"
+                                        class="focus:ring-white-300 inline-flex items-center rounded-lg border-2 px-4 py-2 text-sm font-medium text-white hover:shadow-xl focus:outline-none focus:ring-4">
+                                        <svg class="mr-2 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="m13.835 7.578-.005.007-7.137 7.137 2.139 2.138 7.143-7.142-2.14-2.14Zm-10.696 3.59 2.139 2.14 7.138-7.137.007-.005-2.141-2.141-7.143 7.143Zm1.433 4.261L2 12.852.051 18.684a1 1 0 0 0 1.265 1.264L7.147 18l-2.575-2.571Z" />
+                                        </svg>
+                                        Edit Data Pasien
+                                    </a>
+                                    <div id="tooltip-1" role="tooltip"
+                                        class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 opacity-0">
+                                        Edit data pasien
+                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="{{ route('persetujuan.pasien.pdf', $pasien->id_pasien) }}"
+                                        data-tooltip-target="tooltip-2" data-tooltip-style="light"
+                                        class="focus:ring-white-300 inline-flex items-center rounded-lg border-2 px-4 py-2 text-sm font-medium text-white hover:shadow-xl focus:outline-none focus:ring-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="mr-2 h-4 w-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                        </svg>
+                                        Persetujuan Pasien
+                                    </a>
+                                    <div id="tooltip-2" role="tooltip"
+                                        class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 opacity-0">
+                                        Cetak surat persetujuan pasien
+                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -241,7 +266,6 @@
                                 <th class="px-6 py-3">Dokter</th>
                                 <th class="px-6 py-3">Pembayaran</th>
                                 <th class="px-6 py-3">Status</th>
-                                <th class="px-6 py-3">Action</th>
                             </tr>
                         </thead>
                         <tbody>
