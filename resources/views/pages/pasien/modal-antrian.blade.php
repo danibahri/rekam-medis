@@ -73,10 +73,12 @@
                     </div>
                     <div class="col-span-2 mt-5">
                         @php
-                            $kunjungan = App\Models\Kunjungan::where('id_pasien', $item->id_pasien)->get();
+                            $kunjungan = App\Models\Kunjungan::where('id_pasien', $item->id_pasien)
+                                ->whereIn('status', ['menunggu', 'dalam_pemeriksaan'])
+                                ->get();
                         @endphp
-                        <label for="description" class="mb-2 block text-sm font-medium text-gray-900">History
-                            Kunjungan</label>
+                        <label for="description" class="mb-2 block text-sm font-medium text-gray-900">Antrian
+                            Pasien</label>
                         <div class="relative overflow-x-auto">
                             <table class="border-t-1 w-full text-left text-sm text-gray-700 shadow-md">
                                 <thead class="border-b-1 bg-white text-xs uppercase text-gray-700">
@@ -90,8 +92,8 @@
                                 <tbody>
                                     @if (count($kunjungan) == 0)
                                         <tr>
-                                            <td colspan="4" class="px-6 py-4 text-center">Tidak ada history kunjungan
-                                                pasien</td>
+                                            <td colspan="4" class="px-6 py-4 text-center">Tidak ada antrian pasien.
+                                            </td>
                                         </tr>
                                     @else
                                         @foreach ($kunjungan as $kunjungan)

@@ -26,7 +26,24 @@ class PasienController extends Controller
     public function profile_pasien($id)
     {
         $pasien = Pasien::with(['jenisKelamin', 'agama', 'pendidikan', 'pekerjaan', 'statusPernikahan', 'caraPembayaran'])->findOrFail($id);
-        return view('pages.pasien.profile', compact('pasien'));
+
+        // kunjungan pasien dengan status selesai
+        $kunjungan = Kunjungan::where('id_pasien', $id)
+            ->where('status', 'selesai')
+            ->orderBy('tanggal_kunjungan', 'desc')
+            ->orderBy('waktu_kunjungan', 'desc')
+            ->get();
+
+        if (!$pasien) {
+            Swal::error([
+                'title' => 'Error',
+                'text' => 'Pasien not found',
+                'icon' => 'error',
+                'timer' => 3000,
+            ]);
+            return redirect()->route('show.pasien')->with('error', 'Pasien not found');
+        }
+        return view('pages.pasien.profile', compact('pasien', 'kunjungan'));
     }
 
     public function add_pasien()

@@ -230,6 +230,43 @@
                     </a>
                 </div>
             </div>
+
+            {{-- kunjungan pasien dengan status selesai --}}
+            <div class="mt-8 rounded-lg bg-white p-6 shadow-lg">
+                <h2 class="mb-4 text-2xl font-bold text-gray-800">Riwayat Kunjungan Pasien</h2>
+                @if ($kunjungan->isEmpty())
+                    <p class="text-gray-600">Pasien belum pernah berkunjung.</p>
+                @else
+                    <table id="search-table" class="w-full border-t-4 border-amber-300 text-left text-sm text-gray-700">
+                        <thead class="border-b-1 bg-white text-xs uppercase text-gray-700">
+                            <tr>
+                                <th class="px-6 py-3">ID Kunjungan</th>
+                                <th class="px-6 py-3">Tanggal Kunjungan</th>
+                                <th class="px-6 py-3">Waktu Kunjungan</th>
+                                <th class="px-6 py-3">Dokter</th>
+                                <th class="px-6 py-3">Pembayaran</th>
+                                <th class="px-6 py-3">Status</th>
+                                <th class="px-6 py-3">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($kunjungan as $item)
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="px-6 py-4">{{ $item->id_kunjungan ?? '-' }}</td>
+                                    <td class="px-6 py-4">
+                                        {{ \Carbon\Carbon::parse($item->tanggal_kunjungan)->format('d F Y') ?? '-' }}</td>
+                                    <td class="px-6 py-4">{{ $item->waktu_kunjungan ?? '-' }}</td>
+                                    <td class="px-6 py-4">{{ $item->dokter->nama_dokter ?? '-' }}</td>
+                                    <td class="px-6 py-4">{{ $item->caraPembayaran->nama ?? '-' }}</td>
+                                    <td class="px-6 py-4"><span
+                                            class="rounded bg-green-500 px-2 py-1 font-bold text-white">{{ $item->status ?? '-' }}</span>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endif
+            </div>
         </div>
     </div>
 @endsection

@@ -456,75 +456,42 @@
                     </div>
 
                     <!-- Dokumen Pendukung -->
-                    {{-- <div class="mb-6">
-                        <h2 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Dokumen Pendukung</h2>
-                        <div class="grid md:grid-cols-2 gap-6">
+                    <div class="mb-6">
+                        <div class="grid gap-6 md:grid-cols-2">
                             <div>
                                 <div id="image-preview"
-                                    class="w-full p-6 mb-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
+                                    class="mx-auto mb-4 w-full cursor-pointer items-center rounded-lg border-2 border-dashed border-gray-400 bg-gray-100 p-6 text-center">
                                     <input id="foto_pasien_path" type="file" class="hidden" accept="image/*" />
                                     <label for="foto_pasien_path" class="cursor-pointer">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor"
-                                            class="w-8 h-8 text-gray-700 mx-auto mb-4">
+                                            class="mx-auto mb-4 h-8 w-8 text-gray-700">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                                         </svg>
                                         <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Unggah Foto Pasien
                                         </h5>
-                                        <p class="font-normal text-sm text-gray-400 md:px-6">Choose photo size should be
+                                        <p class="text-sm font-normal text-gray-400 md:px-6">Choose photo size should be
                                             less than <b class="text-gray-600">2mb</b></p>
-                                        <p class="font-normal text-sm text-gray-400 md:px-6">and should be in <b
+                                        <p class="text-sm font-normal text-gray-400 md:px-6">and should be in <b
                                                 class="text-gray-600">JPG, PNG, or GIF</b> format.</p>
-                                        <span id="filename" class="text-gray-500 bg-gray-200 z-50"></span>
+                                        <span id="filename" class="z-50 bg-gray-200 text-gray-500"></span>
                                     </label>
                                 </div>
                                 <div class="flex items-center justify-center">
                                     <div class="w-full">
                                         <label
-                                            class="w-full text-white bg-[#050708] hover:bg-[#050708]/90 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 flex items-center justify-center mr-2 mb-2 cursor-pointer">
-                                            <span class="text-center ml-2">Upload</span>
+                                            class="mb-2 mr-2 flex w-full cursor-pointer items-center justify-center rounded-lg bg-[#050708] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#050708]/90 focus:outline-none focus:ring-4 focus:ring-[#050708]/50">
+                                            <span class="ml-2 text-center">Upload</span>
                                         </label>
                                     </div>
                                 </div>
                                 @error('foto_pasien_path')
-                                    <span class="text-red-400 text-xs">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div>
-                                <div id="image-preview"
-                                    class="w-full p-6 mb-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
-                                    <input id="tanda_tangan_pasien_path" type="file" class="hidden"
-                                        accept="image/*" />
-                                    <label for="tanda_tangan_pasien_path" class="cursor-pointer">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor"
-                                            class="w-8 h-8 text-gray-700 mx-auto mb-4">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-                                        </svg>
-                                        <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Upload picture</h5>
-                                        <p class="font-normal text-sm text-gray-400 md:px-6">Choose photo size should be
-                                            less than <b class="text-gray-600">2mb</b></p>
-                                        <p class="font-normal text-sm text-gray-400 md:px-6">and should be in <b
-                                                class="text-gray-600">JPG, PNG, or GIF</b> format.</p>
-                                        <span id="filename" class="text-gray-500 bg-gray-200 z-50"></span>
-                                    </label>
-                                </div>
-                                <div class="flex items-center justify-center">
-                                    <div class="w-full">
-                                        <label
-                                            class="w-full text-white bg-[#050708] hover:bg-[#050708]/90 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 flex items-center justify-center mr-2 mb-2 cursor-pointer">
-                                            <span class="text-center ml-2">Upload</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                @error('tanda_tangan_pasien_path')
-                                    <span class="text-red-400 text-xs">{{ $message }}</span>
+                                    <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
 
                     <!-- Tombol Submit dan Reset -->
                     <div class="flex justify-end space-x-4">
