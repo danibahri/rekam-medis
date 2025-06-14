@@ -1,33 +1,25 @@
 @extends('layouts.master')
-@section('title', 'Registrasi Data Pasien')
-@section('description', 'Registrasi Data Pasien - Rekam Medis')
+@section('title', 'Edit Data Pasien')
+@section('description', 'Edit Data Pasien - Rekam Medis')
 @section('content')
     <div class="p-4 sm:ml-64">
         <div class="rounded-lg border-2 border-dashed border-gray-200 p-4">
-            <h1 class="mb-4 rounded bg-white py-5 pl-3 text-3xl font-bold text-gray-700 shadow">Registrasi Pasien</h1>
+            <h1 class="mb-4 rounded bg-white py-5 pl-3 text-3xl font-bold text-gray-700 shadow">Edit Data Pasien</h1>
             <div class="rounded-lg bg-white p-6 shadow">
-                <form action="{{ route('store.pasien') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('update.pasien', $pasien->id_pasien) }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <!-- Data Identitas Utama -->
                     <div class="mb-6">
                         <h2 class="mb-4 border-b pb-2 text-xl font-semibold text-gray-800">Data Identitas Utama</h2>
                         <div class="grid gap-6 md:grid-cols-2">
-                            {{-- <div>
-                                <label for="id_pasien" class="block mb-2 text-sm font-medium text-gray-900">ID
-                                    Pasien</label>
-                                <input type="text" id="id_pasien" name="id_pasien"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5"
-                                    placeholder="ID Pasien" value="{{ old('id_pasien') }}">
-                                @error('id_pasien')
-                                    <span class="text-red-400 text-xs">{{ $message }}</span>
-                                @enderror
-                            </div> --}}
                             <div>
                                 <label for="nomor_rekam_medis" class="mb-2 block text-sm font-medium text-gray-900">Nomor
                                     Rekam Medis</label>
                                 <input type="text" id="nomor_rekam_medis" name="nomor_rekam_medis"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Nomor Rekam Medis" value="{{ old('nomor_rekam_medis') }}">
+                                    placeholder="Nomor Rekam Medis"
+                                    value="{{ old('nomor_rekam_medis', $pasien->nomor_rekam_medis) }}">
                                 @error('nomor_rekam_medis')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -43,7 +35,7 @@
                                 <label for="nik" class="mb-2 block text-sm font-medium text-gray-900">NIK</label>
                                 <input type="text" id="nik" name="nik"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Nomor Induk Kependudukan" value="{{ old('nik') }}">
+                                    placeholder="Nomor Induk Kependudukan" value="{{ old('nik', $pasien->nik) }}">
                                 @error('nik')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -53,7 +45,8 @@
                                     Identitas Lain</label>
                                 <input type="text" id="nomor_identitas_lain" name="nomor_identitas_lain"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Nomor Identitas Lain" value="{{ old('nomor_identitas_lain') }}">
+                                    placeholder="Nomor Identitas Lain"
+                                    value="{{ old('nomor_identitas_lain', $pasien->nomor_identitas_lain) }}">
                                 @error('nomor_identitas_lain')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -63,7 +56,8 @@
                                     Lengkap</label>
                                 <input type="text" id="nama_lengkap" name="nama_lengkap"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Nama Lengkap" value="{{ old('nama_lengkap') }}" required>
+                                    placeholder="Nama Lengkap" value="{{ old('nama_lengkap', $pasien->nama_lengkap) }}"
+                                    required>
                                 @error('nama_lengkap')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -73,7 +67,8 @@
                                     Kandung</label>
                                 <input type="text" id="nama_ibu_kandung" name="nama_ibu_kandung"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Nama Ibu Kandung" value="{{ old('nama_ibu_kandung') }}">
+                                    placeholder="Nama Ibu Kandung"
+                                    value="{{ old('nama_ibu_kandung', $pasien->nama_ibu_kandung) }}">
                                 @error('nama_ibu_kandung')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -83,7 +78,7 @@
                                     Lahir</label>
                                 <input type="text" id="tempat_lahir" name="tempat_lahir"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Tempat Lahir" value="{{ old('tempat_lahir') }}">
+                                    placeholder="Tempat Lahir" value="{{ old('tempat_lahir', $pasien->tempat_lahir) }}">
                                 @error('tempat_lahir')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -102,7 +97,8 @@
                                     <input datepicker datepicker-format="yyyy-mm-dd" type="text" id="tanggal_lahir"
                                         name="tanggal_lahir"
                                         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                        placeholder="Pilih tanggal" value="{{ old('tanggal_lahir') }}">
+                                        placeholder="Pilih tanggal"
+                                        value="{{ old('tanggal_lahir', $pasien->tanggal_lahir ? $pasien->tanggal_lahir->format('Y-m-d') : '') }}">
                                 </div>
                                 @error('tanggal_lahir')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
@@ -116,10 +112,9 @@
                                     <option value="" selected disabled>Pilih Jenis Kelamin</option>
                                     @foreach ($master_jenisKelamin as $item)
                                         <option value="{{ $item->id }}"
-                                            {{ old('jenis_kelamin') == $item->id ? 'selected' : '' }}>
+                                            {{ old('jenis_kelamin', $pasien->jenis_kelamin) == $item->id ? 'selected' : '' }}>
                                             {{ $item->nama }}</option>
                                     @endforeach
-
                                 </select>
                                 @error('jenis_kelamin')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
@@ -132,10 +127,9 @@
                                     <option value="" selected disabled>Pilih Agama</option>
                                     @foreach ($master_agama as $item)
                                         <option value="{{ $item->id }}"
-                                            {{ old('agama') == $item->id ? 'selected' : '' }}>
+                                            {{ old('agama', $pasien->agama) == $item->id ? 'selected' : '' }}>
                                             {{ $item->nama }}</option>
                                     @endforeach
-
                                 </select>
                                 @error('agama')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
@@ -145,7 +139,7 @@
                                 <label for="suku" class="mb-2 block text-sm font-medium text-gray-900">Suku</label>
                                 <input type="text" id="suku" name="suku"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Suku" value="{{ old('suku') }}">
+                                    placeholder="Suku" value="{{ old('suku', $pasien->suku) }}">
                                 @error('suku')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -155,7 +149,8 @@
                                     yang Dikuasai</label>
                                 <input type="text" id="bahasa_dikuasai" name="bahasa_dikuasai"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Bahasa yang Dikuasai" value="{{ old('bahasa_dikuasai') }}">
+                                    placeholder="Bahasa yang Dikuasai"
+                                    value="{{ old('bahasa_dikuasai', $pasien->bahasa_dikuasai) }}">
                                 @error('bahasa_dikuasai')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -172,7 +167,7 @@
                                     Lengkap</label>
                                 <textarea id="alamat_lengkap" name="alamat_lengkap" rows="3"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Alamat Lengkap">{{ old('alamat_lengkap') }}</textarea>
+                                    placeholder="Alamat Lengkap">{{ old('alamat_lengkap', $pasien->alamat_lengkap) }}</textarea>
                                 @error('alamat_lengkap')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -181,7 +176,7 @@
                                 <label for="rt" class="mb-2 block text-sm font-medium text-gray-900">RT</label>
                                 <input type="text" id="rt" name="rt"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="RT" value="{{ old('rt') }}">
+                                    placeholder="RT" value="{{ old('rt', $pasien->rt) }}">
                                 @error('rt')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -190,7 +185,7 @@
                                 <label for="rw" class="mb-2 block text-sm font-medium text-gray-900">RW</label>
                                 <input type="text" id="rw" name="rw"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="RW" value="{{ old('rw') }}">
+                                    placeholder="RW" value="{{ old('rw', $pasien->rw) }}">
                                 @error('rw')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -200,7 +195,8 @@
                                     class="mb-2 block text-sm font-medium text-gray-900">Kelurahan/Desa</label>
                                 <input type="text" id="kelurahan_desa" name="kelurahan_desa"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Kelurahan/Desa" value="{{ old('kelurahan_desa') }}">
+                                    placeholder="Kelurahan/Desa"
+                                    value="{{ old('kelurahan_desa', $pasien->kelurahan_desa) }}">
                                 @error('kelurahan_desa')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -210,7 +206,7 @@
                                     class="mb-2 block text-sm font-medium text-gray-900">Kecamatan</label>
                                 <input type="text" id="kecamatan" name="kecamatan"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Kecamatan" value="{{ old('kecamatan') }}">
+                                    placeholder="Kecamatan" value="{{ old('kecamatan', $pasien->kecamatan) }}">
                                 @error('kecamatan')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -220,7 +216,8 @@
                                     class="mb-2 block text-sm font-medium text-gray-900">Kota/Kabupaten</label>
                                 <input type="text" id="kota_kabupaten" name="kota_kabupaten"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Kota/Kabupaten" value="{{ old('kota_kabupaten') }}">
+                                    placeholder="Kota/Kabupaten"
+                                    value="{{ old('kota_kabupaten', $pasien->kota_kabupaten) }}">
                                 @error('kota_kabupaten')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -230,7 +227,7 @@
                                     Pos</label>
                                 <input type="text" id="kode_pos" name="kode_pos"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Kode Pos" value="{{ old('kode_pos') }}">
+                                    placeholder="Kode Pos" value="{{ old('kode_pos', $pasien->kode_pos) }}">
                                 @error('kode_pos')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -240,7 +237,7 @@
                                     class="mb-2 block text-sm font-medium text-gray-900">Provinsi</label>
                                 <input type="text" id="provinsi" name="provinsi"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Provinsi" value="{{ old('provinsi') }}">
+                                    placeholder="Provinsi" value="{{ old('provinsi', $pasien->provinsi) }}">
                                 @error('provinsi')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -249,7 +246,7 @@
                                 <label for="negara" class="mb-2 block text-sm font-medium text-gray-900">Negara</label>
                                 <input type="text" id="negara" name="negara"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Negara" value="{{ old('negara', 'Indonesia') }}">
+                                    placeholder="Negara" value="{{ old('negara', $pasien->negara) ?? 'Indonesia' }}">
                                 @error('negara')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -262,8 +259,8 @@
                         <div class="mb-4 flex items-center justify-between">
                             <h2 class="border-b pb-2 text-xl font-semibold text-gray-800">Alamat Domisili</h2>
                             <div class="flex items-center">
-                                <input id="same_as_ktp" type="checkbox"
-                                    class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-amber-600 focus:ring-amber-400">
+                                <input id="same_as_ktp" type="checkbox" value=""
+                                    class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-amber-600 focus:ring-2 focus:ring-amber-500">
                                 <label for="same_as_ktp" class="ml-2 text-sm font-medium text-gray-900">Sama dengan alamat
                                     KTP</label>
                             </div>
@@ -274,7 +271,7 @@
                                     Domisili</label>
                                 <textarea id="alamat_domisili" name="alamat_domisili" rows="3"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Alamat Domisili">{{ old('alamat_domisili') }}</textarea>
+                                    placeholder="Alamat Domisili">{{ old('alamat_domisili', $pasien->alamat_domisili) }}</textarea>
                                 @error('alamat_domisili')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -283,7 +280,7 @@
                                 <label for="domisili_rt" class="mb-2 block text-sm font-medium text-gray-900">RT</label>
                                 <input type="text" id="domisili_rt" name="domisili_rt"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="RT" value="{{ old('domisili_rt') }}">
+                                    placeholder="RT" value="{{ old('domisili_rt', $pasien->domisili_rt) }}">
                                 @error('domisili_rt')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -292,7 +289,7 @@
                                 <label for="domisili_rw" class="mb-2 block text-sm font-medium text-gray-900">RW</label>
                                 <input type="text" id="domisili_rw" name="domisili_rw"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="RW" value="{{ old('domisili_rw') }}">
+                                    placeholder="RW" value="{{ old('domisili_rw', $pasien->domisili_rw) }}">
                                 @error('domisili_rw')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -302,7 +299,8 @@
                                     class="mb-2 block text-sm font-medium text-gray-900">Kelurahan/Desa</label>
                                 <input type="text" id="domisili_kelurahan_desa" name="domisili_kelurahan_desa"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Kelurahan/Desa" value="{{ old('domisili_kelurahan_desa') }}">
+                                    placeholder="Kelurahan/Desa"
+                                    value="{{ old('domisili_kelurahan_desa', $pasien->domisili_kelurahan_desa) }}">
                                 @error('domisili_kelurahan_desa')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -312,7 +310,8 @@
                                     class="mb-2 block text-sm font-medium text-gray-900">Kecamatan</label>
                                 <input type="text" id="domisili_kecamatan" name="domisili_kecamatan"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Kecamatan" value="{{ old('domisili_kecamatan') }}">
+                                    placeholder="Kecamatan"
+                                    value="{{ old('domisili_kecamatan', $pasien->domisili_kecamatan) }}">
                                 @error('domisili_kecamatan')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -322,7 +321,8 @@
                                     class="mb-2 block text-sm font-medium text-gray-900">Kota/Kabupaten</label>
                                 <input type="text" id="domisili_kota_kabupaten" name="domisili_kota_kabupaten"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Kota/Kabupaten" value="{{ old('domisili_kota_kabupaten') }}">
+                                    placeholder="Kota/Kabupaten"
+                                    value="{{ old('domisili_kota_kabupaten', $pasien->domisili_kota_kabupaten) }}">
                                 @error('domisili_kota_kabupaten')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -332,7 +332,8 @@
                                     Pos</label>
                                 <input type="text" id="domisili_kode_pos" name="domisili_kode_pos"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Kode Pos" value="{{ old('domisili_kode_pos') }}">
+                                    placeholder="Kode Pos"
+                                    value="{{ old('domisili_kode_pos', $pasien->domisili_kode_pos) }}">
                                 @error('domisili_kode_pos')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -342,7 +343,8 @@
                                     class="mb-2 block text-sm font-medium text-gray-900">Provinsi</label>
                                 <input type="text" id="domisili_provinsi" name="domisili_provinsi"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Provinsi" value="{{ old('domisili_provinsi') }}">
+                                    placeholder="Provinsi"
+                                    value="{{ old('domisili_provinsi', $pasien->domisili_provinsi) }}">
                                 @error('domisili_provinsi')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -352,7 +354,8 @@
                                     class="mb-2 block text-sm font-medium text-gray-900">Negara</label>
                                 <input type="text" id="domisili_negara" name="domisili_negara"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Negara" value="{{ old('domisili_negara', 'Indonesia') }}">
+                                    placeholder="Negara"
+                                    value="{{ old('domisili_negara', $pasien->domisili_negara) ?? 'Indonesia' }}">
                                 @error('domisili_negara')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -370,7 +373,8 @@
                                     Rumah</label>
                                 <input type="text" id="telepon_rumah" name="telepon_rumah"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Telepon Rumah" value="{{ old('telepon_rumah') }}">
+                                    placeholder="Telepon Rumah"
+                                    value="{{ old('telepon_rumah', $pasien->telepon_rumah) }}">
                                 @error('telepon_rumah')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -380,7 +384,8 @@
                                     Seluler</label>
                                 <input type="text" id="telepon_seluler" name="telepon_seluler"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Telepon Seluler" value="{{ old('telepon_seluler') }}">
+                                    placeholder="Telepon Seluler"
+                                    value="{{ old('telepon_seluler', $pasien->telepon_seluler) }}">
                                 @error('telepon_seluler')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -393,9 +398,8 @@
                                     <option value="" selected disabled>Pilih Pendidikan</option>
                                     @foreach ($master_pendidikan as $item)
                                         <option value="{{ $item->id }}"
-                                            {{ old('pendidikan') == $item->id ? 'selected' : '' }}>
-                                            {{ $item->nama }}
-                                        </option>
+                                            {{ old('pendidikan', $pasien->pendidikan) == $item->id ? 'selected' : '' }}>
+                                            {{ $item->nama }}</option>
                                     @endforeach
                                 </select>
                                 @error('pendidikan')
@@ -407,11 +411,11 @@
                                     class="mb-2 block text-sm font-medium text-gray-900">Pekerjaan</label>
                                 <select id="pekerjaan" name="pekerjaan"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400">
-                                    <option value="" selected disabled>Pilih pekerjaan</option>
+                                    <option value="" selected disabled>Pilih Pekerjaan</option>
                                     @foreach ($master_pekerjaan as $item)
                                         <option value="{{ $item->id }}"
-                                            {{ old('pekerjaan') == $item->id ? 'selected' : '' }}>{{ $item->nama }}
-                                        </option>
+                                            {{ old('pekerjaan', $pasien->pekerjaan) == $item->id ? 'selected' : '' }}>
+                                            {{ $item->nama }}</option>
                                     @endforeach
                                 </select>
                                 @error('pekerjaan')
@@ -426,9 +430,8 @@
                                     <option value="" selected disabled>Pilih Status Pernikahan</option>
                                     @foreach ($master_pernikahan as $item)
                                         <option value="{{ $item->id }}"
-                                            {{ old('status_pernikahan') == $item->id ? 'selected' : '' }}>
-                                            {{ $item->nama }}
-                                        </option>
+                                            {{ old('status_pernikahan', $pasien->status_pernikahan) == $item->id ? 'selected' : '' }}>
+                                            {{ $item->nama }}</option>
                                     @endforeach
                                 </select>
                                 @error('status_pernikahan')
@@ -443,9 +446,8 @@
                                     <option value="" selected disabled>Pilih Cara Pembayaran</option>
                                     @foreach ($master_pembayaran as $item)
                                         <option value="{{ $item->id }}"
-                                            {{ old('cara_pembayaran') == $item->id ? 'selected' : '' }}>
-                                            {{ $item->nama }}
-                                        </option>
+                                            {{ old('cara_pembayaran', $pasien->cara_pembayaran) == $item->id ? 'selected' : '' }}>
+                                            {{ $item->nama }}</option>
                                     @endforeach
                                 </select>
                                 @error('cara_pembayaran')
@@ -466,19 +468,26 @@
                                         accept="image/*" />
                                     <label for="foto_pasien_path" class="cursor-pointer">
                                         <div id="preview-content">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor"
-                                                class="mx-auto mb-4 h-8 w-8 text-gray-700">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-                                            </svg>
-                                            <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Unggah Foto
-                                                Pasien</h5>
-                                            <p class="text-sm font-normal text-gray-400 md:px-6">Choose photo size should
-                                                be
-                                                less than <b class="text-gray-600">2mb</b></p>
-                                            <p class="text-sm font-normal text-gray-400 md:px-6">and should be in <b
-                                                    class="text-gray-600">JPG, PNG, or GIF</b> format.</p>
+                                            @if ($pasien->foto_pasien_path)
+                                                <img src="{{ $pasien->foto_url }}" class="mx-auto max-h-48 rounded-lg"
+                                                    alt="Foto Pasien Saat Ini" />
+                                            @else
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                    class="mx-auto mb-4 h-8 w-8 text-gray-700">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                                                </svg>
+                                                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Unggah Foto
+                                                    Pasien
+                                                </h5>
+                                                <p class="text-sm font-normal text-gray-400 md:px-6">Choose photo size
+                                                    should
+                                                    be
+                                                    less than <b class="text-gray-600">2mb</b></p>
+                                                <p class="text-sm font-normal text-gray-400 md:px-6">and should be in <b
+                                                        class="text-gray-600">JPG, PNG, or GIF</b> format.</p>
+                                            @endif
                                         </div>
                                         <span id="filename" class="z-50 bg-gray-200 text-gray-500"></span>
                                     </label>
@@ -487,30 +496,31 @@
                                     <div class="w-full">
                                         <label for="foto_pasien_path"
                                             class="mb-2 mr-2 flex w-full cursor-pointer items-center justify-center rounded-lg bg-[#050708] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#050708]/90 focus:outline-none focus:ring-4 focus:ring-[#050708]/50">
-                                            <span class="ml-2 text-center">Upload</span>
+                                            <span
+                                                class="ml-2 text-center">{{ $pasien->foto_pasien_path ? 'Ganti Foto' : 'Upload Foto' }}</span>
                                         </label>
                                     </div>
                                 </div>
                                 @error('foto_pasien_path')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
+                                @if ($pasien->foto_pasien_path)
+                                    <p class="mt-2 text-xs text-gray-500">Foto saat ini akan diganti jika Anda upload foto
+                                        baru</p>
+                                @endif
                             </div>
                         </div>
                     </div>
 
                     <!-- Tombol Submit dan Reset -->
                     <div class="flex justify-end space-x-4">
-                        <a href="{{ route('show.pasien') }}"
+                        <a href="{{ route('profile.pasien', $pasien->id_pasien) }}"
                             class="cursor-pointer rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200">
                             Kembali
                         </a>
-                        <button type="reset"
-                            class="cursor-pointer rounded-lg bg-red-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-600 focus:ring-4 focus:ring-red-300">
-                            Reset
-                        </button>
                         <button type="submit"
                             class="cursor-pointer rounded-lg bg-amber-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-amber-600 focus:ring-4 focus:ring-amber-300">
-                            Simpan Data Pasien
+                            Update Data Pasien
                         </button>
                     </div>
                 </form>
@@ -542,18 +552,23 @@
                 reader.readAsDataURL(file);
             } else {
                 filenameLabel.textContent = '';
-                // Reset ke state default (untuk form create)
-                previewContent.innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                    stroke-width="1.5" stroke="currentColor"
-                    class="mx-auto mb-4 h-8 w-8 text-gray-700">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-                </svg>
-                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Unggah Foto Pasien</h5>
-                <p class="text-sm font-normal text-gray-400 md:px-6">Choose photo size should be less than <b class="text-gray-600">2mb</b></p>
-                <p class="text-sm font-normal text-gray-400 md:px-6">and should be in <b class="text-gray-600">JPG, PNG, or GIF</b> format.</p>
-            `;
+                // Reset ke foto saat ini atau state default
+                @if ($pasien->foto_pasien_path)
+                    previewContent.innerHTML =
+                        `<img src="{{ $pasien->foto_url }}" class="max-h-48 rounded-lg mx-auto" alt="Foto Pasien Saat Ini" />`;
+                @else
+                    previewContent.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor"
+                        class="mx-auto mb-4 h-8 w-8 text-gray-700">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                    </svg>
+                    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Unggah Foto Pasien</h5>
+                    <p class="text-sm font-normal text-gray-400 md:px-6">Choose photo size should be less than <b class="text-gray-600">2mb</b></p>
+                    <p class="text-sm font-normal text-gray-400 md:px-6">and should be in <b class="text-gray-600">JPG, PNG, or GIF</b> format.</p>
+                `;
+                @endif
                 imagePreview.classList.add('border-dashed', 'border-2', 'border-gray-400');
             }
         });

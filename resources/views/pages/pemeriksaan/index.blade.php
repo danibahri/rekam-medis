@@ -26,7 +26,7 @@
                                 <div class="mb-4 flex flex-shrink-0 flex-col items-center md:mb-0 md:mr-6">
                                     <div class="flex h-24 w-24 items-center justify-center rounded-full bg-gray-200">
                                         @if (!empty($kunjungan->pasien->foto_pasien_path))
-                                            <img src="{{ asset($kunjungan->pasien->foto_pasien_path) }}" alt="Foto Pasien"
+                                            <img src="{{ asset($kunjungan->pasien->foto_url) }}" alt="Foto Pasien"
                                                 class="h-full w-full rounded-full object-cover">
                                         @else
                                             <div

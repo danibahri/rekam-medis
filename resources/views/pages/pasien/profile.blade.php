@@ -14,7 +14,7 @@
                     <div class="flex flex-col items-center gap-6 md:flex-row">
                         <div class="h-32 w-32 overflow-hidden rounded-full border-4 border-white bg-amber-200 shadow-lg">
                             @if (!empty($pasien->foto_pasien_path))
-                                <img src="{{ asset($pasien->foto_pasien_path) }}" alt="Foto Pasien"
+                                <img src="{{ $pasien->foto_url }}" alt="Foto Pasien"
                                     class="h-full w-full rounded-full object-cover">
                             @else
                                 <div class="flex h-full w-full items-center justify-center rounded-full bg-amber-100">
@@ -30,6 +30,18 @@
                             <p class="font-semibold text-gray-700">No. Rekam Medis: {{ $pasien->nomor_rekam_medis ?? '-' }}
                             </p>
                             <p class="text-gray-700">ID Pasien: {{ $pasien->id_pasien ?? '-' }}</p>
+                            <div class="mt-4">
+                                <a href="{{ route('edit.pasien', $pasien->id_pasien) }}"
+                                    class="focus:ring-white-300 inline-flex items-center rounded-lg border px-4 py-2 text-sm font-medium text-white hover:shadow-xl focus:outline-none focus:ring-4">
+                                    <svg class="mr-2 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 20 20">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="m13.835 7.578-.005.007-7.137 7.137 2.139 2.138 7.143-7.142-2.14-2.14Zm-10.696 3.59 2.139 2.14 7.138-7.137.007-.005-2.141-2.141-7.143 7.143Zm1.433 4.261L2 12.852.051 18.684a1 1 0 0 0 1.265 1.264L7.147 18l-2.575-2.571Z" />
+                                    </svg>
+                                    Edit Data Pasien
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -211,23 +223,6 @@
                             <p class="text-gray-800">{{ $pasien->domisili_negara ?? '-' }}</p>
                         </div>
                     </div>
-                </div>
-
-                {{-- Action Buttons --}}
-                <div class="flex flex-wrap justify-end gap-3">
-                    <a
-                        class="rounded-lg bg-amber-300 px-4 py-2 font-semibold text-amber-800 shadow transition duration-200 hover:bg-amber-400">
-                        <i class="fas fa-edit mr-2"></i>Edit Profile
-                    </a>
-                    <a
-                        class="rounded-lg bg-amber-500 px-4 py-2 font-semibold text-white shadow transition duration-200 hover:bg-amber-600">
-                        <i class="fas fa-print mr-2"></i>Cetak Profile
-                    </a>
-                    {{-- href kembali back() --}}
-                    <a href="{{ url()->previous() }}"
-                        class="rounded-lg bg-gray-300 px-4 py-2 font-semibold text-gray-700 shadow transition duration-200 hover:bg-gray-400">
-                        <i class="fas fa-arrow-left mr-2"></i>Kembali
-                    </a>
                 </div>
             </div>
 

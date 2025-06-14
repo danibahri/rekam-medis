@@ -13,6 +13,7 @@ use App\Models\MasterJenisKelamin;
 use App\Models\MasterPekerjaan;
 use App\Models\MasterPendidikan;
 use App\Models\MasterStatusPernikahan;
+use Illuminate\Support\Facades\Storage;
 
 class PasienController extends Controller
 {
@@ -55,6 +56,19 @@ class PasienController extends Controller
         $master_pernikahan = MasterStatusPernikahan::all();
         $master_pembayaran = MasterCaraPembayaran::all();
         return view('pages.pasien.create', compact('master_agama', 'master_jenisKelamin', 'master_pekerjaan', 'master_pendidikan', 'master_pernikahan', 'master_pembayaran'));
+    }
+
+    public function edit_pasien($id)
+    {
+        $pasien = Pasien::findOrFail($id);
+        $master_agama = MasterAgama::all();
+        $master_jenisKelamin = MasterJenisKelamin::all();
+        $master_pekerjaan = MasterPekerjaan::all();
+        $master_pendidikan = MasterPendidikan::all();
+        $master_pernikahan = MasterStatusPernikahan::all();
+        $master_pembayaran = MasterCaraPembayaran::all();
+
+        return view('pages.pasien.edit', compact('pasien', 'master_agama', 'master_jenisKelamin', 'master_pekerjaan', 'master_pendidikan', 'master_pernikahan', 'master_pembayaran'));
     }
 
     public function store_pasien(Request $request)
@@ -101,6 +115,9 @@ class PasienController extends Controller
             'pekerjaan' => 'nullable|in:0,1,2,3,4,5,6,7',
             'status_pernikahan' => 'nullable|in:1,2,3,4',
             'cara_pembayaran' => 'nullable|in:1,2,3,4',
+
+            // Upload file
+            'foto_pasien_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'nomor_rekam_medis.required' => 'Nomor Rekam Medis tidak boleh kosong',
             'nomor_rekam_medis.unique' => 'Nomor Rekam Medis sudah terdaftar',
@@ -140,9 +157,22 @@ class PasienController extends Controller
             'suku.max' => 'Suku maksimal 50 karakter',
             'telepon_seluler.max' => 'Telepon Seluler maksimal 15 karakter',
             'telepon_rumah.max' => 'Telepon Rumah maksimal 15 karakter',
+
+            // Validasi foto
+            'foto_pasien_path.image' => 'File harus berupa gambar',
+            'foto_pasien_path.mimes' => 'Format file harus jpeg, png, jpg, atau gif',
+            'foto_pasien_path.max' => 'Ukuran file maksimal 2MB',
         ]);
         try {
             $id = 'PSN' . time() . rand(100, 999);
+
+            // Handle file upload
+            $foto_path = null;
+            if ($request->hasFile('foto_pasien_path')) {
+                $file = $request->file('foto_pasien_path');
+                $filename = $id . '_' . time() . '.' . $file->getClientOriginalExtension();
+                $foto_path = $file->storeAs('pasien/foto', $filename, 'public');
+            }
 
             $pasien = Pasien::create([
                 'id_pasien' => $id,
@@ -187,6 +217,9 @@ class PasienController extends Controller
                 'pekerjaan' => $validated['pekerjaan'],
                 'status_pernikahan' => $validated['status_pernikahan'],
                 'cara_pembayaran' => $validated['cara_pembayaran'],
+
+                // File upload
+                'foto_pasien_path' => $foto_path,
             ]);
 
             Swal::success([
@@ -289,5 +322,180 @@ class PasienController extends Controller
             return redirect()->route('show.pasien')->with('error', 'Failed to delete pasien');
         }
         return redirect()->route('show.pasien')->with('error', 'Pasien not found');
+    }
+    public function update_pasien(Request $request, $id)
+    {
+        $pasien = Pasien::findOrFail($id);
+        // dd($request->all());
+        $validated = $request->validate([
+            'nomor_rekam_medis' => 'required|string|unique:pasien,nomor_rekam_medis,' . $id . ',id_pasien',
+            'nik' => 'nullable|string|max:16|unique:pasien,nik,' . $id . ',id_pasien',
+            'nomor_identitas_lain' => 'nullable|string|max:20',
+            'nama_lengkap' => 'required|string|max:100',
+            'nama_ibu_kandung' => 'nullable|string|max:100',
+            'tempat_lahir' => 'nullable|string|max:50',
+            'tanggal_lahir' => 'nullable|date',
+            'jenis_kelamin' => 'required|in:0,1,2,3,4',
+            'agama' => 'nullable|in:1,2,3,4,5,6,7',
+            'suku' => 'nullable|string|max:50',
+            'bahasa_dikuasai' => 'nullable|string|max:100',
+
+            // Alamat KTP
+            'alamat_lengkap' => 'required|string',
+            'rt' => 'nullable|string|max:5',
+            'rw' => 'nullable|string|max:5',
+            'kelurahan_desa' => 'nullable|string|max:50',
+            'kecamatan' => 'nullable|string|max:50',
+            'kota_kabupaten' => 'nullable|string|max:50',
+            'provinsi' => 'nullable|string|max:50',
+            'kode_pos' => 'nullable|string|max:10',
+            'negara' => 'nullable|string|max:50',
+
+            // Alamat Domisili
+            'alamat_domisili' => 'nullable|string',
+            'domisili_rt' => 'nullable|string|max:5',
+            'domisili_rw' => 'nullable|string|max:5',
+            'domisili_kelurahan_desa' => 'nullable|string|max:50',
+            'domisili_kecamatan' => 'nullable|string|max:50',
+            'domisili_kota_kabupaten' => 'nullable|string|max:50',
+            'domisili_provinsi' => 'nullable|string|max:50',
+            'domisili_kode_pos' => 'nullable|string|max:10',
+            'domisili_negara' => 'nullable|string|max:50',
+
+            // Kontak dan Data Lainnya
+            'telepon_rumah' => 'nullable|string|max:15',
+            'telepon_seluler' => 'nullable|string|max:15',
+            'pendidikan' => 'nullable|in:1,2,3,4,5,6,7,8',
+            'pekerjaan' => 'nullable|in:0,1,2,3,4,5,6,7',
+            'status_pernikahan' => 'nullable|in:1,2,3,4',
+            'cara_pembayaran' => 'nullable|in:1,2,3,4',
+
+            // Upload file
+            'foto_pasien_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'nomor_rekam_medis.required' => 'Nomor Rekam Medis tidak boleh kosong',
+            'nomor_rekam_medis.unique' => 'Nomor Rekam Medis sudah terdaftar',
+            'nik.unique' => 'NIK sudah terdaftar',
+            'nama_lengkap.required' => 'Nama Lengkap tidak boleh kosong',
+            'alamat_lengkap.required' => 'Alamat Lengkap tidak boleh kosong',
+            'domisili_rt.max' => 'RT maksimal 5 karakter',
+            'domisili_rw.max' => 'RW maksimal 5 karakter',
+            'rt.max' => 'RT maksimal 5 karakter',
+            'rw.max' => 'RW maksimal 5 karakter',
+            'kode_pos.max' => 'Kode Pos maksimal 10 karakter',
+            'domisili_kode_pos.max' => 'Kode Pos maksimal 10 karakter',
+            'nik.max' => 'NIK maksimal 16 karakter',
+            'nomor_identitas_lain.max' => 'Nomor Identitas Lain maksimal 20 karakter',
+            'suku.max' => 'Suku maksimal 50 karakter',
+            'tempat_lahir.max' => 'Tempat Lahir maksimal 50 karakter',
+            'nama_ibu_kandung.max' => 'Nama Ibu Kandung maksimal 100 karakter',
+            'alamat_lengkap.max' => 'Alamat Lengkap maksimal 255 karakter',
+            'alamat_domisili.max' => 'Alamat Domisili maksimal 255 karakter',
+            'domisili_kelurahan_desa.max' => 'Domisili Kelurahan Desa maksimal 50 karakter',
+            'domisili_kecamatan.max' => 'Domisili Kecamatan maksimal 50 karakter',
+            'domisili_kota_kabupaten.max' => 'Domisili Kota/Kabupaten maksimal 50 karakter',
+            'domisili_provinsi.max' => 'Domisili Provinsi maksimal 50 karakter',
+            'domisili_negara.max' => 'Domisili Negara maksimal 50 karakter',
+            'kelurahan_desa.max' => 'Kelurahan Desa maksimal 50 karakter',
+            'kecamatan.max' => 'Kecamatan maksimal 50 karakter',
+            'kota_kabupaten.max' => 'Kota/Kabupaten maksimal 50 karakter',
+            'provinsi.max' => 'Provinsi maksimal 50 karakter',
+            'negara.max' => 'Negara maksimal 50 karakter',
+            'agama.in' => 'Agama tidak valid',
+            'jenis_kelamin.in' => 'Jenis Kelamin tidak valid',
+            'pendidikan.in' => 'Pendidikan tidak valid',
+            'pekerjaan.in' => 'Pekerjaan tidak valid',
+            'status_pernikahan.in' => 'Status Pernikahan tidak valid',
+            'cara_pembayaran.in' => 'Cara Pembayaran tidak valid',
+            'bahasa_dikuasai.max' => 'Bahasa Dikuasai maksimal 100 karakter',
+            'suku.max' => 'Suku maksimal 50 karakter',
+            'telepon_seluler.max' => 'Telepon Seluler maksimal 15 karakter',
+            'telepon_rumah.max' => 'Telepon Rumah maksimal 15 karakter',
+
+            // Validasi foto
+            'foto_pasien_path.image' => 'File harus berupa gambar',
+            'foto_pasien_path.mimes' => 'Format file harus jpeg, png, jpg, atau gif',
+            'foto_pasien_path.max' => 'Ukuran file maksimal 2MB',
+        ]);
+
+        try {
+            // Handle file upload
+            $foto_path = $pasien->foto_pasien_path; // Keep existing photo if no new upload
+            if ($request->hasFile('foto_pasien_path')) {
+                // Delete old photo if exists
+                if ($pasien->foto_pasien_path && Storage::disk('public')->exists($pasien->foto_pasien_path)) {
+                    Storage::disk('public')->delete($pasien->foto_pasien_path);
+                }
+
+                $file = $request->file('foto_pasien_path');
+                $filename = $pasien->id_pasien . '_' . time() . '.' . $file->getClientOriginalExtension();
+                $foto_path = $file->storeAs('pasien/foto', $filename, 'public');
+            }
+
+            $pasien->update([
+                'nomor_rekam_medis' => $validated['nomor_rekam_medis'],
+                'nik' => $validated['nik'],
+                'nomor_identitas_lain' => $validated['nomor_identitas_lain'],
+                'nama_lengkap' => $validated['nama_lengkap'],
+                'nama_ibu_kandung' => $validated['nama_ibu_kandung'],
+                'tempat_lahir' => $validated['tempat_lahir'],
+                'tanggal_lahir' => $validated['tanggal_lahir'],
+                'jenis_kelamin' => $validated['jenis_kelamin'],
+                'agama' => $validated['agama'],
+                'suku' => $validated['suku'],
+                'bahasa_dikuasai' => $validated['bahasa_dikuasai'],
+
+                // Alamat KTP
+                'alamat_lengkap' => $validated['alamat_lengkap'],
+                'rt' => $validated['rt'],
+                'rw' => $validated['rw'],
+                'kelurahan_desa' => $validated['kelurahan_desa'],
+                'kecamatan' => $validated['kecamatan'],
+                'kota_kabupaten' => $validated['kota_kabupaten'],
+                'provinsi' => $validated['provinsi'],
+                'kode_pos' => $validated['kode_pos'],
+                'negara' => $validated['negara'],
+
+                // Alamat Domisili
+                'alamat_domisili' => $validated['alamat_domisili'],
+                'domisili_rt' => $validated['domisili_rt'],
+                'domisili_rw' => $validated['domisili_rw'],
+                'domisili_kelurahan_desa' => $validated['domisili_kelurahan_desa'],
+                'domisili_kecamatan' => $validated['domisili_kecamatan'],
+                'domisili_kota_kabupaten' => $validated['domisili_kota_kabupaten'],
+                'domisili_provinsi' => $validated['domisili_provinsi'],
+                'domisili_kode_pos' => $validated['domisili_kode_pos'],
+                'domisili_negara' => $validated['domisili_negara'],
+
+                // Kontak dan Data Lainnya
+                'telepon_rumah' => $validated['telepon_rumah'],
+                'telepon_seluler' => $validated['telepon_seluler'],
+                'pendidikan' => $validated['pendidikan'],
+                'pekerjaan' => $validated['pekerjaan'],
+                'status_pernikahan' => $validated['status_pernikahan'],
+                'cara_pembayaran' => $validated['cara_pembayaran'],
+
+                // File upload
+                'foto_pasien_path' => $foto_path,
+            ]);
+
+            Swal::success([
+                'title' => 'Success',
+                'text' => 'Data pasien berhasil diperbarui',
+                'icon' => 'success',
+                'timer' => 3000,
+            ]);
+            return redirect()->route('profile.pasien', $pasien->id_pasien)->with('success', 'Data pasien berhasil diperbarui');
+        } catch (\Exception $e) {
+            Swal::error([
+                'title' => 'Error',
+                'text' => 'Terjadi kesalahan saat memperbarui data pasien.',
+                'icon' => 'error',
+                'timer' => 3000,
+            ]);
+            return redirect()
+                ->back()
+                ->withInput();
+        }
     }
 }

@@ -10,7 +10,7 @@ class Pasien extends Model
     protected $primaryKey = 'id_pasien';
     public $incrementing = false;
     protected $keyType = 'string';
-    
+
     protected $fillable = [
         'id_pasien',
         'nomor_rekam_medis',
@@ -51,98 +51,107 @@ class Pasien extends Model
         'foto_pasien_path',
         'tanda_tangan_pasien_path'
     ];
-    
+
     protected $casts = [
         'tanggal_lahir' => 'date',
     ];
-    
+
     // Relasi dengan tabel master_jenis_kelamin
     public function jenisKelamin()
     {
         return $this->belongsTo(MasterJenisKelamin::class, 'jenis_kelamin', 'id');
     }
-    
+
     // Relasi dengan tabel master_agama
     public function agama()
     {
         return $this->belongsTo(MasterAgama::class, 'agama', 'id');
     }
-    
+
     // Relasi dengan tabel master_pendidikan
     public function pendidikan()
     {
         return $this->belongsTo(MasterPendidikan::class, 'pendidikan', 'id');
     }
-    
+
     // Relasi dengan tabel master_pekerjaan
     public function pekerjaan()
     {
         return $this->belongsTo(MasterPekerjaan::class, 'pekerjaan', 'id');
     }
-    
+
     // Relasi dengan tabel master_status_pernikahan
     public function statusPernikahan()
     {
         return $this->belongsTo(MasterStatusPernikahan::class, 'status_pernikahan', 'id');
     }
-    
+
     // Relasi dengan tabel master_cara_pembayaran
     public function caraPembayaran()
     {
         return $this->belongsTo(MasterCaraPembayaran::class, 'cara_pembayaran', 'id');
     }
-    
+
     // Relasi dengan tabel kunjungan
     public function kunjungan()
     {
         return $this->hasMany(Kunjungan::class, 'id_pasien', 'id_pasien');
     }
-    
+
     // Relasi dengan tabel assessment
     public function assessment()
     {
         return $this->hasMany(Assessment::class, 'id_pasien', 'id_pasien');
     }
-    
+
     // Relasi dengan tabel general_consent
     public function generalConsent()
     {
         return $this->hasMany(GeneralConsent::class, 'id_pasien', 'id_pasien');
     }
-    
+
     // Relasi dengan tabel informed_consent
     public function informedConsent()
     {
         return $this->hasMany(InformedConsent::class, 'id_pasien', 'id_pasien');
     }
-    
+
     // Relasi dengan tabel tindakan
     public function tindakan()
     {
         return $this->hasMany(Tindakan::class, 'id_pasien', 'id_pasien');
     }
-    
+
     // Relasi dengan tabel resume_pasien
     public function resumePasien()
     {
         return $this->hasMany(ResumePasien::class, 'id_pasien', 'id_pasien');
     }
-    
+
     // Relasi dengan tabel resep
     public function resep()
     {
         return $this->hasMany(Resep::class, 'id_pasien', 'id_pasien');
     }
-    
+
     // Relasi dengan tabel surat_keterangan
     public function suratKeterangan()
     {
         return $this->hasMany(SuratKeterangan::class, 'id_pasien', 'id_pasien');
     }
-    
+
     // Relasi dengan tabel dokumen_pasien
     public function dokumenPasien()
     {
         return $this->hasMany(DokumenPasien::class, 'id_pasien', 'id_pasien');
+    }
+
+    // Helper method untuk mendapatkan URL foto pasien
+    public function getFotoUrlAttribute()
+    {
+        if ($this->foto_pasien_path) {
+            return asset('storage/' . $this->foto_pasien_path);
+        }
+        return asset('icon/dokter.png'); // default avatar
     }
 }

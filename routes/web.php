@@ -33,6 +33,8 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     Route::get('/profile/{id}/pasien', [PasienController::class, 'profile_pasien'])->name('profile.pasien');
     Route::get('/create/pasien', [PasienController::class, 'add_pasien'])->name('add.pasien');
     Route::post('/create/pasien', [PasienController::class, 'store_pasien'])->name('store.pasien');
+    Route::get('/edit/{id}/pasien', [PasienController::class, 'edit_pasien'])->name('edit.pasien');
+    Route::put('/update/{id}/pasien', [PasienController::class, 'update_pasien'])->name('update.pasien');
     Route::post('/delete-pasien/{id}', [PasienController::class, 'delete_pasien'])->name('delete.pasien');
     Route::post('/create-kunjungan/pasien', [PasienController::class, 'store_kunjungan'])->name('store-kunjungan.pasien');
 
