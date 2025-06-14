@@ -51,7 +51,7 @@
                                 </div>
                                 <div>
                                     <a href="{{ route('persetujuan.pasien.pdf', $pasien->id_pasien) }}"
-                                        data-tooltip-target="tooltip-2" data-tooltip-style="light"
+                                        data-tooltip-target="tooltip-2" data-tooltip-style="light" target="_blank"
                                         class="focus:ring-white-300 inline-flex items-center rounded-lg border-2 px-4 py-2 text-sm font-medium text-white hover:shadow-xl focus:outline-none focus:ring-4">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="mr-2 h-4 w-4">

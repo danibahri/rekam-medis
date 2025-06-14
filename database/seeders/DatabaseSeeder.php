@@ -149,7 +149,7 @@ class DatabaseSeeder extends Seeder
         DB::table('dokter')->insert([
             'id_dokter' => 'DOK-' . date('Ymd') . '001',
             'user_id' => $dokterUserId,
-            'nama_dokter' => 'Dr. Indah Yuliarini, Sp.',
+            'nama_dokter' => 'Dr. Indah Yuliarini, Sp. THT-KL',
             'alamat' => 'Jl. Dokter No. 1',
             'nomor_hp' => '08234567890',
             'spesialisasi' => 'Spesialis Penyakit Dalam',
@@ -208,7 +208,7 @@ class DatabaseSeeder extends Seeder
             'pekerjaan' => '5',
             'status_pernikahan' => '2',
             'cara_pembayaran' => '1',
-            'foto_pasien_path' => 'storage/foto_pasien/siti.jpg',
+            'foto_pasien_path' => '',
             'tanda_tangan_pasien_path' => 'storage/tanda_tangan_pasien/siti.png',
             'created_at' => now(),
             'updated_at' => now(),
@@ -251,7 +251,7 @@ class DatabaseSeeder extends Seeder
             'pekerjaan' => '5',
             'status_pernikahan' => '2',
             'cara_pembayaran' => '1',
-            'foto_pasien_path' => 'storage/foto_pasien/siti.jpg',
+            'foto_pasien_path' => '',
             'tanda_tangan_pasien_path' => 'storage/tanda_tangan_pasien/siti.png',
             'created_at' => now(),
             'updated_at' => now(),
@@ -279,7 +279,7 @@ class DatabaseSeeder extends Seeder
             'id_kunjungan' => $kunjunganId,
             'id_pasien' => $pasienId,
             'tanggal_assessment' => date('Y-m-d'),
-            'keluhan_utama' => 'Demam tinggi dan batuk selama 3 hari',
+            'anamnesa' => 'Demam tinggi dan batuk selama 3 hari',
             'denyut_jantung' => '95',
             'pernafasan' => '20',
             'tekanan_darah' => '120/80',
@@ -456,25 +456,25 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
-        // Seed Surat Keterangan
-        DB::table('surat_keterangan')->insert([
-            'id_surat' => 'SKT-' . date('Ymd') . '001',
-            'id_pasien' => $pasienId,
-            'id_kunjungan' => $kunjunganId,
-            'jenis_surat' => 'sakit',
-            'tanggal_surat' => date('Y-m-d'),
-            'tujuan_surat' => 'Untuk diberikan kepada yang bersangkutan',
-            'diagnosa' => 'Common Cold',
-            'kode_icd9' => 'J00',
-            'kode_icd10' => 'J00',
-            'lama_istirahat' => 3,
-            'tanggal_mulai' => date('Y-m-d'),
-            'tanggal_selesai' => date('Y-m-d', strtotime('+3 days')),
-            'dokter_pemeriksa' => 'Dr. Indah Yuliarini, Sp.',
-            'tanda_tangan_dokter_path' => 'storage/tanda_tangan/dokter.png',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        // // Seed Surat Keterangan
+        // DB::table('surat_keterangan')->insert([
+        //     'id_surat' => 'SKT-' . date('Ymd') . '001',
+        //     'id_pasien' => $pasienId,
+        //     'id_kunjungan' => $kunjunganId,
+        //     'jenis_surat' => 'sakit',
+        //     'tanggal_surat' => date('Y-m-d'),
+        //     'tujuan_surat' => 'Untuk diberikan kepada yang bersangkutan',
+        //     'diagnosa' => 'Common Cold',
+        //     'kode_icd9' => 'J00',
+        //     'kode_icd10' => 'J00',
+        //     'lama_istirahat' => 3,
+        //     'tanggal_mulai' => date('Y-m-d'),
+        //     'tanggal_selesai' => date('Y-m-d', strtotime('+3 days')),
+        //     'dokter_pemeriksa' => 'Dr. Indah Yuliarini, Sp.',
+        //     'tanda_tangan_dokter_path' => 'storage/tanda_tangan/dokter.png',
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
 
         // Seed Dokumen Pasien
         DB::table('dokumen_pasien')->insert([

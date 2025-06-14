@@ -84,7 +84,7 @@
                                 <thead class="border-b-1 bg-white text-xs uppercase text-gray-700">
                                     <tr>
                                         <th class="px-6 py-3">Tanggal Kunjungan</th>
-                                        <th class="px-6 py-3">Keluhan</th>
+                                        <th class="px-6 py-3">Anamnesa</th>
                                         <th class="px-6 py-3">Dokter</th>
                                         <th class="px-6 py-3">Status</th>
                                     </tr>
@@ -111,7 +111,7 @@
                                                             class="rounded-xl bg-red-500 px-2 py-2 text-xs text-white">Menunggu</span>
                                                     @elseif($kunjungan->status == 'dalam_pemeriksaan')
                                                         <span
-                                                            class="rounded-xl bg-amber-500 px-2 py-2 text-xs text-white">Dalam
+                                                            class="rounded-xl bg-amber-500 px-2 py-2 text-xs text-white">
                                                             Pemeriksaan</span>
                                                     @else
                                                         <span

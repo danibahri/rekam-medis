@@ -11,7 +11,7 @@
                         <tr>
                             <th scope="col" class="px-6 py-3">No. Rekam Medis</th>
                             <th class="px-6 py-3">Nama Pasien</th>
-                            <th class="px-6 py-3">Tanggal Kunjungan</th>
+                            <th class="px-6 py-3">Tanggal Kunjungan Terakhir</th>
                             <th class="px-6 py-3">Jenis Kelamin</th>
                             <th class="px-6 py-3">Keluhan</th>
                             <th class="px-6 py-3">Aksi</th>

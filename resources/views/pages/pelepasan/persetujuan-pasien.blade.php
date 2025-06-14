@@ -291,9 +291,9 @@
                     <td style="padding: 15px"></td>
                 </tr>
                 <tr>
-                    <td style="text-align: center">({{ $dokter->nama_dokter }})</td>
-                    <td style="text-align: center">(.......................)</td>
-                    <td style="text-align: center">(.......................)</td>
+                    <td style="text-align: center">(............................................)</td>
+                    <td style="text-align: center">(............................................)</td>
+                    <td style="text-align: center">(............................................)</td>
                 </tr>
             </table>
         </div>

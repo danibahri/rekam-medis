@@ -70,10 +70,6 @@
                                             </div>
                                         </div>
                                         <div class="flex">
-                                            <div class="w-32 text-gray-600">Perusahaan</div>
-                                            <div>: UMUM</div>
-                                        </div>
-                                        <div class="flex">
                                             <div class="w-32 text-gray-600">Tgl Kunjungan</div>
                                             <div>:
                                                 {{ \Carbon\Carbon::parse($kunjungan->tanggal_kunjungan ?? '00/00/0000')->format('d/m/Y') }}

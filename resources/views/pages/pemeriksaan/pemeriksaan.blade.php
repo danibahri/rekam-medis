@@ -15,7 +15,7 @@
             <div class="grid">
                 <div class="mb-3 grid w-full items-center">
                     <label class="mb-1 block text-sm font-medium text-gray-700">
-                        Keluhan utama <span class="text-red-500">*</span>
+                        Anamnesa <span class="text-red-500">*</span>
                     </label>
                     <div class="flex w-full">
                         <input type="text" id="keluhan_utama" name="keluhan_utama"
