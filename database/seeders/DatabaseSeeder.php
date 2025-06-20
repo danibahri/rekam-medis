@@ -207,7 +207,6 @@ class DatabaseSeeder extends Seeder
             'pendidikan' => '6',
             'pekerjaan' => '5',
             'status_pernikahan' => '2',
-            'cara_pembayaran' => '1',
             'foto_pasien_path' => '',
             'tanda_tangan_pasien_path' => 'storage/tanda_tangan_pasien/siti.png',
             'created_at' => now(),
@@ -250,7 +249,6 @@ class DatabaseSeeder extends Seeder
             'pendidikan' => '6',
             'pekerjaan' => '5',
             'status_pernikahan' => '2',
-            'cara_pembayaran' => '1',
             'foto_pasien_path' => '',
             'tanda_tangan_pasien_path' => 'storage/tanda_tangan_pasien/siti.png',
             'created_at' => now(),
@@ -265,10 +263,23 @@ class DatabaseSeeder extends Seeder
             'tanggal_kunjungan' => date('Y-m-d'),
             'waktu_kunjungan' => '09:30:00',
             'jenis_kunjungan' => 'baru',
-            'cara_pembayaran' => '1',
             'keluhan_utama' => 'Demam tinggi dan batuk selama 3 hari',
             'id_dokter' => 'DOK-' . date('Ymd') . '001',
             'status' => 'menunggu',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // seed pambayaran
+        DB::table('pembayaran')->insert([
+            'id_pembayaran' => 'PMB-' . date('Ymd') . '001',
+            'id_kunjungan' => $kunjunganId,
+            'id_pasien' => $pasienId,
+            'tanggal_pembayaran' => date('Y-m-d'),
+            'waktu_pembayaran' => date('H:i:s'),
+            'jumlah' => 50000.00,
+            'status_pembayaran' => 'lunas',
+            'cara_pembayaran' => '1',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -455,26 +466,6 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now(),
             ],
         ]);
-
-        // // Seed Surat Keterangan
-        // DB::table('surat_keterangan')->insert([
-        //     'id_surat' => 'SKT-' . date('Ymd') . '001',
-        //     'id_pasien' => $pasienId,
-        //     'id_kunjungan' => $kunjunganId,
-        //     'jenis_surat' => 'sakit',
-        //     'tanggal_surat' => date('Y-m-d'),
-        //     'tujuan_surat' => 'Untuk diberikan kepada yang bersangkutan',
-        //     'diagnosa' => 'Common Cold',
-        //     'kode_icd9' => 'J00',
-        //     'kode_icd10' => 'J00',
-        //     'lama_istirahat' => 3,
-        //     'tanggal_mulai' => date('Y-m-d'),
-        //     'tanggal_selesai' => date('Y-m-d', strtotime('+3 days')),
-        //     'dokter_pemeriksa' => 'Dr. Indah Yuliarini, Sp.',
-        //     'tanda_tangan_dokter_path' => 'storage/tanda_tangan/dokter.png',
-        //     'created_at' => now(),
-        //     'updated_at' => now(),
-        // ]);
 
         // Seed Dokumen Pasien
         DB::table('dokumen_pasien')->insert([

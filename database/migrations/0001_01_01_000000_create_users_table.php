@@ -156,7 +156,6 @@ return new class extends Migration
             $table->char('pendidikan', 1)->nullable();
             $table->char('pekerjaan', 1)->nullable();
             $table->char('status_pernikahan', 1)->nullable();
-            $table->char('cara_pembayaran', 1)->nullable();
 
             // File pasien
             $table->string('foto_pasien_path', 255)->nullable(); // Implementasi rekomendasi 1
@@ -176,7 +175,6 @@ return new class extends Migration
             $table->foreign('pendidikan')->references('id')->on('master_pendidikan');
             $table->foreign('pekerjaan')->references('id')->on('master_pekerjaan');
             $table->foreign('status_pernikahan')->references('id')->on('master_status_pernikahan');
-            $table->foreign('cara_pembayaran')->references('id')->on('master_cara_pembayaran');
         });
 
         // Kunjungan
@@ -186,7 +184,6 @@ return new class extends Migration
             $table->date('tanggal_kunjungan')->index(); // Implementasi rekomendasi 2
             $table->time('waktu_kunjungan');
             $table->enum('jenis_kunjungan', ['baru', 'lama']);
-            $table->char('cara_pembayaran', 1)->nullable();
             $table->text('keluhan_utama')->nullable();
             $table->string('id_dokter', 20)->nullable();
             $table->enum('status', ['menunggu', 'dalam_pemeriksaan', 'selesai']);
@@ -195,6 +192,24 @@ return new class extends Migration
             // Implementasi rekomendasi 4 - Relasi Tabel
             $table->foreign('id_pasien')->references('id_pasien')->on('pasien')->onDelete('cascade');
             $table->foreign('id_dokter')->references('id_dokter')->on('dokter');
+        });
+
+        // pembayaran
+        Schema::create('pembayaran', function (Blueprint $table) {
+            $table->string('id_pembayaran', 20)->primary();
+            $table->string('id_kunjungan', 20);
+            $table->string('id_pasien', 20);
+            $table->string('cara_pembayaran', 1)->nullable(); // Menggunakan master_cara_pembayaran
+            $table->date('tanggal_pembayaran');
+            $table->time('waktu_pembayaran');
+            $table->decimal('jumlah', 12, 2);
+            $table->enum('status_pembayaran', ['lunas', 'belum_lunas']);
+            $table->string('petugas_administrasi', 100)->nullable();
+            $table->timestamps();
+
+            // Implementasi rekomendasi 4 - Relasi Tabel
+            $table->foreign('id_kunjungan')->references('id_kunjungan')->on('kunjungan');
+            $table->foreign('id_pasien')->references('id_pasien')->on('pasien');
             $table->foreign('cara_pembayaran')->references('id')->on('master_cara_pembayaran');
         });
 
@@ -378,31 +393,6 @@ return new class extends Migration
             $table->foreign('id_obat')->references('id_obat')->on('master_obat');
         });
 
-        // // Surat Keterangan
-        // Schema::create('surat_keterangan', function (Blueprint $table) {
-        //     $table->string('id_surat', 20)->primary();
-        //     $table->string('id_pasien', 20);
-        //     $table->string('id_kunjungan', 20);
-        //     $table->enum('jenis_surat', ['sakit', 'sehat']);
-        //     $table->date('tanggal_surat');
-        //     $table->string('tujuan_surat', 100)->nullable();
-        //     $table->text('diagnosa')->nullable();
-        //     $table->string('kode_icd9', 10)->nullable();
-        //     $table->string('kode_icd10', 10)->nullable();
-        //     $table->integer('lama_istirahat')->nullable()->comment('dalam hari, untuk surat sakit');
-        //     $table->date('tanggal_mulai')->nullable()->comment('untuk surat sakit');
-        //     $table->date('tanggal_selesai')->nullable()->comment('untuk surat sakit');
-        //     $table->text('hasil_pemeriksaan')->nullable()->comment('untuk surat sehat');
-        //     $table->string('kesimpulan', 100)->nullable()->comment('untuk surat sehat');
-        //     $table->string('dokter_pemeriksa', 100);
-        //     $table->string('tanda_tangan_dokter_path', 255)->nullable(); // Implementasi rekomendasi 1
-        //     $table->timestamps();
-
-        //     // Implementasi rekomendasi 4 - Relasi Tabel
-        //     $table->foreign('id_pasien')->references('id_pasien')->on('pasien')->onDelete('cascade');
-        //     $table->foreign('id_kunjungan')->references('id_kunjungan')->on('kunjungan');
-        // });
-
         // Dokumen Pasien - Implementasi rekomendasi 1
         Schema::create('dokumen_pasien', function (Blueprint $table) {
             $table->string('id_dokumen', 20)->primary();
@@ -467,6 +457,7 @@ return new class extends Migration
         Schema::dropIfExists('informed_consent');
         Schema::dropIfExists('general_consent');
         Schema::dropIfExists('assessment');
+        Schema::dropIfExists('pembayaran');
         Schema::dropIfExists('kunjungan');
         Schema::dropIfExists('pasien');
         Schema::dropIfExists('petugas_administrasi');

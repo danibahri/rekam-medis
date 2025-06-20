@@ -7,14 +7,18 @@ use App\Models\Tindakan;
 use App\Models\ResumePasien;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Controller;
-
+use App\Models\Kunjungan;
 
 class LaporanController extends Controller
 {
     public function index()
-    {   
-        $laporan = ResumePasien::with('pasien','kunjungan')->get();
-        return view('pages.laporan.index', compact('laporan'));
+    {
+        // $kunjungan = Kunjungan::with('pasien')
+        //     ->orderBy('tanggal_kunjungan', 'desc')
+        //     ->get()
+        //     ->unique('id_pasien');
+        $kunjungan = Kunjungan::with(('pasien'))->orderBy('tanggal_kunjungan', 'desc')->get()->unique('id_pasien');
+        return view('pages.laporan.index', compact('kunjungan'));
     }
 
     public function exportCsv()
@@ -26,15 +30,22 @@ class LaporanController extends Controller
 
         // Header CSV
         fputcsv($handle, [
-            'No. Rekam Medis', 'Nama', 'Tanggal Kunjungan', 'Jenis Kelamin',
-            'Diagnosa', 'Kode ICD10', 'Tindakan', 'Kode ICD9',
-            'Jenis Pembayaran', 'Biaya'
+            'No. Rekam Medis',
+            'Nama',
+            'Tanggal Kunjungan',
+            'Jenis Kelamin',
+            'Diagnosa',
+            'Kode ICD10',
+            'Tindakan',
+            'Kode ICD9',
+            'Jenis Pembayaran',
+            'Biaya'
         ]);
 
         foreach ($laporan as $item) {
             $tindakan = Tindakan::where('id_pasien', $item->pasien->id_pasien)
-                                ->pluck('nama_tindakan')
-                                ->implode(', ');
+                ->pluck('nama_tindakan')
+                ->implode(', ');
 
             fputcsv($handle, [
                 $item->pasien->nomor_rekam_medis,

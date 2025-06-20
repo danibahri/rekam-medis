@@ -266,7 +266,6 @@ class PasienController extends Controller
                 'tanggal_kunjungan' => now(),
                 'waktu_kunjungan' => now()->format('H:i:s'),
                 'jenis_kunjungan' => $jenis_kunjungan,
-                'cara_pembayaran' => null,
                 'keluhan_utama' => null,
                 'id_dokter' => $validated['id_dokter'],
                 'created_at' => now(),
@@ -285,7 +284,7 @@ class PasienController extends Controller
         } catch (\Throwable $th) {
             Swal::error([
                 'title' => 'Error',
-                'text' => 'Terjadi kesalahan saat menyimpan data kunjungan.',
+                'text' => 'Terjadi kesalahan saat menyimpan data kunjungan.' . $th->getMessage(),
                 'icon' => 'error',
                 'timer' => 3000,
             ]);
