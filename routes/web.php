@@ -40,6 +40,14 @@ Route::middleware(AuthMiddleware::class)->group(function () {
 
     // pemeriksaan
     Route::get('/pemeriksaan-klinis/{id?}', [PemeriksaanController::class, 'index'])->name('show.pemeriksaan');
+    Route::post('/pemeriksaan-klinis/{id}/create-assessment', [PemeriksaanController::class, 'store_pemeriksaan'])->name('store.pemeriksaan');
+    Route::get('/pemeriksaan-klinis/{id}/surat-tindakan', [PemeriksaanController::class, 'surat_tindakan'])->name('surat.tindakan');
+
+    // informed consent
+    Route::post('/pemeriksaan-klinis/{id}/create-informed', [PemeriksaanController::class, 'store_informed'])->name('store.informed');
+
+    // terapi
+    Route::post('/pemeriksaan-klinis/{id}/create-terapi', [PemeriksaanController::class, 'store_terapi'])->name('store.terapi');
 
     // user
     Route::get('/user', [UserController::class, 'index'])->name('show.user');

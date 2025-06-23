@@ -10,27 +10,42 @@
     </div>
 
     <!-- Subjective Section -->
-    <div class="border-gray-200 p-4">
-        <form action="" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="text" name="active_tab" value="resep" hidden>
+        <div class="border-gray-200 p-4">
             <div class="grid">
                 <div class="mb-3 grid w-full items-center">
                     <label class="mb-1 block text-sm font-medium text-gray-700">
-                        Diagnosa<span class="text-red-500">*</span>
+                        Diagnosa <span class="text-red-500">*</span>
                     </label>
                     <div class="flex w-full">
                         <input type="text" id="nomor_rekam_medis" name="nomor_rekam_medis"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                            placeholder="" value="">
+                            value="{{ $kunjungan->assessment->diagnosa ?? '' }}" readonly>
                     </div>
                 </div>
-                <div class="mb-3 grid w-full items-center">
-                    <label class="mb-1 block text-sm font-medium text-gray-700">
-                        Tindakan yang dilakukan<span class="text-red-500">*</span>
-                    </label>
-                    <div class="flex w-full">
-                        <input type="text" id="nomor_rekam_medis" name="nomor_rekam_medis"
-                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                            placeholder="" value="">
+                {{-- kolom 2 baris --}}
+                <div class="items mb-3 grid w-full gap-3 lg:grid-cols-2">
+                    <div class="mb-3 grid w-full items-center">
+                        <label class="mb-1 block text-sm font-medium text-gray-700">
+                            Nama Obat <span class="text-red-500">*</span>
+                        </label>
+                        <div class="flex w-full">
+                            <input type="text" id="nama_obat" name="nama_obat"
+                                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
+                                value="{{ $kunjungan->detailresep->nama_obat ?? '' }}">
+                        </div>
+                    </div>
+                    <div class="mb-3 grid w-full items-center">
+                        <label class="mb-1 block text-sm font-medium text-gray-700">
+                            Bentuk Sediaan <span class="text-red-500">*</span>
+                        </label>
+                        <div class="flex w-full">
+                            <input type="text" id="bentuk_sediaan" name="bentuk_sediaan"
+                                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
+                                value="{{ $kunjungan->detailresep->bentuk_sediaan ?? '' }}">
+                        </div>
                     </div>
                 </div>
                 <div class="items mb-3 grid w-full gap-3 lg:grid-cols-3">
@@ -39,7 +54,7 @@
                             Nama Obat<span class="text-red-500">*</span>
                         </label>
                         <div class="flex w-full">
-                            <input type="text" id="nomor_rekam_medis" name="nomor_rekam_medis"
+                            <input type="text" id="nama_obat" name="nama_obat"
                                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
                                 placeholder="" value="">
                         </div>
@@ -76,18 +91,16 @@
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
-
-    <!-- Objective Section -->
-    <div class="p-4">
-        <div class="mb-3 flex items-center justify-between border-b">
-            <h3 class="font-semibold">Metode atau rute yang diberikan</h3>
-            <button class="text-amber-600 hover:text-amber-800">
-                <i class="fas fa-circle-check"></i>
-            </button>
         </div>
-        <form action="" method="POST" enctype="multipart/form-data">
+
+        <!-- Objective Section -->
+        <div class="p-4">
+            <div class="mb-3 flex items-center justify-between border-b">
+                <h3 class="font-semibold">Metode atau rute yang diberikan</h3>
+                <button class="text-amber-600 hover:text-amber-800">
+                    <i class="fas fa-circle-check"></i>
+                </button>
+            </div>
             <div class="items mb-3 grid w-full gap-3 lg:grid-cols-2">
                 <div class="mb-3 grid w-full items-center">
                     <label class="mb-1 block text-sm font-medium text-gray-700">
@@ -140,6 +153,6 @@
                     Batal
                 </button>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>

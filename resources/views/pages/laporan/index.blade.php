@@ -19,7 +19,6 @@
                             <th class="px-6 py-3">Jenis Kelamin</th>
                             <th class="px-6 py-3">Diagnosa</th>
                             <th class="px-6 py-3">Kode ICD10</th>
-                            <th class="px-6 py-3">Tindakan</th>
                             <th class="px-6 py-3">Kode ICD9</th>
                             <th class="px-6 py-3">Jenis Pembayaran</th>
                             <th class="px-6 py-3">Total Kunjungan</th>
@@ -36,7 +35,7 @@
                                     <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                                         {{ $item->pasien->nomor_rekam_medis ?? '-' }}
                                     </th>
-                                    <td class="px-6 py-4">
+                                    <td class="whitespace-nowrap px-6 py-4">
                                         {{ $item->pasien->nama_lengkap ?? '-' }}
                                     </td>
                                     <td class="px-6 py-4">
@@ -46,15 +45,16 @@
                                         {{ $item->pasien->jenisKelamin->nama ?? '-' }}
                                     </td>
                                     <td class="px-6 py-4">
+                                        {{ $item->assessment->diagnosa ?? '-' }}
+                                    </td>
+                                    <td class="w-20 max-w-[20ch] truncate px-6 py-4">
+                                        {{ $item->assessment->kode_icd10 ?? '-' }}
+                                    </td>
+                                    <td class="max-w-[20ch] truncate px-6 py-4">
+                                        {{ $item->tindakan->kode_icd9 ?? '-' }}
                                     </td>
                                     <td class="px-6 py-4">
-                                    </td>
-                                    <td class="px-6 py-4">
-                                    </td>
-                                    <td class="px-6 py-4">
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{ $item->carapembayaran->nama ?? '-' }}
+                                        {{ $item->pembayaran->caraPembayaran->nama ?? '-' }}
                                     </td>
                                     {{-- total kunjungan --}}
                                     <td class="px-6 py-4">

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tindakan extends Model
 {
     use HasFactory;
-    
+
     /**
      * The table associated with the model.
      * 
@@ -47,14 +47,16 @@ class Tindakan extends Model
         'id_pasien',
         'id_kunjungan',
         'nama_tindakan',
+        'kode_icd9',
         'petugas_pelaksana',
         'tanggal_tindakan',
         'waktu_mulai',
         'waktu_selesai',
         'alat_medis_digunakan',
         'bmhp',
-        'catatan',
-        'dokumentasi_tindakan_path',
+        'konsekuensi_tindakan',
+        'obat_digunakan',
+        'aturan_penggunaan_obat',
     ];
 
     /**

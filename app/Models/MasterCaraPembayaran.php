@@ -10,21 +10,15 @@ class MasterCaraPembayaran extends Model
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
-    
+
     protected $fillable = [
         'id',
         'nama'
     ];
-    
-    // Relasi dengan tabel pasien
-    public function pasien()
+
+    // Relasi dengan tabel pembayaran
+    public function pembayaran()
     {
-        return $this->hasMany(Pasien::class, 'cara_pembayaran', 'id');
-    }
-    
-    // Relasi dengan tabel kunjungan
-    public function kunjungan()
-    {
-        return $this->hasMany(Kunjungan::class, 'cara_pembayaran', 'id');
+        return $this->hasMany(Pembayaran::class, 'cara_pembayaran', 'id');
     }
 }

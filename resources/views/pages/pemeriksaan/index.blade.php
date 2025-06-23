@@ -48,25 +48,23 @@
                                     <div class="mb-2 text-lg font-bold">{{ $kunjungan->pasien->nama_lengkap ?? '-' }}</div>
                                     <div class="grid grid-cols-1 gap-2 text-sm md:grid-cols-2">
                                         <div class="flex">
-                                            <div class="w-32 text-gray-600">DPJP</div>
-                                            <div>: {{ $kunjungan->dokter->nama_dokter ?? '-' }} </div>
-                                        </div>
-                                        <div class="flex">
                                             <div class="w-32 text-gray-600">Jenis Kelamin</div>
                                             <div>: {{ $kunjungan->pasien->jenisKelamin->nama ?? '-' }}</div>
                                         </div>
                                         <div class="flex">
-                                            <div class="w-32 text-gray-600">Spesialis</div>
-                                            <div>: {{ $kunjungan->dokter->spesialisasi ?? '-' }}</div>
-                                        </div>
-                                        <div class="flex">
-                                            <div class="w-32 text-gray-600">Pembayaran</div>
-                                            <div>: {{ $kunjungan->caraPembayaran->nama ?? '-' }}</div>
+                                            <div class="w-32 text-gray-600">Jenis Pembayaran</div>
+                                            <div>: {{ $kunjungan->pembayaran->caraPembayaran->nama ?? '-' }}</div>
                                         </div>
                                         <div class="flex">
                                             <div class="w-32 text-gray-600">Tgl Lahir</div>
                                             <div>:
                                                 {{ \Carbon\Carbon::parse($kunjungan->pasien->tanggal_lahir ?? '00/00/0000')->format('d/m/Y') }}
+                                            </div>
+                                        </div>
+                                        <div class="flex">
+                                            <div class="w-32 text-gray-600">Billing Pasien</div>
+                                            {{-- format Rp --}}
+                                            <div>: Rp. {{ number_format($kunjungan->pembayaran->jumlah ?? 0, 0, ',', '.') }}
                                             </div>
                                         </div>
                                         <div class="flex">
@@ -77,9 +75,16 @@
                                                 {{ \Carbon\Carbon::parse($kunjungan->waktu_kunjungan ?? '00:00')->format('H:i') }}
                                             </div>
                                         </div>
+                                    </div>
+                                    <hr class="my-4">
+                                    <div class="grid grid-cols-1 gap-2 text-sm md:grid-cols-2">
                                         <div class="flex">
-                                            <div class="w-32 text-gray-600">Billing Pasien</div>
-                                            <div>: 0</div>
+                                            <div class="w-32 text-gray-600">DPJP</div>
+                                            <div>: {{ $kunjungan->dokter->nama_dokter ?? '-' }} </div>
+                                        </div>
+                                        <div class="flex">
+                                            <div class="w-32 text-gray-600">Spesialis</div>
+                                            <div>: {{ $kunjungan->dokter->spesialisasi ?? '-' }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -87,8 +92,14 @@
                         </div>
                     </div>
 
+                    @php
+                        $activeTab = session('active_tab') ?? old('active_tab');
+                    @endphp
+                    {{ $activeTab }}
+
+                    {{-- tab navigation and content --}}
                     @if (!empty($kunjungan))
-                        {{-- tab-navigation --}}
+                        {{-- tab navigation --}}
                         <div class="rounded-t-lg border-amber-200 bg-amber-400">
                             <ul class="flex flex-wrap text-center text-sm font-medium text-white" id="default-styled-tab"
                                 data-tabs-active-classes="text-white bg-amber-600"
@@ -98,7 +109,8 @@
                                     <button
                                         class="inline-block cursor-pointer rounded-t-lg border-transparent p-4 text-white"
                                         id="pemeriksaan-tab" data-tabs-target="#pemeriksaan" type="button" role="tab"
-                                        aria-controls="pemeriksaan" aria-selected="true">
+                                        aria-controls="pemeriksaan"
+                                        aria-selected="{{ $activeTab == 'pemeriksaan' ? 'true' : 'false' }}">
                                         Pemeriksaan Klinis
                                     </button>
                                 </li>
@@ -106,7 +118,8 @@
                                     <button
                                         class="inline-block cursor-pointer rounded-t-lg border-transparent p-4 text-white"
                                         id="informed-tab" data-tabs-target="#informed" type="button" role="tab"
-                                        aria-controls="informed" aria-selected="false">
+                                        aria-controls="informed"
+                                        aria-selected="{{ $activeTab == 'informed' ? 'true' : 'false' }}">
                                         Informed Klinis
                                     </button>
                                 </li>
@@ -114,7 +127,8 @@
                                     <button
                                         class="inline-block cursor-pointer rounded-t-lg border-transparent p-4 text-white"
                                         id="terapi-tab" data-tabs-target="#terapi" type="button" role="tab"
-                                        aria-controls="terapi" aria-selected="false">
+                                        aria-controls="terapi"
+                                        aria-selected="{{ $activeTab == 'terapi' ? 'true' : 'false' }}">
                                         Formulir Terapi
                                     </button>
                                 </li>
@@ -122,8 +136,18 @@
                                     <button
                                         class="inline-block cursor-pointer rounded-t-lg border-transparent p-4 text-white"
                                         id="resep-tab" data-tabs-target="#resep" type="button" role="tab"
-                                        aria-controls="resep" aria-selected="false">
+                                        aria-controls="resep"
+                                        aria-selected="{{ $activeTab == 'resep' ? 'true' : 'false' }}">
                                         Resep Obat
+                                    </button>
+                                </li>
+                                <li class="me-2" role="presentation">
+                                    <button
+                                        class="inline-block cursor-pointer rounded-t-lg border-transparent p-4 text-white"
+                                        id="pembayaran-tab" data-tabs-target="#pembayaran" type="button" role="tab"
+                                        aria-controls="pembayaran"
+                                        aria-selected="{{ $activeTab == 'pembayaran' ? 'true' : 'false' }}">
+                                        Pembayaran Pasien
                                     </button>
                                 </li>
                             </ul>
@@ -140,6 +164,9 @@
 
                             {{-- formulir resep obat --}}
                             @include('pages.pemeriksaan.resep')
+
+                            {{-- formulir pembayaran --}}
+                            @include('pages.pemeriksaan.pembayaran')
                         </div>
                     @else
                         <div class="text-center font-semibold text-gray-700">
@@ -151,3 +178,52 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        // Pastikan script berjalan setelah semua elemen HTML dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ambil elemen input pencarian
+            const searchInput = document.getElementById('searchInput');
+
+            // Ambil semua item pasien
+            const patientItems = document.querySelectorAll('.patient-item');
+
+            // Ambil elemen pesan "tidak ditemukan"
+            const noResultsMessage = document.getElementById('noResultsMessage');
+
+            // Tambahkan event listener yang akan aktif setiap kali user mengetik
+            searchInput.addEventListener('input', function() {
+                // Ambil teks yang diketik user, ubah ke huruf kecil dan hapus spasi di awal/akhir
+                const searchTerm = searchInput.value.toLowerCase().trim();
+
+                let visibleCount = 0;
+
+                // Loop melalui setiap item pasien
+                patientItems.forEach(function(item) {
+                    // Ambil teks dari nama pasien dan nomor RM, ubah ke huruf kecil
+                    const patientName = item.querySelector('.patient-name').textContent
+                        .toLowerCase();
+                    const patientRM = item.querySelector('.patient-rm').textContent.toLowerCase();
+
+                    // Cek apakah nama atau RM mengandung teks yang dicari
+                    if (patientName.includes(searchTerm) || patientRM.includes(searchTerm)) {
+                        // Jika cocok, tampilkan item
+                        item.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        // Jika tidak cocok, sembunyikan item
+                        item.style.display = 'none';
+                    }
+                });
+
+                // Tampilkan atau sembunyikan pesan "tidak ditemukan"
+                if (visibleCount === 0 && searchTerm !== '') {
+                    noResultsMessage.style.display = 'block';
+                } else {
+                    noResultsMessage.style.display = 'none';
+                }
+            });
+        });
+    </script>
+@endpush

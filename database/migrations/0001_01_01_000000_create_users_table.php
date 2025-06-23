@@ -181,7 +181,7 @@ return new class extends Migration
         Schema::create('kunjungan', function (Blueprint $table) {
             $table->string('id_kunjungan', 20)->primary();
             $table->string('id_pasien', 20);
-            $table->date('tanggal_kunjungan')->index(); // Implementasi rekomendasi 2
+            $table->date('tanggal_kunjungan')->index();
             $table->time('waktu_kunjungan');
             $table->enum('jenis_kunjungan', ['baru', 'lama']);
             $table->text('keluhan_utama')->nullable();
@@ -199,10 +199,10 @@ return new class extends Migration
             $table->string('id_pembayaran', 20)->primary();
             $table->string('id_kunjungan', 20);
             $table->string('id_pasien', 20);
-            $table->string('cara_pembayaran', 1)->nullable(); // Menggunakan master_cara_pembayaran
+            $table->string('cara_pembayaran', 1)->nullable();
             $table->date('tanggal_pembayaran');
             $table->time('waktu_pembayaran');
-            $table->decimal('jumlah', 12, 2);
+            $table->decimal('jumlah', 12, 2)->comment('Jumlah total pembayaran');
             $table->enum('status_pembayaran', ['lunas', 'belum_lunas']);
             $table->string('petugas_administrasi', 100)->nullable();
             $table->timestamps();
@@ -219,23 +219,28 @@ return new class extends Migration
             $table->string('id_kunjungan', 20);
             $table->string('id_pasien', 20);
             $table->date('tanggal_assessment');
-            $table->text('anamnesa')->nullable();
+            $table->string('anamnesa')->nullable();
+            $table->string('diagnosa', 200)->nullable();
+            $table->string('kode_icd10')->nullable();
             $table->string('denyut_jantung', 10)->nullable()->comment('satuan per menit');
-            $table->string('pernafasan', 10)->nullable()->comment('satuan per menit');
             $table->string('tekanan_darah', 10)->nullable();
-            $table->decimal('suhu_tubuh', 5, 2)->nullable()->comment('dalam derajat celcius');
+            $table->string('suhu_tubuh', 10)->nullable()->comment('dalam derajat celcius');
+            $table->string('pernafasan', 10)->nullable()->comment('satuan per menit');
             $table->text('riwayat_penyakit')->nullable();
-            $table->text('bagian_tubuh_sakit')->nullable();
+
+            // riwayat alergi
             $table->string('riwayat_alergi', 50)->nullable()->comment('1=Obat, 2=Makanan, 3=Udara, 4=Lain-lain');
             $table->text('detail_alergi')->nullable();
+
+            // riwayat pengobatan
             $table->text('riwayat_pengobatan')->nullable();
-            $table->string('id_dokter', 20);
+            $table->text('bagian_tubuh_sakit')->nullable();
+            $table->string('detail_bagian_sakit', 255)->nullable();
             $table->timestamps();
 
             // Implementasi rekomendasi 4 - Relasi Tabel
             $table->foreign('id_kunjungan')->references('id_kunjungan')->on('kunjungan');
             $table->foreign('id_pasien')->references('id_pasien')->on('pasien')->onDelete('cascade');
-            $table->foreign('id_dokter')->references('id_dokter')->on('dokter');
         });
 
         // General Consent
@@ -271,22 +276,26 @@ return new class extends Migration
             $table->string('id_informed_consent', 20)->primary();
             $table->string('id_pasien', 20);
             $table->string('id_kunjungan', 20);
-            $table->string('nama_dokter_pemberi_penjelasan', 100);
-            $table->string('nama_petugas_pendamping', 100)->nullable();
-            $table->string('nama_keluarga_pasien', 100)->nullable();
             $table->text('tindakan_dilakukan');
+
+            // yang membuat pernyataan
+            $table->string('nama_penanggung_jawab', 100)->nullable();
+            $table->char('jenis_kelamin_penanggung_jawab', 1)->nullable();
+            $table->string('hubungan_dengan_pasien', 50)->nullable();
+            $table->string('nomor_hp_penanggung_jawab', 15)->nullable();
             $table->text('konsekuensi_tindakan');
+
+            // persetujuan tindakan
             $table->enum('persetujuan_tindakan', ['ya', 'tidak']);
             $table->date('tanggal_penjelasan');
             $table->time('waktu_penjelasan');
             $table->string('dokter_pemberi_penjelasan', 100);
             $table->string('penerima_penjelasan', 100);
-            $table->string('tanda_tangan_dokter_path', 255)->nullable(); // Implementasi rekomendasi 1
-            $table->string('tanda_tangan_penerima_path', 255)->nullable(); // Implementasi rekomendasi 1
-            $table->string('saksi_1', 100)->nullable();
-            $table->string('tanda_tangan_saksi1_path', 255)->nullable(); // Implementasi rekomendasi 1
-            $table->string('saksi_2', 100)->nullable();
-            $table->string('tanda_tangan_saksi2_path', 255)->nullable(); // Implementasi rekomendasi 1
+
+            // saksi penanggung jawab
+            $table->string('nama_saksi', 100)->nullable();
+            $table->string('penanggung_jawab_saksi', 255)->nullable();
+            $table->string('dpjp')->nullable();
             $table->timestamps();
 
             // Implementasi rekomendasi 4 - Relasi Tabel
@@ -302,7 +311,7 @@ return new class extends Migration
             $table->string('satuan', 20)->nullable();
             $table->integer('stok')->default(0);
             $table->decimal('harga', 12, 2)->nullable();
-            $table->string('gambar_obat_path', 255)->nullable(); // Implementasi rekomendasi 1
+            $table->string('gambar_obat_path', 255)->nullable();
             $table->timestamps();
 
             // Implementasi rekomendasi 2 - Indeks Database
@@ -315,14 +324,16 @@ return new class extends Migration
             $table->string('id_pasien', 20);
             $table->string('id_kunjungan', 20);
             $table->string('nama_tindakan', 100);
+            $table->string('kode_icd9')->nullable();
             $table->string('petugas_pelaksana', 100);
             $table->date('tanggal_tindakan');
             $table->time('waktu_mulai');
             $table->time('waktu_selesai');
-            $table->text('alat_medis_digunakan')->nullable();
-            $table->text('bmhp')->nullable()->comment('Bahan Medis Habis Pakai');
-            $table->text('catatan')->nullable();
-            $table->string('dokumentasi_tindakan_path', 255)->nullable(); // Implementasi rekomendasi 1
+            $table->string('alat_medis_digunakan')->nullable();
+            $table->string('bmhp')->nullable()->comment('Bahan Medis Habis Pakai');
+            $table->text('konsekuensi_tindakan')->nullable();
+            $table->text('obat_digunakan')->nullable();
+            $table->text('aturan_penggunaan_obat')->nullable();
             $table->timestamps();
 
             // Implementasi rekomendasi 4 - Relasi Tabel
@@ -340,8 +351,8 @@ return new class extends Migration
             $table->string('nama_dpjp', 100);
             $table->text('anamnesa')->nullable();
             $table->text('diagnosa')->nullable();
-            $table->string('kode_icd9', 10)->nullable();
-            $table->string('kode_icd10', 10)->nullable();
+            $table->string('kode_icd9')->nullable();
+            $table->string('kode_icd10')->nullable();
             $table->text('terapi')->nullable();
             $table->text('anjuran')->nullable();
             $table->string('tanda_tangan_dpjp_path', 255)->nullable();
