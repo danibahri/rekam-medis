@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Surat Persetujuan Umum Pasien</title>
+        <title>Surat Tindakan Medis</title>
         <style>
             body {
                 font-family: 'Times New Roman', serif;
@@ -146,7 +146,7 @@
             <table>
                 <tr>
                     <td style="padding: 0 10px 10px 0">Nama</td>
-                    <td>: ......................................</td>
+                    <td>: {{ $pasien->informedConsent->nama_penanggung_jawab }}</td>
                 </tr>
                 <tr>
                     <td style="padding: 0 10px 10px 0">Tempat, Tanggal Lahir</td>
@@ -172,24 +172,25 @@
             <table>
                 <tr>
                     <td style="padding: 0 10px 10px 0">Nama Pasien</td>
-                    <td style="padding: 0 10px 10px 0">: {{ $pasien->nama_lengkap }}</td>
+                    <td style="padding: 0 10px 10px 0">: {{ $pasien->pasien->nama_lengkap }}</td>
                 </tr>
                 <tr>
                     <td style="padding: 0 10px 10px 0">Tempat, Tanggal Lahir</td>
-                    <td style="padding: 0 10px 10px 0">: {{ $pasien->tempat_lahir }},
-                        {{ \Carbon\Carbon::parse($pasien->tanggal_lahir)->format('d F Y') }}</td>
+                    <td style="padding: 0 10px 10px 0">: {{ $pasien->pasien->tempat_lahir }},
+                        {{ \Carbon\Carbon::parse($pasien->pasien->tanggal_lahir)->format('d F Y') }}</td>
                 </tr>
                 <tr>
                     <td style="padding: 0 10px 10px 0">Umur</td>
-                    <td style="padding: 0 10px 10px 0">: {{ \Carbon\Carbon::parse($pasien->tanggal_lahir)->age }}</td>
+                    <td style="padding: 0 10px 10px 0">:
+                        {{ \Carbon\Carbon::parse($pasien->pasien->tanggal_lahir)->age }}</td>
                 </tr>
                 <tr>
                     <td style="padding: 0 10px 10px 0">Jenis Kelamin</td>
-                    <td style="padding: 0 10px 10px 0">: {{ $pasien->jenisKelamin->nama }}</td>
+                    <td style="padding: 0 10px 10px 0">: {{ $pasien->pasien->jenisKelamin->nama }}</td>
                 </tr>
                 <tr>
                     <td style="padding: 0 10px 10px 0">Alamat</td>
-                    <td style="padding: 0 10px 10px 0">: {{ $pasien->alamat_lengkap }}</td>
+                    <td style="padding: 0 10px 10px 0">: {{ $pasien->pasien->alamat_lengkap }}</td>
                 </tr>
             </table>
         </div>
@@ -210,7 +211,7 @@
             <table border="0" style="margin: auto; margin-top:50px; width:100%">
                 <tr>
                     <td style="text-align: center">Dokter,</td>
-                    <td style="text-align: center">Nama petugas,</td>
+                    <td style="text-align: center">Nama Saksi,</td>
                     <td style="text-align: center">Yang membuat pernyataan,</td>
                 </tr>
                 <tr>

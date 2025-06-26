@@ -84,7 +84,7 @@
                     </a>
                 </li>
                 @if (Auth::user()->role == 'admin')
-                    <li>
+                    {{-- <li>
                         <button type="button"
                             class="group flex w-full items-center rounded-lg p-2 text-base text-white transition duration-75 hover:bg-white hover:text-black"
                             aria-controls="master-data" data-collapse-toggle="master-data">
@@ -130,7 +130,7 @@
                                     Pernikahan</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                 @endif
             </ul>
             <p class="mt-4 text-white">Account</p>
@@ -163,8 +163,8 @@
                             </svg>
                             <span
                                 class="ms-3 flex-1 cursor-pointer whitespace-nowrap text-left rtl:text-right">Setting</span>
-                            <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="none" viewBox="0 0 10 6">
+                            <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 10 6">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="m1 1 4 4 4-4" />
                             </svg>

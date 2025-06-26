@@ -46,11 +46,11 @@
                                     <td class="px-6 py-4">
                                         {{ $kunjungan->keluhan_utama ?? '-' }}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="flex gap-3.5 px-6 py-4">
                                         <div>
                                             <a href="{{ route('pelepasan.informasi.pdf', $item->id_pasien) }}"
                                                 target="_blank" class="cursor-pointer text-yellow-500"
-                                                data-tooltip-target="tooltip-{{ $count }}-2"
+                                                data-tooltip-target="tooltip-{{ $count }}-1"
                                                 data-tooltip-style="light">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                     stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -58,9 +58,26 @@
                                                         d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
                                                 </svg>
                                             </a>
-                                            <div id="tooltip-{{ $count }}-2" role="tooltip"
+                                            <div id="tooltip-{{ $count }}-1" role="tooltip"
                                                 class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 opacity-0">
                                                 Cetak surat keterangan sakit
+                                                <div class="tooltip-arrow" data-popper-arrow></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a href="{{ route('ringkasan.pasien.pdf', $item->id_pasien) }}" target="_blank"
+                                                class="cursor-pointer text-yellow-500"
+                                                data-tooltip-target="tooltip-{{ $count }}-2"
+                                                data-tooltip-style="light">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z" />
+                                                </svg>
+                                            </a>
+                                            <div id="tooltip-{{ $count }}-2" role="tooltip"
+                                                class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 opacity-0">
+                                                Cetak surat ringkasan pulang pasien
                                                 <div class="tooltip-arrow" data-popper-arrow></div>
                                             </div>
                                         </div>

@@ -114,4 +114,7 @@ Route::middleware(AuthMiddleware::class)->group(function () {
 
     // persetujuan pasien
     Route::get('/persetujuan-pasien/{id}', [PelepasanController::class, 'persetujuan_pdf'])->name('persetujuan.pasien.pdf');
+
+    // Ringkasan pulang pasien
+    Route::get('/ringkasan-pulang/{id}', [PelepasanController::class, 'ringkasan_pdf'])->name('ringkasan.pasien.pdf');
 });

@@ -143,7 +143,7 @@
                     <div class="flex w-full">
                         <input type="text" id="detail_alergi" name="detail_alergi"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                            placeholder="" value="{{ $kunjungan->assessment->detail_alergi ?? '' }}">
+                            value="{{ $kunjungan->assessment->detail_alergi ?? '' }}">
                     </div>
                     @error('detail_alergi')
                         <span class="text-sm text-red-500">{{ $message }}</span>
@@ -177,8 +177,9 @@
                             {{ ($kunjungan->assessment->bagian_tubuh_sakit ?? '') == 'telinga' ? 'selected' : '' }}>
                             Telinga
                         </option>
-                        <option value="mata"
-                            {{ ($kunjungan->assessment->bagian_tubuh_sakit ?? '') == 'mata' ? 'selected' : '' }}>Mata
+                        <option value="hidung"
+                            {{ ($kunjungan->assessment->bagian_tubuh_sakit ?? '') == 'hidung' ? 'selected' : '' }}>
+                            Hidung
                         </option>
                         <option value="tenggorokan"
                             {{ ($kunjungan->assessment->bagian_tubuh_sakit ?? '') == 'tenggorokan' ? 'selected' : '' }}>
@@ -253,7 +254,7 @@
         // Image paths - adjust these paths according to your actual image locations
         const imagePaths = {
             'telinga': '/images/body-parts/telinga.jpg',
-            'mata': '/images/body-parts/mata.jpg',
+            'hidung': '/images/body-parts/hidung.jpg',
             'tenggorokan': '/images/body-parts/tenggorokan.jpg'
         };
 

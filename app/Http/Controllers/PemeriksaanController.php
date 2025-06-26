@@ -263,7 +263,7 @@ class PemeriksaanController extends Controller
     public function surat_tindakan($id)
     {
         // Generate PDF for the patient consent form
-        $pasien = Pasien::findOrFail($id);
+        $pasien = Kunjungan::findOrFail($id);
         $dokter = Dokter::get()->first();
         $pdf = Pdf::loadView('pages.pelepasan.tindakan-medis', compact('pasien', 'dokter'));
         $pdf->setPaper('A4', 'portrait');

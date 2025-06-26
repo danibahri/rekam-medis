@@ -199,7 +199,7 @@
                 {{-- button pdf --}}
                 @if (!empty($kunjungan->informedConsent))
                     <div class="mt-4 flex justify-end">
-                        <a href="{{ route('surat.tindakan', $kunjungan->pasien->id_pasien) }}" target="_blank"
+                        <a href="{{ route('surat.tindakan', $kunjungan->id_kunjungan) }}" target="_blank"
                             class="rounded bg-amber-500 px-4 py-2 font-bold text-white hover:bg-amber-600">
                             <i class="fas fa-file-pdf"></i> Cetak Surat Tindakan Medis
                         </a>

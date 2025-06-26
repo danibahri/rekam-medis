@@ -7,7 +7,7 @@
             <h1 class="mb-4 rounded bg-white py-5 pl-3 text-3xl font-bold text-gray-700 shadow">Data Pasien</h1>
             <div class="mt-10 flex flex-wrap items-center justify-between pb-4">
                 <div class="flex gap-4">
-                    @if (Auth::user()->role == 'admin' || Auth::user()->role == 'petugas')
+                    @if (Auth::user()->role == 'petugas')
                         <a type="button" href="{{ route('add.pasien') }}"
                             class="cursor-pointer rounded bg-amber-400 px-3 py-1.5 text-sm font-bold text-white hover:bg-amber-800 focus:ring-2 focus:ring-amber-300">+
                             Registrasi
@@ -15,7 +15,6 @@
                     @endif
                 </div>
             </div>
-
             <div class="relative">
                 <table id="search-table"
                     class="w-full border-t-4 border-amber-300 text-left text-sm text-gray-700 shadow-md">

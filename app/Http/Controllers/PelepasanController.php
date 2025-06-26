@@ -34,4 +34,14 @@ class PelepasanController extends Controller
         $pdf->setPaper('A4', 'portrait');
         return $pdf->stream('persetujuan-pasien.pdf');
     }
+
+    public function ringkasan_pdf($id)
+    {
+        // Generate PDF for the patient summary
+        $pasien = Pasien::findOrFail($id);
+        $dokter = Dokter::get()->first();
+        $pdf = Pdf::loadView('pages.pelepasan.ringkasan-pulang', compact('pasien', 'dokter'));
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->stream('ringkasan-pulang.pdf');
+    }
 }
