@@ -368,40 +368,20 @@ return new class extends Migration
             $table->string('id_resep', 20)->primary();
             $table->string('id_pasien', 20);
             $table->string('id_kunjungan', 20);
-            $table->date('tanggal_resep');
-            $table->time('waktu_resep');
-            $table->integer('tinggi_badan')->nullable()->comment('dalam cm');
-            $table->decimal('berat_badan', 5, 2)->nullable()->comment('dalam kg');
-            $table->decimal('luas_permukaan_tubuh', 5, 2)->nullable()->comment('untuk anak-anak');
-            $table->string('dokter_penulis', 100);
-            $table->string('nomor_telepon_dokter', 15)->nullable();
+            $table->string('nama_obat', 100)->nullable();
+            $table->string('bentuk_sediaan', 50)->nullable();
+            $table->string('jumlah_obat', 50)->nullable();
+            $table->date('tanggal_resep')->nullable();
+            $table->time('waktu_resep')->nullable();
+            $table->string('dosis_obat_diberikan', 50)->nullable();
+            $table->string('frekuensi_interval', 50)->nullable();
+            $table->string('aturan_tambahan', 100)->nullable();
             $table->text('catatan_resep')->nullable();
-            $table->string('tanda_tangan_dokter_path', 255)->nullable();
-            $table->enum('pengkajian_resep', ['1', '2', '3'])->nullable()->comment('1=Pengkajian administrasi, 2=Persyaratan farmasetik, 3=Persyaratan klinis');
             $table->timestamps();
 
             // Implementasi rekomendasi 4 - Relasi Tabel
             $table->foreign('id_pasien')->references('id_pasien')->on('pasien')->onDelete('cascade');
             $table->foreign('id_kunjungan')->references('id_kunjungan')->on('kunjungan');
-        });
-
-        // Detail Resep
-        Schema::create('detail_resep', function (Blueprint $table) {
-            $table->string('id_detail_resep', 20)->primary();
-            $table->string('id_resep', 20);
-            $table->string('id_obat', 20);
-            $table->string('nama_obat', 100);
-            $table->string('bentuk_sediaan', 50)->nullable();
-            $table->integer('jumlah_obat');
-            $table->string('metode_rute_pemberian', 50)->nullable();
-            $table->string('dosis_obat', 50);
-            $table->string('frekuensi_interval', 50);
-            $table->text('aturan_tambahan')->nullable();
-            $table->timestamps();
-
-            // Implementasi rekomendasi 4 - Relasi Tabel
-            $table->foreign('id_resep')->references('id_resep')->on('resep');
-            $table->foreign('id_obat')->references('id_obat')->on('master_obat');
         });
 
         // Dokumen Pasien - Implementasi rekomendasi 1

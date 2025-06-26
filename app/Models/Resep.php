@@ -46,16 +46,15 @@ class Resep extends Model
         'id_resep',
         'id_pasien',
         'id_kunjungan',
+        'nama_obat',
+        'bentuk_sediaan',
+        'jumlah_obat',
         'tanggal_resep',
         'waktu_resep',
-        'tinggi_badan',
-        'berat_badan',
-        'luas_permukaan_tubuh',
-        'dokter_penulis',
-        'nomor_telepon_dokter',
+        'dosis_obat_diberikan',
+        'frekuensi_interval',
+        'aturan_tambahan',
         'catatan_resep',
-        'tanda_tangan_dokter_path',
-        'pengkajian_resep',
     ];
 
     /**
@@ -66,9 +65,6 @@ class Resep extends Model
     protected $casts = [
         'tanggal_resep' => 'date',
         'waktu_resep' => 'datetime',
-        'tinggi_badan' => 'integer',
-        'berat_badan' => 'decimal:2',
-        'luas_permukaan_tubuh' => 'decimal:2',
     ];
 
     /**
@@ -85,13 +81,5 @@ class Resep extends Model
     public function kunjungan()
     {
         return $this->belongsTo(Kunjungan::class, 'id_kunjungan', 'id_kunjungan');
-    }
-
-    /**
-     * Get the detail resep for this resep.
-     */
-    public function detailResep()
-    {
-        return $this->hasMany(DetailResep::class, 'id_resep', 'id_resep');
     }
 }

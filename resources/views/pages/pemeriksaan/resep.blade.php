@@ -10,7 +10,7 @@
     </div>
 
     <!-- Subjective Section -->
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('store.resep', $kunjungan->id_kunjungan) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="text" name="active_tab" value="resep" hidden>
         <div class="border-gray-200 p-4">
@@ -20,7 +20,7 @@
                         Diagnosa <span class="text-red-500">*</span>
                     </label>
                     <div class="flex w-full">
-                        <input type="text" id="nomor_rekam_medis" name="nomor_rekam_medis"
+                        <input type="text" id="diagnosa" name="diagnosa"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
                             value="{{ $kunjungan->assessment->diagnosa ?? '' }}" readonly>
                     </div>
@@ -34,8 +34,11 @@
                         <div class="flex w-full">
                             <input type="text" id="nama_obat" name="nama_obat"
                                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                value="{{ $kunjungan->detailresep->nama_obat ?? '' }}">
+                                value="{{ $kunjungan->resep->nama_obat ?? '' }}">
                         </div>
+                        @error('nama_obat')
+                            <span class="text-xs text-red-400">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="mb-3 grid w-full items-center">
                         <label class="mb-1 block text-sm font-medium text-gray-700">
@@ -44,20 +47,26 @@
                         <div class="flex w-full">
                             <input type="text" id="bentuk_sediaan" name="bentuk_sediaan"
                                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                value="{{ $kunjungan->detailresep->bentuk_sediaan ?? '' }}">
+                                value="{{ $kunjungan->resep->bentuk_sediaan ?? '' }}">
                         </div>
+                        @error('bentuk_sediaan')
+                            <span class="text-xs text-red-400">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
                 <div class="items mb-3 grid w-full gap-3 lg:grid-cols-3">
                     <div class="mb-3 grid w-full items-center">
                         <label class="mb-1 block text-sm font-medium text-gray-700">
-                            Nama Obat<span class="text-red-500">*</span>
+                            Jumlah <span class="text-red-500">*</span>
                         </label>
                         <div class="flex w-full">
-                            <input type="text" id="nama_obat" name="nama_obat"
+                            <input type="text" id="jumlah_obat" name="jumlah_obat"
                                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                placeholder="" value="">
+                                value="{{ $kunjungan->resep->jumlah_obat ?? '' }}">
                         </div>
+                        @error('jumlah_obat')
+                            <span class="text-xs text-red-400">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="mb-3 grid w-full items-center">
                         <label for="tanggal" class="mb-2 block text-sm font-medium text-gray-900">Tanggal
@@ -73,7 +82,7 @@
                             <input datepicker datepicker-format="yyyy-mm-dd" type="text" id="tanggal"
                                 name="tanggal"
                                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                placeholder="Pilih tanggal" value="{{ old('tanggal') }}">
+                                placeholder="Pilih tanggal" value="{{ $kunjungan->resep->tanggal_resep ?? '' }}">
                         </div>
                         @error('tanggal')
                             <span class="text-xs text-red-400">{{ $message }}</span>
@@ -81,13 +90,16 @@
                     </div>
                     <div class="mb-3 grid w-full items-center">
                         <label class="mb-1 block text-sm font-medium text-gray-700">
-                            Jam<span class="text-red-500">*</span>
+                            Jam <span class="text-red-500">*</span>
                         </label>
                         <div class="flex w-full">
-                            <input type="text" id="nomor_rekam_medis" name="nomor_rekam_medis"
+                            <input type="time" id="waktu_resep" name="waktu_resep"
                                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                placeholder="" value="">
+                                value="{{ $kunjungan->resep->waktu_resep ?? '' }}">
                         </div>
+                        @error('waktu_resep')
+                            <span class="text-xs text-red-400">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -107,20 +119,26 @@
                         Dosis Obat yang diberikan <span class="text-red-500">*</span>
                     </label>
                     <div class="flex w-full">
-                        <input type="text" id="nomor_rekam_medis" name="nomor_rekam_medis"
+                        <input type="text" id="dosis_obat" name="dosis_obat"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                            placeholder="" value="">
+                            value="{{ $kunjungan->resep->dosis_obat_diberikan ?? '' }}">
                     </div>
+                    @error('dosis_obat')
+                        <span class="text-xs text-red-400">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="mb-3 grid w-full items-center">
                     <label class="mb-1 block text-sm font-medium text-gray-700">
                         Frekuensi Interval <span class="text-red-500">*</span>
                     </label>
                     <div class="flex w-full">
-                        <input type="text" id="nomor_rekam_medis" name="nomor_rekam_medis"
+                        <input type="text" id="frekuensi_interval" name="frekuensi_interval"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                            placeholder="" value="">
+                            value="{{ $kunjungan->resep->frekuensi_interval ?? '' }}">
                     </div>
+                    @error('frekuensi_interval')
+                        <span class="text-xs text-red-400">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
             <div class="mb-3 grid w-full items-center gap-3">
@@ -129,30 +147,40 @@
                         Aturan tambahan <span class="text-red-500">*</span>
                     </label>
                     <div class="flex w-full">
-                        <input type="text" id="nomor_rekam_medis" name="nomor_rekam_medis"
+                        <input type="text" id="aturan_tambahan" name="aturan_tambahan"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                            placeholder="" value="">
+                            value="{{ $kunjungan->resep->aturan_tambahan ?? '' }}">
                     </div>
+                    @error('aturan_tambahan')
+                        <span class="text-xs text-red-400">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="mb-3 grid w-full items-center">
                     <label class="mb-1 block text-sm font-medium text-gray-700">
                         Catatan Resep <span class="text-red-500">*</span>
                     </label>
                     <div class="flex">
-                        <textarea class="flex-grow rounded border p-2 focus:border-amber-400 focus:ring-amber-400" rows="2"></textarea>
+                        <textarea class="flex-grow rounded border p-2 focus:border-amber-400 focus:ring-amber-400" rows="2"
+                            name="catatan_resep">{{ $kunjungan->resep->catatan_resep ?? '' }}</textarea>
                     </div>
+                    @error('catatan_resep')
+                        <span class="text-xs text-red-400">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
             {{-- button --}}
             <div class="mt-4 flex justify-end">
-                <button type="submit" class="rounded bg-amber-500 px-4 py-2 font-bold text-white hover:bg-amber-600">
-                    Simpan
-                </button>
                 <button type="reset"
-                    class="ml-2 rounded bg-gray-300 px-4 py-2 font-bold text-gray-800 hover:bg-gray-400">
+                    class="mr-2 cursor-pointer rounded bg-gray-300 px-4 py-2 font-bold text-gray-800 hover:bg-gray-400">
                     Batal
                 </button>
+                <button type="submit"
+                    class="cursor-pointer rounded bg-amber-500 px-4 py-2 font-bold text-white hover:bg-amber-600">
+                    @isset($kunjungan->resep) Update Resep
+                    @else
+                        Simpan Resep @endif
+                    </button>
+                </div>
             </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>

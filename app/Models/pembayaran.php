@@ -21,6 +21,11 @@ class pembayaran extends Model
         'status_pembayaran',
     ];
 
+    protected $casts = [
+        'tanggal_pembayaran' => 'date',
+        'waktu_pembayaran' => 'datetime',
+    ];
+
     // relasi ke tabel cara_pembayaran
     public function caraPembayaran()
     {

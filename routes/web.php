@@ -49,6 +49,9 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     // terapi
     Route::post('/pemeriksaan-klinis/{id}/create-terapi', [PemeriksaanController::class, 'store_terapi'])->name('store.terapi');
 
+    // resep
+    Route::post('/pemeriksaan-klinis/{id}/create-resep', [PemeriksaanController::class, 'store_resep'])->name('store.resep');
+
     // user
     Route::get('/user', [UserController::class, 'index'])->name('show.user');
     Route::get('/create/user', [UserController::class, 'add_user'])->name('add.user');

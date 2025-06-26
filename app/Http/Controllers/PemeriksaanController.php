@@ -12,6 +12,7 @@ use App\Models\MasterCaraPembayaran;
 use SweetAlert2\Laravel\Swal;
 use App\Models\Pasien;
 use App\Models\Tindakan;
+use App\Models\Resep;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class PemeriksaanController extends Controller
@@ -255,6 +256,78 @@ class PemeriksaanController extends Controller
             Swal::error([
                 'title' => 'Error',
                 'text' => 'Gagal menyimpan terapi',
+            ]);
+            return redirect()->back()->with('active_tab', $request->active_tab);
+        }
+    }
+
+    public function store_resep(Request $request, $id)
+    {
+        $kunjungan = Kunjungan::find($id);
+        if (!$kunjungan) {
+            Swal::error([
+                'title' => 'Error',
+                'text' => 'Kunjungan tidak ditemukan.',
+            ]);
+            return redirect()->back()->with('error', 'Kunjungan tidak ditemukan.');
+        }
+
+        $request->validate(
+            [
+                'nama_obat' => 'required|string|max:255',
+                'bentuk_sediaan' => 'required|string|max:255',
+                'jumlah_obat' => 'required|string|max:100',
+                'tanggal' => 'required|date',
+                'waktu_resep' => 'required|date_format:H:i',
+                'dosis_obat' => 'required|string|max:255',
+                'frekuensi_interval' => 'required|string|max:255',
+                'aturan_tambahan' => 'nullable|string|max:255',
+                'catatan_resep' => 'nullable|string|max:500',
+                'active_tab' => 'required|string|max:255',
+            ],
+            [
+                'nama_obat.required' => 'Nama obat harus diisi.',
+                'bentuk_sediaan.required' => 'Bentuk sediaan harus diisi.',
+                'jumlah_obat.required' => 'Jumlah obat harus diisi.',
+                'tanggal.required' => 'Tanggal resep harus diisi.',
+                'waktu_resep.required' => 'Waktu resep harus diisi.',
+                'dosis_obat.required' => 'Dosis obat harus diisi.',
+                'frekuensi_interval.required' => 'Frekuensi interval harus diisi.',
+            ]
+        );
+
+        // dd($request->all());
+
+        $id_resep = 'RSP-' . strtoupper(uniqid());
+
+        try {
+            Resep::updateOrCreate(
+                ['id_kunjungan' => $kunjungan->id_kunjungan],
+                [
+                    'id_resep' => $id_resep,
+                    'id_kunjungan' => $kunjungan->id_kunjungan,
+                    'id_pasien' => $kunjungan->id_pasien,
+                    'nama_obat' => $request->nama_obat,
+                    'bentuk_sediaan' => $request->bentuk_sediaan,
+                    'jumlah_obat' => $request->jumlah_obat,
+                    'tanggal_resep' => $request->tanggal,
+                    'waktu_resep' => $request->waktu_resep,
+                    'dosis_obat_diberikan' => $request->dosis_obat,
+                    'frekuensi_interval' => $request->frekuensi_interval,
+                    'aturan_tambahan' => $request->aturan_tambahan,
+                    'catatan_resep' => $request->catatan_resep,
+                ]
+            );
+
+            Swal::success([
+                'title' => 'Sukses',
+                'text' => 'Resep berhasil disimpan.',
+            ]);
+            return redirect()->back()->with('active_tab', $request->active_tab);
+        } catch (\Exception $e) {
+            Swal::error([
+                'title' => 'Error',
+                'text' => 'Gagal menyimpan resep',
             ]);
             return redirect()->back()->with('active_tab', $request->active_tab);
         }

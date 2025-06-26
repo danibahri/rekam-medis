@@ -8,13 +8,10 @@
         </button>
     </div>
 
-    {{-- Ganti 'nama.route.simpan.pembayaran' dengan nama route Anda yang sebenarnya --}}
     <form action="" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="text" name="active_tab" value="pembayaran" hidden>
-        {{-- Formulir Pembayaran --}}
         <div class="p-4">
-            {{-- Baris 1: Tanggal & Waktu Pembayaran --}}
             <div class="mb-3 grid w-full gap-4 lg:grid-cols-2">
                 <div>
                     <label for="tanggal_pembayaran" class="mb-1 block text-sm font-medium text-gray-700">
@@ -22,7 +19,7 @@
                     </label>
                     <input type="date" id="tanggal_pembayaran" name="tanggal_pembayaran"
                         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                        value="{{ $kunjungan->pembayaran->tanggal_pembayaran ?? date('Y-m-d') }}" required>
+                        value="{{ $kunjungan->pembayaran->tanggal_pembayaran ?? date('Y-m-d') }}">
                 </div>
                 <div>
                     <label for="waktu_pembayaran" class="mb-1 block text-sm font-medium text-gray-700">
@@ -30,11 +27,10 @@
                     </label>
                     <input type="time" id="waktu_pembayaran" name="waktu_pembayaran"
                         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                        value="{{ $kunjungan->pembayaran->waktu_pembayaran ?? date('H:i:s') }}" required>
+                        value="{{ $kunjungan->pembayaran->waktu_pembayaran ?? '' }}">
                 </div>
             </div>
 
-            {{-- Baris 2: Jumlah & Cara Pembayaran --}}
             <div class="mb-3 grid w-full gap-4 lg:grid-cols-2">
                 <div>
                     <label for="jumlah" class="mb-1 block text-sm font-medium text-gray-700">
@@ -48,7 +44,7 @@
                     <label for="cara_pembayaran" class="mb-1 block text-sm font-medium text-gray-700">
                         Cara Pembayaran <span class="text-red-500">*</span>
                     </label>
-                    <select id="cara_pembayaran" name="cara_pembayaran" required
+                    <select id="cara_pembayaran" name="cara_pembayaran"
                         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400">
                         <option value="" disabled selected>Pilih cara pembayaran...</option>
                         @foreach ($caraPembayaran as $pembayaran)
@@ -61,7 +57,6 @@
                 </div>
             </div>
 
-            {{-- Baris 3: Status Pembayaran --}}
             <div class="mb-3 grid w-full">
                 <div>
                     <label for="status_pembayaran" class="mb-1 block text-sm font-medium text-gray-700">
@@ -75,13 +70,18 @@
             </div>
         </div>
 
-        {{-- Tombol Aksi --}}
         <div class="flex justify-end border-t p-4">
-            <button type="reset" class="mr-2 rounded bg-gray-300 px-4 py-2 font-bold text-gray-800 hover:bg-gray-400">
+            <button type="reset"
+                class="mr-2 cursor-pointer rounded bg-gray-300 px-4 py-2 font-bold text-gray-800 hover:bg-gray-400">
                 Batal
             </button>
-            <button type="submit" class="rounded bg-amber-500 px-4 py-2 font-bold text-white hover:bg-amber-600">
-                <i class="fas fa-save mr-2"></i>Simpan Pembayaran
+            <button type="submit"
+                class="cursor-pointer rounded bg-amber-500 px-4 py-2 font-bold text-white hover:bg-amber-600">
+                @isset($kunjungan->pembayaran)
+                    Update Pembayaran
+                @else
+                    Simpan Pembayaran
+                @endisset
             </button>
         </div>
     </form>
