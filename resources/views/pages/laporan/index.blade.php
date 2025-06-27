@@ -5,6 +5,12 @@
     <div class="p-4 sm:ml-64">
         <div class="rounded-lg border-2 border-dashed border-gray-200 p-4">
             <h1 class="mb-4 rounded bg-white py-5 pl-3 text-3xl font-bold text-gray-700 shadow">Laporan Kunjungan Pasien</h1>
+
+            {{-- informasi hanya menampilkan kunjungan terakhir --}}
+            <p class="mb-4 text-gray-600">
+                Laporan ini menampilkan data kunjungan pasien terakhir. Untuk melihat detail kunjungan, silakan klik pada
+                profil pasien.
+            </p>
             <a href="{{ route('laporan.export.csv') }}"
                 class="mb-4 inline-block rounded bg-amber-400 px-4 py-2 text-sm text-white hover:bg-amber-700">
                 Export ke CSV
@@ -58,7 +64,11 @@
                                     </td>
                                     {{-- total kunjungan --}}
                                     <td class="px-6 py-4">
-                                        {{ $item->total_kunjungan ?? '-' }}
+                                        @if (isset($kunjunganCounts))
+                                            {{ $kunjunganCounts[$item->id_pasien] ?? 1 }}
+                                        @else
+                                            {{ $item->total_kunjungan ?? 1 }}
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
