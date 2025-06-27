@@ -8,18 +8,31 @@
         </button>
     </div>
 
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('store.pembayaran', $kunjungan->id_kunjungan) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="text" name="active_tab" value="pembayaran" hidden>
         <div class="p-4">
             <div class="mb-3 grid w-full gap-4 lg:grid-cols-2">
-                <div>
-                    <label for="tanggal_pembayaran" class="mb-1 block text-sm font-medium text-gray-700">
-                        Tanggal Pembayaran <span class="text-red-500">*</span>
-                    </label>
-                    <input type="date" id="tanggal_pembayaran" name="tanggal_pembayaran"
-                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                        value="{{ $kunjungan->pembayaran->tanggal_pembayaran ?? date('Y-m-d') }}">
+                <div class="mb-3 grid w-full items-center">
+                    <label for="tanggal_pembayaran" class="mb-2 block text-sm font-medium text-gray-900">Tanggal
+                        Pembayaran <span class="text-red-500">*</span></label>
+                    <div class="relative">
+                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                            <svg class="h-4 w-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                            </svg>
+                        </div>
+                        <input datepicker datepicker-format="yyyy-mm-dd" type="text" id="tanggal_pembayaran"
+                            name="tanggal_pembayaran"
+                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
+                            placeholder="Pilih tanggal pembayaran"
+                            value="{{ $kunjungan->pembayaran->tanggal_pembayaran ?? '' }}">
+                    </div>
+                    @error('tanggal_pembayaran')
+                        <span class="text-xs text-red-400">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div>
                     <label for="waktu_pembayaran" class="mb-1 block text-sm font-medium text-gray-700">
@@ -27,7 +40,10 @@
                     </label>
                     <input type="time" id="waktu_pembayaran" name="waktu_pembayaran"
                         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                        value="{{ $kunjungan->pembayaran->waktu_pembayaran ?? '' }}">
+                        value="{{ $kunjungan?->pembayaran?->waktu_pembayaran?->format('H:i') ?? '' }}">
+                    @error('waktu_pembayaran')
+                        <span class="text-xs text-red-400">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
 
@@ -39,6 +55,9 @@
                     <input type="number" id="jumlah" name="jumlah" min="0"
                         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
                         value="{{ $kunjungan->pembayaran->jumlah ?? '' }}">
+                    @error('jumlah')
+                        <span class="text-xs text-red-400">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div>
                     <label for="cara_pembayaran" class="mb-1 block text-sm font-medium text-gray-700">
@@ -54,6 +73,9 @@
                             </option>
                         @endforeach
                     </select>
+                    @error('cara_pembayaran')
+                        <span class="text-xs text-red-400">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
 
@@ -62,10 +84,15 @@
                     <label for="status_pembayaran" class="mb-1 block text-sm font-medium text-gray-700">
                         Status Pembayaran <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" id="status_pembayaran" name="status_pembayaran"
+                    <input type="text"
                         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
                         value="{{ ($kunjungan->pembayaran->status_pembayaran ?? 'belum_lunas') == 'belum_lunas' ? 'Belum Lunas' : 'Lunas' }}"
                         readonly>
+                    <input type="text" name="status_pembayaran" id="status_pembayaran"
+                        value="{{ $kunjungan->pembayaran->status_pembayaran ?? 'belum_lunas' }}" hidden>
+                    @error('status_pembayaran')
+                        <span class="text-xs text-red-400">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
         </div>

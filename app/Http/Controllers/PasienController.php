@@ -30,7 +30,7 @@ class PasienController extends Controller
 
         // kunjungan pasien dengan status selesai
         $kunjungan = Kunjungan::where('id_pasien', $id)
-            ->where('status', 'selesai')
+            ->whereIn('status', ['selesai', 'dalam_pemeriksaan'])
             ->orderBy('tanggal_kunjungan', 'desc')
             ->orderBy('waktu_kunjungan', 'desc')
             ->get();
@@ -251,10 +251,23 @@ class PasienController extends Controller
 
         $cek_kunjungan = Kunjungan::where('id_pasien', $validated['id_pasien'])->count();
 
-        // jenis kunjungan
         $jenis_kunjungan = 'baru';
         if ($cek_kunjungan > 0) {
             $jenis_kunjungan = 'lama';
+        }
+
+        // cek kunjungan pasien hanya bisa satu kali tidak boleh lebih dari satu jika statusnya belum selesai
+        $kunjungan_aktif = Kunjungan::where('id_pasien', $validated['id_pasien'])
+            ->whereIn('status', ['dalam_pemeriksaan', 'menunggu'])
+            ->first();
+
+        if ($kunjungan_aktif) {
+            Swal::info([
+                'title' => 'Peringatan!',
+                'text' => 'Pasien sedang dalam pemeriksaan. Silakan selesaikan pemeriksaan sebelumnya.',
+                'icon' => 'warning',
+            ]);
+            return redirect()->back();
         }
 
         try {

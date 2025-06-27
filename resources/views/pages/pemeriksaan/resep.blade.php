@@ -95,7 +95,7 @@
                         <div class="flex w-full">
                             <input type="time" id="waktu_resep" name="waktu_resep"
                                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                value="{{ $kunjungan->resep->waktu_resep ?? '' }}">
+                                value="{{ $kunjungan?->resep?->waktu_resep?->format('H:i') ?? '' }}">
                         </div>
                         @error('waktu_resep')
                             <span class="text-xs text-red-400">{{ $message }}</span>

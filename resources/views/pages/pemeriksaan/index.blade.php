@@ -95,9 +95,7 @@
                     @php
                         $activeTab = session('active_tab') ?? old('active_tab');
                     @endphp
-                    {{ $activeTab }}
 
-                    {{-- tab navigation and content --}}
                     @if (!empty($kunjungan))
                         {{-- tab navigation --}}
                         <div class="rounded-t-lg border-amber-200 bg-amber-400">

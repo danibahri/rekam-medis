@@ -11,6 +11,7 @@ use App\Models\InformedConsent;
 use App\Models\MasterCaraPembayaran;
 use SweetAlert2\Laravel\Swal;
 use App\Models\Pasien;
+use App\Models\pembayaran;
 use App\Models\Tindakan;
 use App\Models\Resep;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -330,6 +331,120 @@ class PemeriksaanController extends Controller
                 'text' => 'Gagal menyimpan resep',
             ]);
             return redirect()->back()->with('active_tab', $request->active_tab);
+        }
+    }
+
+    public function store_pembayaran(Request $request, $id)
+    {
+        $kunjungan = Kunjungan::find($id);
+        if (!$kunjungan) {
+            Swal::error([
+                'title' => 'Error',
+                'text' => 'Kunjungan tidak ditemukan.',
+            ]);
+            return redirect()->back()->with('error', 'Kunjungan tidak ditemukan.');
+        }
+
+        if (!isset($kunjungan->assessment) || !isset($kunjungan->resep)) {
+            Swal::info([
+                'title' => 'Peringatan!',
+                'text' => 'Pastikan Pemeriksaan Klinis dan Resep sudah diisi sebelum melakukan pembayaran.',
+            ]);
+            return redirect()->back()->with('active_tab', $request->active_tab);
+        }
+
+        $request->validate([
+            'tanggal_pembayaran' => 'required|date',
+            'waktu_pembayaran' => 'required|date_format:H:i',
+            'jumlah' => 'required|string',
+            'cara_pembayaran' => 'required',
+            'status_pembayaran' => 'required|in:lunas,belum_lunas',
+            'active_tab' => 'required'
+        ], [
+            'tanggal_pembayaran.required' => 'Tanggal pembayaran harus diisi.',
+            'waktu_pembayaran.required' => 'Waktu pembayaran harus diisi.',
+            'jumlah.required' => 'Jumlah pembayaran harus diisi.',
+            'cara_pembayaran.required' => 'Cara pembayaran harus dipilih.',
+            'status_pembayaran.required' => 'Status pembayaran harus dipilih.',
+            'status_pembayaran.in' => 'Status pembayaran harus berupa "lunas" atau "belum_lunas".',
+        ]);
+        $id_pembayaran = 'PB-' . strtoupper(uniqid());
+
+        try {
+            $kunjungan->pembayaran()->updateOrCreate(
+                ['id_kunjungan' => $kunjungan->id_kunjungan],
+                [
+                    'id_pembayaran' => $id_pembayaran,
+                    'id_pasien' => $kunjungan->id_pasien,
+                    'id_kunjungan' => $kunjungan->id_kunjungan,
+                    'tanggal_pembayaran' => $request->tanggal_pembayaran,
+                    'waktu_pembayaran' => $request->waktu_pembayaran,
+                    'cara_pembayaran' => $request->cara_pembayaran,
+                    'jumlah' => $request->jumlah,
+                    'status_pembayaran' => $request->status_pembayaran,
+                ]
+            );
+
+            Swal::success([
+                'title' => 'Sukses',
+                'text' => 'Pembayaran berhasil disimpan.',
+            ]);
+            return redirect()->back()->with('active_tab', $request->active_tab);
+        } catch (\Exception $e) {
+            Swal::error([
+                'title' => 'Error',
+                'text' => 'Gagal menyimpan pembayaran',
+            ]);
+            return redirect()->back()->with('active_tab', $request->active_tab);
+        }
+    }
+
+    public function store_pembayaran_status(Request $request, $id)
+    {
+        $kunjungan = Kunjungan::find($id);
+        if (!$kunjungan) {
+            Swal::error([
+                'title' => 'Error',
+                'text' => 'Kunjungan tidak ditemukan.',
+            ]);
+            return redirect()->back()->with('error', 'Kunjungan tidak ditemukan.');
+        }
+
+        if (!isset($kunjungan->pembayaran)) {
+            Swal::error([
+                'title' => 'Error',
+                'text' => 'Selesaikan pemeriksaan klinis dan resep sebelum melakukan pembayaran.',
+            ]);
+            return redirect()->back();
+        }
+
+        $request->validate([
+            'id_kunjungan' => 'required|exists:kunjungan,id_kunjungan',
+        ]);
+
+        try {
+            // Update status kunjungan
+            $kunjungan->status = 'selesai';
+            $status_kunjungan = $kunjungan->save();
+
+            if ($status_kunjungan) {
+                // Update status pembayaran
+                $pembayaran = $kunjungan->pembayaran;
+                $pembayaran->status_pembayaran = 'lunas';
+                $pembayaran->save();
+
+                Swal::success([
+                    'title' => 'Sukses',
+                    'text' => 'Pembayaran berhasil diselesaikan.',
+                ]);
+                return redirect()->back()->with('success', 'Pembayaran berhasil diselesaikan.');
+            }
+        } catch (\Exception $e) {
+            Swal::error([
+                'title' => 'Error',
+                'text' => 'Gagal menyelesaikan pembayaran: ' . $e->getMessage(),
+            ]);
+            return redirect()->back()->with('error', 'Gagal menyelesaikan pembayaran.');
         }
     }
 

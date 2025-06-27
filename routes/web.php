@@ -52,6 +52,10 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     // resep
     Route::post('/pemeriksaan-klinis/{id}/create-resep', [PemeriksaanController::class, 'store_resep'])->name('store.resep');
 
+    // pembayaran
+    Route::post('/pemeriksaan-klinis/{id}/create-pembayaran', [PemeriksaanController::class, 'store_pembayaran'])->name('store.pembayaran');
+    Route::post('/status-pembayaran/{id}/update', [PemeriksaanController::class, 'store_pembayaran_status'])->name('store.pembayaran.status');
+
     // user
     Route::get('/user', [UserController::class, 'index'])->name('show.user');
     Route::get('/create/user', [UserController::class, 'add_user'])->name('add.user');
