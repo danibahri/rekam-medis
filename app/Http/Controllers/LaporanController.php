@@ -8,24 +8,42 @@ use App\Models\Kunjungan;
 use App\Models\ResumePasien;
 use SweetAlert2\Laravel\Swal;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 
 class LaporanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Hanya ambil kunjungan dengan status 'selesai'
-        $kunjungan = Kunjungan::with('pasien')
+        $query = Kunjungan::with('pasien')
             ->where('status', 'selesai')
-            ->orderBy('tanggal_kunjungan', 'desc')
-            ->get()
-            ->unique('id_pasien');
+            ->orderBy('tanggal_kunjungan', 'desc');
 
-        // Pastikan hanya menghitung kunjungan dengan status 'selesai'
-        $kunjunganCounts = Kunjungan::select('id_pasien', \DB::raw('count(*) as total'))
-            ->where('status', 'selesai')
-            ->groupBy('id_pasien')
+        // Apply date range filter if provided
+        if ($request->filled('tanggal_mulai')) {
+            $query->whereDate('tanggal_kunjungan', '>=', $request->tanggal_mulai);
+        }
+
+        if ($request->filled('tanggal_selesai')) {
+            $query->whereDate('tanggal_kunjungan', '<=', $request->tanggal_selesai);
+        }
+
+        $kunjungan = $query->get()->unique('id_pasien');
+
+        // Count visits with same date filter
+        $countQuery = Kunjungan::select('id_pasien', \DB::raw('count(*) as total'))
+            ->where('status', 'selesai');
+
+        if ($request->filled('tanggal_mulai')) {
+            $countQuery->whereDate('tanggal_kunjungan', '>=', $request->tanggal_mulai);
+        }
+
+        if ($request->filled('tanggal_selesai')) {
+            $countQuery->whereDate('tanggal_kunjungan', '<=', $request->tanggal_selesai);
+        }
+
+        $kunjunganCounts = $countQuery->groupBy('id_pasien')
             ->pluck('total', 'id_pasien')
             ->toArray();
 
@@ -33,14 +51,22 @@ class LaporanController extends Controller
     }
 
 
-    public function exportCsv()
+    public function exportCsv(Request $request)
     {
-        // Hanya ekspor kunjungan dengan status 'selesai'
-        $laporan = Kunjungan::with('pasien')
+        $query = Kunjungan::with('pasien')
             ->where('status', 'selesai')
-            ->orderBy('tanggal_kunjungan', 'desc')
-            ->get()
-            ->unique('id_pasien');
+            ->orderBy('tanggal_kunjungan', 'desc');
+
+        // Apply same date range filter as index
+        if ($request->filled('tanggal_mulai')) {
+            $query->whereDate('tanggal_kunjungan', '>=', $request->tanggal_mulai);
+        }
+
+        if ($request->filled('tanggal_selesai')) {
+            $query->whereDate('tanggal_kunjungan', '<=', $request->tanggal_selesai);
+        }
+
+        $laporan = $query->get()->unique('id_pasien');
 
         if ($laporan->isEmpty()) {
             Swal::error([
@@ -50,7 +76,12 @@ class LaporanController extends Controller
             return redirect()->back()->with('error', 'Tidak ada data untuk diekspor.');
         }
 
-        $filename = 'laporan_kunjungan_' . now()->format('Ymd_His') . '.csv';
+        $dateRange = '';
+        if ($request->filled('tanggal_mulai') || $request->filled('tanggal_selesai')) {
+            $dateRange = '_' . ($request->tanggal_mulai ?? 'start') . '_to_' . ($request->tanggal_selesai ?? 'end');
+        }
+
+        $filename = 'laporan_kunjungan' . $dateRange . '_' . now()->format('Ymd_His') . '.csv';
         $handle = fopen('php://temp', 'r+');
 
         // Header CSV
