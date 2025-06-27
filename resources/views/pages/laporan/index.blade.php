@@ -65,15 +65,18 @@
                 </form>
             </div>
 
-            <form method="GET" action="{{ route('laporan.export.csv') }}" class="mb-4" id="exportForm">
-                <input type="hidden" name="tanggal_mulai" value="{{ request('tanggal_mulai') }}" id="export-tanggal-mulai">
-                <input type="hidden" name="tanggal_selesai" value="{{ request('tanggal_selesai') }}"
-                    id="export-tanggal-selesai">
-                <button type="submit" id="exportButton"
-                    class="inline-block rounded bg-amber-400 px-4 py-2 text-sm text-white hover:bg-amber-700">
-                    Export ke CSV
-                </button>
-            </form>
+            @if (Auth::user()->role != 'admin')
+                <form method="GET" action="{{ route('laporan.export.csv') }}" class="mb-4" id="exportForm">
+                    <input type="hidden" name="tanggal_mulai" value="{{ request('tanggal_mulai') }}"
+                        id="export-tanggal-mulai">
+                    <input type="hidden" name="tanggal_selesai" value="{{ request('tanggal_selesai') }}"
+                        id="export-tanggal-selesai">
+                    <button type="submit" id="exportButton"
+                        class="inline-block rounded bg-amber-400 px-4 py-2 text-sm text-white hover:bg-amber-700">
+                        Export ke CSV
+                    </button>
+                </form>
+            @endif
 
             <div class="relative mt-5 overflow-x-auto">
                 <table id="search-table"

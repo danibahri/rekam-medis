@@ -134,8 +134,8 @@
     <body>
         <div class="header">
             <div class="practice-info">Praktik Mandiri</div>
-            <div class="practice-info">{{ $dokter->nama_dokter }}</div>
-            <div class="practice-info">SIP. {{ $dokter->sip }}</div>
+            <div class="practice-info">{{ $dokter->nama_dokter ?? '-' }}</div>
+            <div class="practice-info">SIP. {{ $dokter->sip ?? '-' }}</div>
             <div class="practice-info">Perumahan Nilam Bangkalan Indah Blok D No 1.</div>
         </div>
 
@@ -174,24 +174,24 @@
             <table>
                 <tr>
                     <td style="padding: 0 10px 10px 0">Nama</td>
-                    <td style="padding: 0 10px 10px 0">: {{ $pasien->nama_lengkap }}</td>
+                    <td style="padding: 0 10px 10px 0">: {{ $pasien->nama_lengkap ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td style="padding: 0 10px 10px 0">Tempat, Tanggal Lahir</td>
-                    <td style="padding: 0 10px 10px 0">: {{ $pasien->tempat_lahir }},
-                        {{ \Carbon\Carbon::parse($pasien->tanggal_lahir)->format('d F Y') }}</td>
+                    <td style="padding: 0 10px 10px 0">: {{ $pasien->tempat_lahir ?? '-' }},
+                        {{ \Carbon\Carbon::parse($pasien->tanggal_lahir ?? '')->format('d F Y') }}</td>
                 </tr>
                 <tr>
                     <td style="padding: 0 10px 10px 0">Alamat</td>
-                    <td style="padding: 0 10px 10px 0">: {{ $pasien->alamat_lengkap }}</td>
+                    <td style="padding: 0 10px 10px 0">: {{ $pasien->alamat_lengkap ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td style="padding: 0 10px 10px 0">Nomor Telepon</td>
-                    <td style="padding: 0 10px 10px 0">: {{ $pasien->telepon_seluler }}</td>
+                    <td style="padding: 0 10px 10px 0">: {{ $pasien->telepon_seluler ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td style="padding: 0 10px 10px 0">Jenis Kelamin</td>
-                    <td style="padding: 0 10px 10px 0">: {{ $pasien->jenisKelamin->nama }}</td>
+                    <td style="padding: 0 10px 10px 0">: {{ $pasien->jenisKelamin->nama ?? '-' }}</td>
                 </tr>
             </table>
         </div>

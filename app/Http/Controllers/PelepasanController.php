@@ -6,6 +6,8 @@ use App\Models\Pasien;
 use Illuminate\Http\Request;
 use App\Models\Dokter;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
+use SweetAlert2\Laravel\Swal;
 
 class PelepasanController extends Controller
 {
@@ -19,14 +21,23 @@ class PelepasanController extends Controller
     {
         // Generate PDF for the specified patient
         $pasien = Pasien::findOrFail($id);
+        $kunjungan = $pasien->kunjungan()->latest()->first();
         $dokter = Dokter::get()->first();
-        $pdf = Pdf::loadView('pages.pelepasan.surat-sakit', compact('pasien', 'dokter'));
+        $pdf = Pdf::loadView('pages.pelepasan.surat-sakit', compact('pasien', 'dokter', 'kunjungan'));
         $pdf->setPaper('A4', 'portrait');
         return $pdf->stream('surat-sakit.pdf');
     }
 
     public function persetujuan_pdf($id)
     {
+        if (Auth::user()->role == 'admin') {
+            Swal::info([
+                'title' => 'Info',
+                'text' => 'Anda tidak memiliki akses untuk menyetak persetujuan pasien',
+                'icon' => 'info'
+            ]);
+            return redirect()->back();
+        }
         // Generate PDF for the patient consent form
         $pasien = Pasien::findOrFail($id);
         $dokter = Dokter::get()->first();

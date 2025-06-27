@@ -14,6 +14,7 @@ use App\Models\MasterPekerjaan;
 use App\Models\MasterPendidikan;
 use App\Models\MasterStatusPernikahan;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class PasienController extends Controller
 {
@@ -60,6 +61,14 @@ class PasienController extends Controller
 
     public function edit_pasien($id)
     {
+        if (Auth::user()->role == 'admin') {
+            Swal::info([
+                'title' => 'Info',
+                'text' => 'Anda tidak memiliki akses untuk mengedit data pasien',
+                'icon' => 'info'
+            ]);
+            return redirect()->back();
+        }
         $pasien = Pasien::findOrFail($id);
         $master_agama = MasterAgama::all();
         $master_jenisKelamin = MasterJenisKelamin::all();
@@ -163,6 +172,7 @@ class PasienController extends Controller
             'foto_pasien_path.mimes' => 'Format file harus jpeg, png, jpg, atau gif',
             'foto_pasien_path.max' => 'Ukuran file maksimal 2MB',
         ]);
+        // dd($request->all());
         try {
             $id = 'PSN' . time() . rand(100, 999);
 
@@ -216,7 +226,6 @@ class PasienController extends Controller
                 'pendidikan' => $validated['pendidikan'],
                 'pekerjaan' => $validated['pekerjaan'],
                 'status_pernikahan' => $validated['status_pernikahan'],
-                'cara_pembayaran' => $validated['cara_pembayaran'],
 
                 // File upload
                 'foto_pasien_path' => $foto_path,
@@ -228,11 +237,12 @@ class PasienController extends Controller
                 'icon' => 'success',
                 'timer' => 3000,
             ]);
+
             return redirect()->route('show.pasien')->with('success', 'Pasien created successfully');
         } catch (\Exception $e) {
             Swal::error([
                 'title' => 'Error',
-                'text' => 'Terjadi kesalahan saat menyimpan data pasien.',
+                'text' => 'Terjadi kesalahan saat menyimpan data pasien!',
                 'icon' => 'error',
                 'timer' => 3000,
             ]);

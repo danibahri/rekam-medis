@@ -251,159 +251,165 @@
                 </div>
             </div>
 
-            {{-- kunjungan pasien dengan status selesai --}}
-            <div class="mt-8 rounded-lg bg-white p-6 shadow-lg">
-                <h2 class="mb-4 text-2xl font-bold text-gray-800">Riwayat Kunjungan Pasien</h2>
-                @if ($kunjungan->isEmpty())
-                    <p class="text-gray-600">Pasien belum pernah berkunjung.</p>
-                @else
-                    <table id="search-table" class="w-full border-t-4 border-amber-300 text-left text-sm text-gray-700">
-                        <thead class="border-b-1 bg-white text-xs uppercase text-gray-700">
-                            <tr>
-                                <th class="px-6 py-3">ID Kunjungan</th>
-                                <th class="px-6 py-3">Tanggal Kunjungan</th>
-                                <th class="px-6 py-3">Waktu Kunjungan</th>
-                                <th class="px-6 py-3">Dokter</th>
-                                <th class="px-6 py-3">Status Pembayaran</th>
-                                <th class="px-6 py-3">Status Kunjungan</th>
-                                <th class="px-6 py-3">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($kunjungan as $item)
-                                @php
-                                    $count = $loop->index + 1;
-                                @endphp
-                                <tr class="border-b hover:bg-gray-50">
-                                    <td class="px-6 py-4">{{ $item->id_kunjungan ?? '-' }}</td>
-                                    <td class="px-6 py-4">
-                                        {{ \Carbon\Carbon::parse($item->tanggal_kunjungan)->format('d F Y') ?? '-' }}</td>
-                                    <td class="px-6 py-4">{{ $item->waktu_kunjungan ?? '-' }}</td>
-                                    <td class="px-6 py-4">{{ $item->dokter->nama_dokter ?? '-' }}</td>
-                                    <td class="px-6 py-4">
-                                        @if (($item->pembayaran->status_pembayaran ?? '-') == 'belum_lunas')
-                                            <span class="rounded-xl bg-red-500 px-2 py-2 text-xs text-white">Belum
-                                                Lunas</span>
-                                        @elseif (($item->pembayaran->status_pembayaran ?? '-') == 'lunas')
-                                            <span class="rounded-xl bg-green-500 px-2 py-2 text-xs text-white">Lunas</span>
-                                        @else
-                                            <span c>-</span>
-                                        @endif
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        @if ($item->status == 'menunggu')
-                                            <span
-                                                class="rounded-xl bg-red-500 px-2 py-2 text-xs text-white">Menunggu</span>
-                                        @elseif($item->status == 'dalam_pemeriksaan')
-                                            <span class="rounded-xl bg-amber-500 px-2 py-2 text-xs text-white">
-                                                Pemeriksaan</span>
-                                        @else
-                                            <span
-                                                class="rounded-xl bg-green-500 px-2 py-2 text-xs text-white">Selesai</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a data-modal-target="modal-{{ $item->id_kunjungan }}"
-                                            data-modal-toggle="modal-{{ $item->id_kunjungan }}"
-                                            class="cursor-pointer text-yellow-500"
-                                            data-tooltip-target="tooltip-{{ $count }}-2"
-                                            data-tooltip-style="light">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="size-6 lg:size-7">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
-                                            </svg>
-                                        </a>
-                                        <div id="tooltip-{{ $count }}-2" role="tooltip"
-                                            class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 opacity-0">
-                                            Bayar Sekarang
-                                            <div class="tooltip-arrow" data-popper-arrow></div>
-                                        </div>
-                                    </td>
+            @if (Auth::user()->role != 'admin')
+                {{-- kunjungan pasien dengan status selesai --}}
+                <div class="mt-8 rounded-lg bg-white p-6 shadow-lg">
+                    <h2 class="mb-4 text-2xl font-bold text-gray-800">Riwayat Kunjungan Pasien</h2>
+                    @if ($kunjungan->isEmpty())
+                        <p class="text-gray-600">Pasien belum pernah berkunjung.</p>
+                    @else
+                        <table id="search-table"
+                            class="w-full border-t-4 border-amber-300 text-left text-sm text-gray-700">
+                            <thead class="border-b-1 bg-white text-xs uppercase text-gray-700">
+                                <tr>
+                                    <th class="px-6 py-3">ID Kunjungan</th>
+                                    <th class="px-6 py-3">Tanggal Kunjungan</th>
+                                    <th class="px-6 py-3">Waktu Kunjungan</th>
+                                    <th class="px-6 py-3">Dokter</th>
+                                    <th class="px-6 py-3">Status Pembayaran</th>
+                                    <th class="px-6 py-3">Status Kunjungan</th>
+                                    <th class="px-6 py-3">Aksi</th>
                                 </tr>
-                                {{-- modal --}}
-                                <div id="modal-{{ $item->id_kunjungan }}" tabindex="-1" aria-hidden="true"
-                                    class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
-                                    <div class="relative max-h-full w-full max-w-4xl p-4">
-                                        <!-- Modal content -->
-                                        <div class="relative rounded-lg bg-white shadow-sm">
-                                            <!-- Modal header -->
-                                            <div
-                                                class="flex items-center justify-between rounded-t border-b border-gray-200 p-4 md:p-5">
-                                                <h3 class="text-lg font-semibold text-gray-900">
-                                                    Informasi Pembayaran Pasien
-                                                </h3>
-                                                <button type="button"
-                                                    class="ms-auto inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900"
-                                                    data-modal-toggle="modal-{{ $item->id_kunjungan }}">
-                                                    <svg class="h-3 w-3" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 14 14">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                    </svg>
-                                                    <span class="sr-only">Close modal</span>
-                                                </button>
+                            </thead>
+                            <tbody>
+                                @foreach ($kunjungan as $item)
+                                    @php
+                                        $count = $loop->index + 1;
+                                    @endphp
+                                    <tr class="border-b hover:bg-gray-50">
+                                        <td class="px-6 py-4">{{ $item->id_kunjungan ?? '-' }}</td>
+                                        <td class="px-6 py-4">
+                                            {{ \Carbon\Carbon::parse($item->tanggal_kunjungan)->format('d F Y') ?? '-' }}
+                                        </td>
+                                        <td class="px-6 py-4">{{ $item->waktu_kunjungan ?? '-' }}</td>
+                                        <td class="px-6 py-4">{{ $item->dokter->nama_dokter ?? '-' }}</td>
+                                        <td class="px-6 py-4">
+                                            @if (($item->pembayaran->status_pembayaran ?? '-') == 'belum_lunas')
+                                                <span class="rounded-xl bg-red-500 px-2 py-2 text-xs text-white">Belum
+                                                    Lunas</span>
+                                            @elseif (($item->pembayaran->status_pembayaran ?? '-') == 'lunas')
+                                                <span
+                                                    class="rounded-xl bg-green-500 px-2 py-2 text-xs text-white">Lunas</span>
+                                            @else
+                                                <span c>-</span>
+                                            @endif
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            @if ($item->status == 'menunggu')
+                                                <span
+                                                    class="rounded-xl bg-red-500 px-2 py-2 text-xs text-white">Menunggu</span>
+                                            @elseif($item->status == 'dalam_pemeriksaan')
+                                                <span class="rounded-xl bg-amber-500 px-2 py-2 text-xs text-white">
+                                                    Pemeriksaan</span>
+                                            @else
+                                                <span
+                                                    class="rounded-xl bg-green-500 px-2 py-2 text-xs text-white">Selesai</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a data-modal-target="modal-{{ $item->id_kunjungan }}"
+                                                data-modal-toggle="modal-{{ $item->id_kunjungan }}"
+                                                class="cursor-pointer text-yellow-500"
+                                                data-tooltip-target="tooltip-{{ $count }}-2"
+                                                data-tooltip-style="light">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                    class="size-6 lg:size-7">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
+                                                </svg>
+                                            </a>
+                                            <div id="tooltip-{{ $count }}-2" role="tooltip"
+                                                class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 opacity-0">
+                                                Bayar Sekarang
+                                                <div class="tooltip-arrow" data-popper-arrow></div>
                                             </div>
-                                            <!-- Modal body -->
-                                            <form method="POST"
-                                                action="{{ route('store.pembayaran.status', $item->id_kunjungan) }}"
-                                                enctype="multipart/form-data" class="p-4 md:p-5">
-                                                @csrf
-                                                <div class="mb-4 grid grid-cols-2 gap-4 p-4 md:p-5">
-                                                    <input type="text" name="id_kunjungan" id="id_kunjungan"
-                                                        value="{{ $item->id_kunjungan }}" hidden>
-                                                    <div class="col-span-2">
-                                                        <label for="id_pembayaran"
-                                                            class="mb-2 block text-sm font-medium text-gray-900">Nomor
-                                                            Pembayaran</label>
-                                                        <input type="text" id="id_pembayaran"
-                                                            value="{{ $item->pembayaran->id_pembayaran ?? '-' }}"
-                                                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-600 focus:ring-amber-600"
-                                                            required readonly>
-                                                    </div>
-                                                    <div class="col-span-2 sm:col-span-1">
-                                                        <label for="tanggal_pembayaran"
-                                                            class="mb-2 block text-sm font-medium text-gray-900">Tanggal
-                                                            Pembayaran</label>
-                                                        <input type="text" id="tanggal_pembayaran"
-                                                            value="@if (!empty($item->pembayaran) && !empty($item->pembayaran->tanggal_pembayaran)) {{ \Carbon\Carbon::parse($item->pembayaran->tanggal_pembayaran)->translatedFormat('d F Y H:i') }}
-                                                                    @else - @endif"
-                                                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-600 focus:ring-amber-600"
-                                                            required readonly>
-                                                    </div>
-                                                    <div class="col-span-2 sm:col-span-1">
-                                                        <label for="jumlah"
-                                                            class="mb-2 block text-sm font-medium text-gray-900">Total
-                                                            Tagihan</label>
-                                                        <input type="text" id="jumlah"
-                                                            value="{{ $item->pembayaran?->jumlah ? 'Rp. ' . number_format($item->pembayaran->jumlah, 0, ',', '.') : '-' }}"
-                                                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-600 focus:ring-amber-600"
-                                                            required readonly>
-                                                    </div>
-                                                </div>
-                                                <div class="flex w-full justify-end p-4 md:p-5">
-                                                    <button type="submit"
-                                                        class="inline-flex cursor-pointer items-end rounded-lg bg-amber-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-amber-800 focus:outline-none focus:ring-4 focus:ring-amber-300">
-                                                        <svg class="-ms-1 me-1 h-5 w-5" fill="currentColor"
-                                                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd"
-                                                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                                                clip-rule="evenodd"></path>
+                                        </td>
+                                    </tr>
+                                    {{-- modal --}}
+                                    <div id="modal-{{ $item->id_kunjungan }}" tabindex="-1" aria-hidden="true"
+                                        class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
+                                        <div class="relative max-h-full w-full max-w-4xl p-4">
+                                            <!-- Modal content -->
+                                            <div class="relative rounded-lg bg-white shadow-sm">
+                                                <!-- Modal header -->
+                                                <div
+                                                    class="flex items-center justify-between rounded-t border-b border-gray-200 p-4 md:p-5">
+                                                    <h3 class="text-lg font-semibold text-gray-900">
+                                                        Informasi Pembayaran Pasien
+                                                    </h3>
+                                                    <button type="button"
+                                                        class="ms-auto inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900"
+                                                        data-modal-toggle="modal-{{ $item->id_kunjungan }}">
+                                                        <svg class="h-3 w-3" aria-hidden="true"
+                                                            xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 14 14">
+                                                            <path stroke="currentColor" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                                         </svg>
-                                                        Bayar Sekarang
+                                                        <span class="sr-only">Close modal</span>
                                                     </button>
                                                 </div>
-                                            </form>
+                                                <!-- Modal body -->
+                                                <form method="POST"
+                                                    action="{{ route('store.pembayaran.status', $item->id_kunjungan) }}"
+                                                    enctype="multipart/form-data" class="p-4 md:p-5">
+                                                    @csrf
+                                                    <div class="mb-4 grid grid-cols-2 gap-4 p-4 md:p-5">
+                                                        <input type="text" name="id_kunjungan" id="id_kunjungan"
+                                                            value="{{ $item->id_kunjungan }}" hidden>
+                                                        <div class="col-span-2">
+                                                            <label for="id_pembayaran"
+                                                                class="mb-2 block text-sm font-medium text-gray-900">Nomor
+                                                                Pembayaran</label>
+                                                            <input type="text" id="id_pembayaran"
+                                                                value="{{ $item->pembayaran->id_pembayaran ?? '-' }}"
+                                                                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-600 focus:ring-amber-600"
+                                                                required readonly>
+                                                        </div>
+                                                        <div class="col-span-2 sm:col-span-1">
+                                                            <label for="tanggal_pembayaran"
+                                                                class="mb-2 block text-sm font-medium text-gray-900">Tanggal
+                                                                Pembayaran</label>
+                                                            <input type="text" id="tanggal_pembayaran"
+                                                                value="@if (!empty($item->pembayaran) && !empty($item->pembayaran->tanggal_pembayaran)) {{ \Carbon\Carbon::parse($item->pembayaran->tanggal_pembayaran)->translatedFormat('d F Y H:i') }}
+                                                                    @else - @endif"
+                                                                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-600 focus:ring-amber-600"
+                                                                required readonly>
+                                                        </div>
+                                                        <div class="col-span-2 sm:col-span-1">
+                                                            <label for="jumlah"
+                                                                class="mb-2 block text-sm font-medium text-gray-900">Total
+                                                                Tagihan</label>
+                                                            <input type="text" id="jumlah"
+                                                                value="{{ $item->pembayaran?->jumlah ? 'Rp. ' . number_format($item->pembayaran->jumlah, 0, ',', '.') : '-' }}"
+                                                                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-600 focus:ring-amber-600"
+                                                                required readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex w-full justify-end p-4 md:p-5">
+                                                        <button type="submit"
+                                                            class="inline-flex cursor-pointer items-end rounded-lg bg-amber-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-amber-800 focus:outline-none focus:ring-4 focus:ring-amber-300">
+                                                            <svg class="-ms-1 me-1 h-5 w-5" fill="currentColor"
+                                                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                                    clip-rule="evenodd"></path>
+                                                            </svg>
+                                                            Bayar Sekarang
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
-                        </tbody>
-                    </table>
-                @endif
-            </div>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
+                </div>
+            @endif
         </div>
     </div>
 @endsection

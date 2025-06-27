@@ -153,24 +153,24 @@
                 </tr>
                 <tr>
                     <td style="padding: 0 10px 10px 0">Tempat, Tanggal Lahir</td>
-                    <td>: {{ $pasien->tempat_lahir }},
-                        {{ \Carbon\Carbon::parse($pasien->tanggal_lahir)->format('d F Y') }}</td>
+                    <td>: {{ $pasien->tempat_lahir ?? '' }},
+                        {{ \Carbon\Carbon::parse($pasien->tanggal_lahir ?? '')->format('d F Y') }}</td>
                 </tr>
                 <tr>
                     <td style="padding: 0 10px 10px 0">Alamat</td>
-                    <td>: {{ $pasien->alamat_lengkap }}</td>
+                    <td>: {{ $pasien->alamat_lengkap ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="padding: 0 10px 10px 0">Jenis Kelamin</td>
-                    <td>: {{ $pasien->jenisKelamin->nama }}</td>
+                    <td>: {{ $pasien->jenisKelamin->nama ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="padding: 0 10px 10px 0">Tanggal Perawatan</td>
-                    <td>: {{ \Carbon\Carbon::parse($kunjungan->tanggal_kunjungan)->format('d F Y') }}</td>
+                    <td>: {{ \Carbon\Carbon::parse($kunjungan->tanggal_kunjungan ?? '')->format('d F Y') }}</td>
                 </tr>
                 <tr>
                     <td style="padding: 0 10px 10px 0">Dokter yang menangani</td>
-                    <td>: {{ $dokter->nama_dokter }}</td>
+                    <td>: {{ $dokter->nama_dokter ?? '' }}</td>
                 </tr>
             </table>
         </div>
@@ -179,22 +179,22 @@
             <table>
                 <tr>
                     <td style="padding: 0 10px 10px 0">a. Anamnesa :
-                        <p>{{ $kunjungan->assessment->anamnesa }}</p>
+                        <p>{{ $kunjungan->assessment->anamnesa ?? '' }}</p>
                     </td>
                 </tr>
                 <tr>
                     <td style="padding: 0 10px 10px 0">b. Riwayat Penyakit Terdahulu :
-                        <p>{{ $kunjungan->assessment->riwayat_penyakit }}</p>
+                        <p>{{ $kunjungan->assessment->riwayat_penyakit ?? '' }}</p>
                     </td>
                 </tr>
                 <tr>
                     <td style="padding: 0 10px 10px 0">c. Diagnosa akhir :
-                        <p>- ICD 10 : {{ $kunjungan->assessment->kode_icd10 }}</p>
+                        <p>- ICD 10 : {{ $kunjungan->assessment->kode_icd10 ?? '' }}</p>
                     </td>
                 </tr>
                 <tr>
                     <td style="padding: 0 10px 10px 0">d. Pengobatan dan Tindakan :
-                        <p>- ICD 9 : {{ $kunjungan->tindakan->kode_icd9 }}</p>
+                        <p>- ICD 9 : {{ $kunjungan->tindakan->kode_icd9 ?? '' }}</p>
                     </td>
                 </tr>
                 <tr>

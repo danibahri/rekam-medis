@@ -81,6 +81,10 @@
                     <td>Pekerjaan</td>
                     <td>: {{ $pasien->Pekerjaan->nama }}</td>
                 </tr>
+                <tr>
+                    <td>Diagnosa</td>
+                    <td>: {{ $kunjungan->assessment->diagnosa }}</td>
+                </tr>
             </table>
             <p style="margin: 30px 0 30px 0">Berhubungan dengan sakit yang diderita perlu beristirahat selama
                 ........................ Hari,

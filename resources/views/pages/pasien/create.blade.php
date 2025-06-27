@@ -155,7 +155,7 @@
                                     yang Dikuasai</label>
                                 <input type="text" id="bahasa_dikuasai" name="bahasa_dikuasai"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                    placeholder="Bahasa yang Dikuasai" value="{{ old('bahasa_dikuasai') }}">
+                                    placeholder="Bahasa yang Dikuasai" value="{{ old('bahasa_dikuasai', 'Indonesia') }}">
                                 @error('bahasa_dikuasai')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
@@ -432,23 +432,6 @@
                                     @endforeach
                                 </select>
                                 @error('status_pernikahan')
-                                    <span class="text-xs text-red-400">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div>
-                                <label for="cara_pembayaran" class="mb-2 block text-sm font-medium text-gray-900">Cara
-                                    Pembayaran</label>
-                                <select id="cara_pembayaran" name="cara_pembayaran"
-                                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400">
-                                    <option value="" selected disabled>Pilih Cara Pembayaran</option>
-                                    @foreach ($master_pembayaran as $item)
-                                        <option value="{{ $item->id }}"
-                                            {{ old('cara_pembayaran') == $item->id ? 'selected' : '' }}>
-                                            {{ $item->nama }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('cara_pembayaran')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
                             </div>

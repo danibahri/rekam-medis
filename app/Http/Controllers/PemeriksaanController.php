@@ -15,6 +15,7 @@ use App\Models\pembayaran;
 use App\Models\Tindakan;
 use App\Models\Resep;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 
 class PemeriksaanController extends Controller
 {
@@ -51,6 +52,15 @@ class PemeriksaanController extends Controller
                 'text' => 'Kunjungan tidak ditemukan.',
             ]);
             return redirect()->back()->with('error', 'Kunjungan tidak ditemukan.');
+        }
+
+        if (Auth::user()->role == 'admin') {
+            Swal::info([
+                'title' => 'Info',
+                'text' => 'Anda tidak memiliki akses mengedit',
+                'icon' => 'info'
+            ]);
+            return redirect()->back();
         }
 
         $request->validate(
@@ -129,6 +139,15 @@ class PemeriksaanController extends Controller
             return redirect()->back()->with('error', 'Kunjungan tidak ditemukan.');
         }
 
+        if (Auth::user()->role == 'admin') {
+            Swal::info([
+                'title' => 'Info',
+                'text' => 'Anda tidak memiliki akses mengedit',
+                'icon' => 'info'
+            ]);
+            return redirect()->back();
+        }
+
         $request->validate(
             [
                 'tindakan_dilakukan' => 'required|string|max:255',
@@ -204,6 +223,15 @@ class PemeriksaanController extends Controller
             return redirect()->back()->with('error', 'Kunjungan tidak ditemukan.');
         }
 
+        if (Auth::user()->role == 'admin') {
+            Swal::info([
+                'title' => 'Info',
+                'text' => 'Anda tidak memiliki akses mengedit',
+                'icon' => 'info'
+            ]);
+            return redirect()->back();
+        }
+
         $request->validate(
             [
                 'nama_tindakan' => 'required|string|max:255',
@@ -271,6 +299,15 @@ class PemeriksaanController extends Controller
                 'text' => 'Kunjungan tidak ditemukan.',
             ]);
             return redirect()->back()->with('error', 'Kunjungan tidak ditemukan.');
+        }
+
+        if (Auth::user()->role == 'admin') {
+            Swal::info([
+                'title' => 'Info',
+                'text' => 'Anda tidak memiliki akses mengedit',
+                'icon' => 'info'
+            ]);
+            return redirect()->back();
         }
 
         $request->validate(
@@ -345,6 +382,15 @@ class PemeriksaanController extends Controller
             return redirect()->back()->with('error', 'Kunjungan tidak ditemukan.');
         }
 
+        if (Auth::user()->role == 'admin') {
+            Swal::info([
+                'title' => 'Info',
+                'text' => 'Anda tidak memiliki akses mengedit',
+                'icon' => 'info'
+            ]);
+            return redirect()->back();
+        }
+
         if (!isset($kunjungan->assessment) || !isset($kunjungan->resep)) {
             Swal::info([
                 'title' => 'Peringatan!',
@@ -410,6 +456,15 @@ class PemeriksaanController extends Controller
             return redirect()->back()->with('error', 'Kunjungan tidak ditemukan.');
         }
 
+        if (Auth::user()->role == 'admin') {
+            Swal::info([
+                'title' => 'Info',
+                'text' => 'Anda tidak memiliki akses mengedit',
+                'icon' => 'info'
+            ]);
+            return redirect()->back();
+        }
+
         if (!isset($kunjungan->pembayaran)) {
             Swal::error([
                 'title' => 'Error',
@@ -450,6 +505,14 @@ class PemeriksaanController extends Controller
 
     public function surat_tindakan($id)
     {
+        if (Auth::user()->role == 'admin') {
+            Swal::info([
+                'title' => 'Info',
+                'text' => 'Anda tidak memiliki akses untuk menyetak tindakan medis',
+                'icon' => 'info'
+            ]);
+            return redirect()->back();
+        }
         // Generate PDF for the patient consent form
         $pasien = Kunjungan::findOrFail($id);
         $dokter = Dokter::get()->first();

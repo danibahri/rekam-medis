@@ -74,58 +74,62 @@
                                                 <div class="tooltip-arrow" data-popper-arrow></div>
                                             </div>
                                         </div>
-                                        <div>
-                                            <a href="{{ route('edit.pasien', $item->id_pasien) }}"
-                                                data-tooltip-target="tooltip-{{ $count }}-1-edit"
-                                                data-tooltip-style="light">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor"
-                                                    class="size-6 text-green-500 lg:size-7">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                                </svg>
-                                            </a>
-                                            <div id="tooltip-{{ $count }}-1-edit" role="tooltip"
-                                                class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 opacity-0">
-                                                Edit Data Pasien
-                                                <div class="tooltip-arrow" data-popper-arrow></div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <a data-modal-target="modal-{{ $item->id_pasien }}"
-                                                data-modal-toggle="modal-{{ $item->id_pasien }}"
-                                                class="cursor-pointer text-yellow-500"
-                                                data-tooltip-target="tooltip-{{ $count }}-2"
-                                                data-tooltip-style="light">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor" class="size-6 lg:size-7">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
-                                                </svg>
-                                            </a>
-                                            <div id="tooltip-{{ $count }}-2" role="tooltip"
-                                                class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 opacity-0">
-                                                Tambahkan Pasien ke antrian
-                                                <div class="tooltip-arrow" data-popper-arrow></div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <form action="{{ route('delete.pasien', $item->id_pasien) }}" method="POST"
-                                                class="delete-form inline">
-                                                @csrf
-                                                <button type="button" data-tooltip-target="tooltip-{{ $count }}-3"
-                                                    data-tooltip-style="light"
-                                                    class="btn-delete cursor-pointer font-medium text-red-600 lg:text-lg"
-                                                    data-id="{{ $item->id_pasien }}">
-                                                    ❌
-                                                </button>
-                                                <div id="tooltip-{{ $count }}-3" role="tooltip"
+                                        @if (Auth::user()->role != 'admin')
+                                            <div>
+                                                <a href="{{ route('edit.pasien', $item->id_pasien) }}"
+                                                    data-tooltip-target="tooltip-{{ $count }}-1-edit"
+                                                    data-tooltip-style="light">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                        class="size-6 text-green-500 lg:size-7">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                                    </svg>
+                                                </a>
+                                                <div id="tooltip-{{ $count }}-1-edit" role="tooltip"
                                                     class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 opacity-0">
-                                                    Hapus Data Pasien
+                                                    Edit Data Pasien
                                                     <div class="tooltip-arrow" data-popper-arrow></div>
                                                 </div>
-                                            </form>
-                                        </div>
+                                            </div>
+                                            <div>
+                                                <a data-modal-target="modal-{{ $item->id_pasien }}"
+                                                    data-modal-toggle="modal-{{ $item->id_pasien }}"
+                                                    class="cursor-pointer text-yellow-500"
+                                                    data-tooltip-target="tooltip-{{ $count }}-2"
+                                                    data-tooltip-style="light">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                        class="size-6 lg:size-7">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
+                                                    </svg>
+                                                </a>
+                                                <div id="tooltip-{{ $count }}-2" role="tooltip"
+                                                    class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 opacity-0">
+                                                    Tambahkan Pasien ke antrian
+                                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <form action="{{ route('delete.pasien', $item->id_pasien) }}"
+                                                    method="POST" class="delete-form inline">
+                                                    @csrf
+                                                    <button type="button"
+                                                        data-tooltip-target="tooltip-{{ $count }}-3"
+                                                        data-tooltip-style="light"
+                                                        class="btn-delete cursor-pointer font-medium text-red-600 lg:text-lg"
+                                                        data-id="{{ $item->id_pasien }}">
+                                                        ❌
+                                                    </button>
+                                                    <div id="tooltip-{{ $count }}-3" role="tooltip"
+                                                        class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 opacity-0">
+                                                        Hapus Data Pasien
+                                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        @endif
                                     </td>
                                 </tr>
                                 @php
