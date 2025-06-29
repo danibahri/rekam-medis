@@ -53,22 +53,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // Konfigurasi Klinik
-        Schema::create('konfigurasi_klinik', function (Blueprint $table) {
-            $table->string('id', 10)->primary();
-            $table->string('nama_klinik', 100);
-            $table->string('alamat_klinik', 255)->nullable();
-            $table->string('telepon', 15)->nullable();
-            $table->string('email', 100)->nullable();
-            $table->string('logo_path', 255)->nullable(); // Implementasi rekomendasi 1 - Penyimpanan File
-            $table->string('kota', 50)->nullable();
-            $table->string('kode_pos', 10)->nullable();
-            $table->string('jam_operasional', 100)->nullable();
-            $table->string('pimpinan', 100)->nullable();
-            $table->string('tanda_tangan_pimpinan_path', 255)->nullable(); // Implementasi rekomendasi 1
-            $table->timestamps();
-        });
-
         // Users
         Schema::create('users', function (Blueprint $table) {
             $table->string('id', 20)->primary();
@@ -165,9 +149,6 @@ return new class extends Migration
 
             // Implementasi rekomendasi 2 - Indeks Database
             $table->index('nomor_rekam_medis');
-            $table->index('nik');
-            $table->index('nama_lengkap');
-            $table->index('tanggal_lahir');
 
             // Implementasi rekomendasi 4 - Relasi Tabel
             $table->foreign('jenis_kelamin')->references('id')->on('master_jenis_kelamin');
@@ -251,17 +232,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->time('waktu');
             $table->enum('persetujuan_pasien', ['ya', 'tidak']);
-            $table->enum('informasi_pembayaran', ['setuju', 'tidak_setuju'])->nullable();
-            $table->enum('informasi_hak_kewajiban', ['setuju', 'tidak_setuju'])->nullable();
-            $table->enum('informasi_tata_tertib', ['setuju', 'tidak_setuju'])->nullable();
-            $table->enum('kebutuhan_penterjemah', ['ya', 'tidak'])->nullable();
-            $table->enum('kebutuhan_rohaniawan', ['ya', 'tidak'])->nullable();
             $table->enum('pelepasan_informasi', ['setuju', 'tidak_setuju'])->nullable();
-            $table->enum('hasil_penunjang_penjamin', ['setuju', 'tidak_setuju'])->nullable();
-            $table->enum('hasil_penunjang_peserta_didik', ['setuju', 'tidak_setuju'])->nullable();
-            $table->text('anggota_keluarga_penerima_info')->nullable();
-            $table->enum('fasyankes_rujukan', ['setuju', 'tidak_setuju']);
-            $table->string('tanda_tangan_pasien_path', 255)->nullable();
             $table->string('penanggung_jawab', 100)->nullable();
             $table->string('petugas_pemberi_penjelasan', 100)->nullable();
             $table->timestamps();
@@ -455,7 +426,6 @@ return new class extends Migration
         Schema::dropIfExists('dokter');
         Schema::dropIfExists('users');
         Schema::dropIfExists('master_obat');
-        Schema::dropIfExists('konfigurasi_klinik');
         Schema::dropIfExists('master_cara_pembayaran');
         Schema::dropIfExists('master_status_pernikahan');
         Schema::dropIfExists('master_pekerjaan');

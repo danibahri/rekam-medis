@@ -74,24 +74,6 @@ class DatabaseSeeder extends Seeder
             ['id' => '4', 'nama' => 'Asuransi Lainnya', 'created_at' => now(), 'updated_at' => now()],
         ]);
 
-
-        // Seed Konfigurasi Klinik
-        DB::table('konfigurasi_klinik')->insert([
-            'id' => 'KLN-001',
-            'nama_klinik' => 'Klinik Sehat Sentosa',
-            'alamat_klinik' => 'Jl. Merdeka No. 123, Kelurahan Sukajadi',
-            'telepon' => '0217654321',
-            'email' => 'info@kliniksehatsentosa.com',
-            'logo_path' => 'storage/logo/logo-klinik.png',
-            'kota' => 'Jakarta',
-            'kode_pos' => '12345',
-            'jam_operasional' => 'Senin-Sabtu: 08.00-20.00, Minggu: 09.00-16.00',
-            'pimpinan' => 'Dr. Indah Yuliarini, Sp.',
-            'tanda_tangan_pimpinan_path' => 'storage/tanda_tangan/pimpinan.png',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
         // Seed Users
         $adminUserId = 'USR-' . date('Ymd') . '001';
         $dokterUserId = 'USR-' . date('Ymd') . '002';
@@ -315,17 +297,7 @@ class DatabaseSeeder extends Seeder
             'tanggal' => date('Y-m-d'),
             'waktu' => '09:45:00',
             'persetujuan_pasien' => 'ya',
-            'informasi_pembayaran' => 'setuju',
-            'informasi_hak_kewajiban' => 'setuju',
-            'informasi_tata_tertib' => 'setuju',
-            'kebutuhan_penterjemah' => 'tidak',
-            'kebutuhan_rohaniawan' => 'tidak',
             'pelepasan_informasi' => 'setuju',
-            'hasil_penunjang_penjamin' => 'setuju',
-            'hasil_penunjang_peserta_didik' => 'setuju',
-            'anggota_keluarga_penerima_info' => 'Ahmad (Suami)',
-            'fasyankes_rujukan' => 'setuju',
-            'tanda_tangan_pasien_path' => 'storage/tanda_tangan_pasien/siti.png',
             'penanggung_jawab' => 'Ahmad',
             'petugas_pemberi_penjelasan' => 'Budi Santoso',
             'created_at' => now(),
