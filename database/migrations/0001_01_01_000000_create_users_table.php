@@ -296,7 +296,7 @@ return new class extends Migration
             $table->string('id_kunjungan', 20);
             $table->string('nama_tindakan', 100);
             $table->string('kode_icd9')->nullable();
-            $table->string('petugas_pelaksana', 100);
+            $table->string('petugas_pelaksana', 100)->nullable();
             $table->date('tanggal_tindakan');
             $table->time('waktu_mulai');
             $table->time('waktu_selesai');

@@ -260,9 +260,10 @@ class PemeriksaanController extends Controller
             Tindakan::updateOrCreate(
                 ['id_kunjungan' => $kunjungan->id_kunjungan],
                 [
-                    'id_terapi' => $id_terapi,
-                    'id_kunjungan' => $kunjungan->id_kunjungan,
+
+                    'id_tindakan' => $id_terapi,
                     'id_pasien' => $kunjungan->id_pasien,
+                    'id_kunjungan' => $kunjungan->id_kunjungan,
                     'nama_tindakan' => $request->nama_tindakan,
                     'kode_icd9' => $request->kode_icd9,
                     'tanggal_tindakan' => $request->tanggal_tindakan,
@@ -284,7 +285,7 @@ class PemeriksaanController extends Controller
         } catch (\Exception $e) {
             Swal::error([
                 'title' => 'Error',
-                'text' => 'Gagal menyimpan terapi',
+                'text' => 'Gagal menyimpan terapi' . $e,
             ]);
             return redirect()->back()->with('active_tab', $request->active_tab);
         }
