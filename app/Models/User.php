@@ -17,8 +17,8 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $primaryKey = 'id'; 
-    public $incrementing = false; 
+    protected $primaryKey = 'id';
+    public $incrementing = false;
     protected $keyType = 'string';
 
     public $fillable = [
@@ -54,6 +54,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'last_login' => 'datetime',
         ];
     }
 }

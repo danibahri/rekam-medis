@@ -39,7 +39,7 @@
                         <label for="tanggal_mulai" class="mb-2 block text-sm font-medium text-gray-700">Tanggal Mulai
                         </label>
                         <input type="date" id="tanggal_mulai" name="tanggal_mulai" value="{{ request('tanggal_mulai') }}"
-                            class="block w-full rounded border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500">
+                            class="block w-full rounded border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-500 focus:ring-amber-500">
                         <p id="error-tanggal-mulai" class="mt-1 hidden text-sm text-red-600">Tanggal mulai tidak boleh
                             melebihi tanggal selesai</p>
                     </div>
@@ -48,13 +48,13 @@
                         </label>
                         <input type="date" id="tanggal_selesai" name="tanggal_selesai"
                             value="{{ request('tanggal_selesai') }}"
-                            class="block w-full rounded border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500">
+                            class="block w-full rounded border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-500 focus:ring-amber-500">
                         <p id="error-tanggal-selesai" class="mt-1 hidden text-sm text-red-600">Tanggal selesai tidak boleh
                             kurang dari tanggal mulai</p>
                     </div>
                     <div class="flex gap-2">
                         <button type="submit" id="filterButton"
-                            class="rounded bg-blue-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                            class="rounded bg-amber-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-amber-700 focus:outline-none focus:ring-4 focus:ring-amber-300">
                             Filter
                         </button>
                         <a href="{{ route('laporan.kunjungan') }}"

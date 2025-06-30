@@ -285,7 +285,7 @@ class PemeriksaanController extends Controller
         } catch (\Exception $e) {
             Swal::error([
                 'title' => 'Error',
-                'text' => 'Gagal menyimpan terapi' . $e,
+                'text' => 'Gagal menyimpan terapi',
             ]);
             return redirect()->back()->with('active_tab', $request->active_tab);
         }

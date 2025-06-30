@@ -60,6 +60,9 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     Route::get('/user', [UserController::class, 'index'])->name('show.user');
     Route::get('/create/user', [UserController::class, 'add_user'])->name('add.user');
     Route::post('/create/user', [UserController::class, 'store_user'])->name('store.user');
+    Route::get('/user/{id}', [UserController::class, 'show'])->name('detail.user');
+    Route::get('/edit/{id}/user', [UserController::class, 'edit'])->name('edit.user');
+    Route::put('/update/{id}/user', [UserController::class, 'update'])->name('update.user');
     Route::post('/delete-user/{id}', [UserController::class, 'delete_user'])->name('delete.user');
 
     // Master Data Routes

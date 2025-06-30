@@ -6,18 +6,18 @@
 
 @section('content')
     <div class="p-4 sm:ml-64">
-        <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg">
-            <h1 class="text-3xl font-bold mb-4 bg-white py-5 pl-3 rounded shadow text-gray-700">Data User</h1>
-            <div class="flex items-center justify-between mt-10 flex-wrap pb-4">
+        <div class="rounded-lg border-2 border-dashed border-gray-200 p-4">
+            <h1 class="mb-4 rounded bg-white py-5 pl-3 text-3xl font-bold text-gray-700 shadow">Data User</h1>
+            <div class="mt-10 flex flex-wrap items-center justify-between pb-4">
                 <div class="flex gap-4">
                     <a type="button" href="{{ route('add.user') }}"
-                        class="text-sm px-3 py-1.5 bg-amber-300 hover:bg-amber-500 focus:ring-amber-300 focus:ring-2 text-white rounded cursor-pointer">+
+                        class="cursor-pointer rounded bg-amber-300 px-3 py-1.5 text-sm text-white hover:bg-amber-500 focus:ring-2 focus:ring-amber-300">+
                         Tambah User </a>
                 </div>
             </div>
             <div class="relative overflow-x-auto">
-                <table id="search-table" class="w-full text-sm text-left text-gray-700 border-t-4 border-amber-300">
-                    <thead class="text-xs text-gray-700 uppercase bg-white border-b-1">
+                <table id="search-table" class="w-full border-t-4 border-amber-300 text-left text-sm text-gray-700">
+                    <thead class="border-b-1 bg-white text-xs uppercase text-gray-700">
                         <tr>
                             <th class="px-6 py-3">Nama</th>
                             <th class="px-6 py-3">No. Hp</th>
@@ -30,12 +30,12 @@
                     <tbody>
                         @if ($data_user->isEmpty())
                             <tr class="bg-white hover:bg-gray-100">
-                                <td colspan="5" class="text-center p-4">Tidak ada data pasien</td>
+                                <td colspan="5" class="p-4 text-center">Tidak ada data pasien</td>
                             </tr>
                         @else
                             @foreach ($data_user as $user)
                                 <tr class="bg-white hover:bg-gray-100">
-                                    <th class="flex items-center px-6 py-4 whitespace-nowrap">
+                                    <th class="flex items-center whitespace-nowrap px-6 py-4">
                                         {{ $user->nama }}
                                     </th>
                                     <td class="px-6 py-4">
@@ -51,13 +51,15 @@
                                         {{ $user->created_at->translatedFormat('d F Y') }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 hover:underline">Lihat |</a>
-                                        <a href="#" class="font-medium text-amber-600 hover:underline">Edit |</a>
+                                        <a href="{{ route('detail.user', $user->id) }}"
+                                            class="font-medium text-blue-600 hover:underline">Lihat |</a>
+                                        <a href="{{ route('edit.user', $user->id) }}"
+                                            class="font-medium text-amber-600 hover:underline">Edit |</a>
                                         <form action="{{ route('delete.user', $user->id) }}" method="POST"
-                                            class="inline delete-form">
+                                            class="delete-form inline">
                                             @csrf
                                             <button type="button"
-                                                class="font-medium text-red-600 hover:underline cursor-pointer btn-delete"
+                                                class="btn-delete cursor-pointer font-medium text-red-600 hover:underline"
                                                 data-id="{{ $user->id }}">Delete</button>
                                         </form>
                                     </td>
