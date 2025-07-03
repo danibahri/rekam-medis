@@ -457,11 +457,11 @@ class PemeriksaanController extends Controller
             return redirect()->back()->with('error', 'Kunjungan tidak ditemukan.');
         }
 
-        if (Auth::user()->role == 'admin') {
+        if (Auth::user()->role != 'petugas') {
             Swal::info([
-                'title' => 'Info',
-                'text' => 'Anda tidak memiliki akses mengedit',
-                'icon' => 'info'
+                'title' => 'Peringatan!',
+                'text' => 'Anda tidak memiliki akses, hanya petugas yang dapat melakukan pembayaran.',
+                'icon' => 'warning'
             ]);
             return redirect()->back();
         }

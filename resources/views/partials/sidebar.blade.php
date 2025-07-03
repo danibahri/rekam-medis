@@ -35,57 +35,59 @@
                         <span class="ms-3">Dashboard</span>
                     </a>
                 </li>
-                @if (Auth::user()->role != 'dokter')
+                @if (Auth::user()->role != 'admin')
                     <li>
-                        <a href="{{ route('show.pasien') }}"
-                            class="{{ request()->is('*pasien') ? 'bg-gray-100' : 'text-white' }} group flex items-center rounded-lg p-2 text-black hover:bg-gray-100 hover:text-gray-900">
-                            <svg class="{{ request()->is('*pasien') ? '' : 'text-white' }} h-5 w-5 shrink-0 text-black transition duration-75 group-hover:text-gray-900"
-                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                viewBox="0 0 18 18">
-                                <path
-                                    d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
-                            </svg>
-                            <span class="ms-3 flex-1 whitespace-nowrap">Data Pasien</span>
-                        </a>
+                        @if (Auth::user()->role != 'dokter')
+                            <a href="{{ route('show.pasien') }}"
+                                class="{{ request()->is('*pasien') ? 'bg-gray-100' : 'text-white' }} group flex items-center rounded-lg p-2 text-black hover:bg-gray-100 hover:text-gray-900">
+                                <svg class="{{ request()->is('*pasien') ? '' : 'text-white' }} h-5 w-5 shrink-0 text-black transition duration-75 group-hover:text-gray-900"
+                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                    viewBox="0 0 18 18">
+                                    <path
+                                        d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
+                                </svg>
+                                <span class="ms-3 flex-1 whitespace-nowrap">Data Pasien</span>
+                            </a>
+                        @endif
                     </li>
-                @endif
-                <li>
                     @if (Auth::user()->role != 'petugas')
-                        <a href="{{ route('show.pemeriksaan') }}"
-                            class="{{ request()->is('pemeriksaan-klinis*') ? 'bg-gray-100' : 'hover:bg-gray-100 text-white' }} group flex items-center rounded-lg p-2 text-black hover:text-gray-900">
-                            <svg class="{{ request()->is('pemeriksaan-klinis*') ? '' : 'text-white' }} h-5 w-5 shrink-0 text-black transition duration-75 group-hover:text-gray-900"
-                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                viewBox="0 0 22 21">
-                                <path
-                                    d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
-                                <path
-                                    d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
-                            </svg>
-                            <span class="ms-3 flex-1 whitespace-nowrap">Pemeriksaan Klinis</span>
-                        </a>
-                </li>
-                <li>
-                    <a href="{{ route('laporan.kunjungan') }}"
-                        class="{{ request()->is('laporan-kunjungan*') ? 'bg-gray-100' : 'hover:bg-gray-100 text-white' }} group flex items-center rounded-lg p-2 text-black hover:text-gray-900">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
-                        </svg>
-                        <span class="ms-3">Laporan Kunjungan</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('pelepasan.informasi') }}"
-                        class="{{ request()->is('pelepasan-informasi*') ? 'bg-gray-100' : 'hover:bg-gray-100 text-white' }} group flex items-center rounded-lg p-2 text-black hover:text-gray-900">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="m7.875 14.25 1.214 1.942a2.25 2.25 0 0 0 1.908 1.058h2.006c.776 0 1.497-.4 1.908-1.058l1.214-1.942M2.41 9h4.636a2.25 2.25 0 0 1 1.872 1.002l.164.246a2.25 2.25 0 0 0 1.872 1.002h2.092a2.25 2.25 0 0 0 1.872-1.002l.164-.246A2.25 2.25 0 0 1 16.954 9h4.636M2.41 9a2.25 2.25 0 0 0-.16.832V12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 12V9.832c0-.287-.055-.57-.16-.832M2.41 9a2.25 2.25 0 0 1 .382-.632l3.285-3.832a2.25 2.25 0 0 1 1.708-.786h8.43c.657 0 1.281.287 1.709.786l3.284 3.832c.163.19.291.404.382.632M4.5 20.25h15A2.25 2.25 0 0 0 21.75 18v-2.625c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125V18a2.25 2.25 0 0 0 2.25 2.25Z" />
-                        </svg>
-                        <span class="ms-3">Pelepasan Informasi</span>
-                    </a>
-                </li>
+                        <li>
+                            <a href="{{ route('show.pemeriksaan') }}"
+                                class="{{ request()->is('pemeriksaan-klinis*') ? 'bg-gray-100' : 'hover:bg-gray-100 text-white' }} group flex items-center rounded-lg p-2 text-black hover:text-gray-900">
+                                <svg class="{{ request()->is('pemeriksaan-klinis*') ? '' : 'text-white' }} h-5 w-5 shrink-0 text-black transition duration-75 group-hover:text-gray-900"
+                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                    viewBox="0 0 22 21">
+                                    <path
+                                        d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
+                                    <path
+                                        d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
+                                </svg>
+                                <span class="ms-3 flex-1 whitespace-nowrap">Pemeriksaan Klinis</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('laporan.kunjungan') }}"
+                                class="{{ request()->is('laporan-kunjungan*') ? 'bg-gray-100' : 'hover:bg-gray-100 text-white' }} group flex items-center rounded-lg p-2 text-black hover:text-gray-900">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+                                </svg>
+                                <span class="ms-3">Laporan Kunjungan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('pelepasan.informasi') }}"
+                                class="{{ request()->is('pelepasan-informasi*') ? 'bg-gray-100' : 'hover:bg-gray-100 text-white' }} group flex items-center rounded-lg p-2 text-black hover:text-gray-900">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m7.875 14.25 1.214 1.942a2.25 2.25 0 0 0 1.908 1.058h2.006c.776 0 1.497-.4 1.908-1.058l1.214-1.942M2.41 9h4.636a2.25 2.25 0 0 1 1.872 1.002l.164.246a2.25 2.25 0 0 0 1.872 1.002h2.092a2.25 2.25 0 0 0 1.872-1.002l.164-.246A2.25 2.25 0 0 1 16.954 9h4.636M2.41 9a2.25 2.25 0 0 0-.16.832V12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 12V9.832c0-.287-.055-.57-.16-.832M2.41 9a2.25 2.25 0 0 1 .382-.632l3.285-3.832a2.25 2.25 0 0 1 1.708-.786h8.43c.657 0 1.281.287 1.709.786l3.284 3.832c.163.19.291.404.382.632M4.5 20.25h15A2.25 2.25 0 0 0 21.75 18v-2.625c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125V18a2.25 2.25 0 0 0 2.25 2.25Z" />
+                                </svg>
+                                <span class="ms-3">Pelepasan Informasi</span>
+                            </a>
+                        </li>
+                    @endif
                 @endif
                 @if (Auth::user()->role == 'admin')
                     {{-- <li>

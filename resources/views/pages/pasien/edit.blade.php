@@ -438,7 +438,7 @@
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div>
+                            {{-- <div>
                                 <label for="cara_pembayaran" class="mb-2 block text-sm font-medium text-gray-900">Cara
                                     Pembayaran</label>
                                 <select id="cara_pembayaran" name="cara_pembayaran"
@@ -453,7 +453,7 @@
                                 @error('cara_pembayaran')
                                     <span class="text-xs text-red-400">{{ $message }}</span>
                                 @enderror
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 

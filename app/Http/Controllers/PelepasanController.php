@@ -30,11 +30,11 @@ class PelepasanController extends Controller
 
     public function persetujuan_pdf($id)
     {
-        if (Auth::user()->role == 'admin') {
+        if (Auth::user()->role != 'petugas') {
             Swal::info([
-                'title' => 'Info',
-                'text' => 'Anda tidak memiliki akses untuk menyetak persetujuan pasien',
-                'icon' => 'info'
+                'title' => 'Peringatan!',
+                'text' => 'Anda tidak memiliki akses untuk menyetak persetujuan pasien, segera hubungi petugas',
+                'icon' => 'warning'
             ]);
             return redirect()->back();
         }

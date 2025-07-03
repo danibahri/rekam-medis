@@ -61,14 +61,15 @@ class PasienController extends Controller
 
     public function edit_pasien($id)
     {
-        if (Auth::user()->role == 'admin') {
+        if (Auth::user()->role != 'petugas') {
             Swal::info([
-                'title' => 'Info',
+                'title' => 'Peringatan!',
                 'text' => 'Anda tidak memiliki akses untuk mengedit data pasien',
-                'icon' => 'info'
+                'icon' => 'warning'
             ]);
             return redirect()->back();
         }
+
         $pasien = Pasien::findOrFail($id);
         $master_agama = MasterAgama::all();
         $master_jenisKelamin = MasterJenisKelamin::all();
@@ -390,7 +391,6 @@ class PasienController extends Controller
             'pendidikan' => 'nullable|in:1,2,3,4,5,6,7,8',
             'pekerjaan' => 'nullable|in:0,1,2,3,4,5,6,7',
             'status_pernikahan' => 'nullable|in:1,2,3,4',
-            'cara_pembayaran' => 'nullable|in:1,2,3,4',
 
             // Upload file
             'foto_pasien_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -428,7 +428,6 @@ class PasienController extends Controller
             'pendidikan.in' => 'Pendidikan tidak valid',
             'pekerjaan.in' => 'Pekerjaan tidak valid',
             'status_pernikahan.in' => 'Status Pernikahan tidak valid',
-            'cara_pembayaran.in' => 'Cara Pembayaran tidak valid',
             'bahasa_dikuasai.max' => 'Bahasa Dikuasai maksimal 100 karakter',
             'suku.max' => 'Suku maksimal 50 karakter',
             'telepon_seluler.max' => 'Telepon Seluler maksimal 15 karakter',
@@ -439,6 +438,15 @@ class PasienController extends Controller
             'foto_pasien_path.mimes' => 'Format file harus jpeg, png, jpg, atau gif',
             'foto_pasien_path.max' => 'Ukuran file maksimal 2MB',
         ]);
+
+        if (Auth::user()->role != 'petugas') {
+            Swal::info([
+                'title' => 'Info',
+                'text' => 'Anda tidak memiliki akses untuk mengedit data pasien',
+                'icon' => 'info'
+            ]);
+            return redirect()->back();
+        }
 
         try {
             // Handle file upload
@@ -495,7 +503,6 @@ class PasienController extends Controller
                 'pendidikan' => $validated['pendidikan'],
                 'pekerjaan' => $validated['pekerjaan'],
                 'status_pernikahan' => $validated['status_pernikahan'],
-                'cara_pembayaran' => $validated['cara_pembayaran'],
 
                 // File upload
                 'foto_pasien_path' => $foto_path,
