@@ -259,10 +259,79 @@
                 {{-- kunjungan pasien dengan status selesai --}}
                 <div class="mt-8 rounded-lg bg-white p-6 shadow-lg">
                     <h2 class="mb-4 text-2xl font-bold text-gray-800">Riwayat Kunjungan Pasien</h2>
+
+                    {{-- Filter Form --}}
+                    <div class="mb-6 rounded-lg border border-amber-200 bg-amber-50 p-4">
+
+                        {{-- Quick Filter Buttons --}}
+                        <div class="mb-4 flex flex-wrap gap-2">
+                            <button type="button"
+                                class="quick-filter rounded-lg bg-amber-100 px-3 py-1.5 text-sm text-amber-800 transition-colors hover:bg-amber-200"
+                                data-filter="today">Hari Ini</button>
+                            <button type="button"
+                                class="quick-filter rounded-lg bg-amber-100 px-3 py-1.5 text-sm text-amber-800 transition-colors hover:bg-amber-200"
+                                data-filter="week">Minggu Ini</button>
+                            <button type="button"
+                                class="quick-filter rounded-lg bg-amber-100 px-3 py-1.5 text-sm text-amber-800 transition-colors hover:bg-amber-200"
+                                data-filter="month">Bulan Ini</button>
+                            <button type="button"
+                                class="quick-filter rounded-lg bg-amber-100 px-3 py-1.5 text-sm text-amber-800 transition-colors hover:bg-amber-200"
+                                data-filter="year">Tahun Ini</button>
+                        </div>
+
+                        <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                            <div>
+                                <label for="start_date" class="mb-1 block text-sm font-medium text-gray-700">Tanggal
+                                    Mulai</label>
+                                <input type="date" id="start_date" name="start_date"
+                                    class="w-full rounded-lg border border-gray-300 p-2.5 focus:border-amber-500 focus:ring-amber-500">
+                            </div>
+                            <div>
+                                <label for="end_date" class="mb-1 block text-sm font-medium text-gray-700">Tanggal
+                                    Akhir</label>
+                                <input type="date" id="end_date" name="end_date"
+                                    class="w-full rounded-lg border border-gray-300 p-2.5 focus:border-amber-500 focus:ring-amber-500">
+                            </div>
+                            <div class="flex items-end gap-2">
+                                <button type="button" id="filter_btn"
+                                    class="rounded-lg bg-amber-500 px-4 py-2.5 text-white transition-colors hover:bg-amber-600">
+                                    <i class="fas fa-search mr-2"></i>Filter
+                                </button>
+                                <button type="button" id="reset_filter_btn"
+                                    class="rounded-lg bg-gray-500 px-4 py-2.5 text-white transition-colors hover:bg-gray-600">
+                                    <i class="fas fa-refresh mr-2"></i>Reset
+                                </button>
+                            </div>
+                        </div>
+
+                        {{-- Rows per page and Filter Result Info --}}
+                        <div class="mt-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                            <div class="flex items-center gap-2">
+                                <label for="rows_per_page" class="text-sm font-medium text-gray-700">Tampilkan:</label>
+                                <select id="rows_per_page"
+                                    class="rounded border border-gray-300 px-3 py-1 text-sm focus:border-amber-500 focus:ring-amber-500">
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="all">Semua</option>
+                                </select>
+                                <span class="text-sm text-gray-700">data per halaman</span>
+                            </div>
+
+                            <div id="filter_info" class="hidden text-sm text-gray-600">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                <span id="filter_count">0</span> dari <span
+                                    id="total_count">{{ $kunjungan->count() }}</span>
+                                kunjungan ditampilkan
+                            </div>
+                        </div>
+                    </div>
+
                     @if ($kunjungan->isEmpty())
                         <p class="text-gray-600">Pasien belum pernah berkunjung.</p>
                     @else
-                        <table id="search-table"
+                        <table id="kunjungan-table"
                             class="w-full border-t-4 border-amber-300 text-left text-sm text-gray-700">
                             <thead class="border-b-1 bg-white text-xs uppercase text-gray-700">
                                 <tr>
@@ -275,12 +344,13 @@
                                     <th class="px-6 py-3">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="kunjungan-tbody">
                                 @foreach ($kunjungan as $item)
                                     @php
                                         $count = $loop->index + 1;
                                     @endphp
-                                    <tr class="border-b hover:bg-gray-50">
+                                    <tr class="kunjungan-row border-b hover:bg-gray-50"
+                                        data-tanggal="{{ $item->tanggal_kunjungan }}">
                                         <td class="px-6 py-4">{{ $item->id_kunjungan ?? '-' }}</td>
                                         <td class="px-6 py-4">
                                             {{ \Carbon\Carbon::parse($item->tanggal_kunjungan)->format('d F Y') ?? '-' }}
@@ -411,9 +481,435 @@
                                 @endforeach
                             </tbody>
                         </table>
+
+                        {{-- Pagination Controls --}}
+                        <div id="pagination_controls"
+                            class="mt-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                            <div class="text-sm text-gray-700">
+                                Menampilkan <span id="showing_start">1</span> - <span id="showing_end">10</span> dari
+                                <span id="showing_total">{{ $kunjungan->count() }}</span> kunjungan
+                            </div>
+
+                            <div class="flex items-center gap-2">
+                                <button id="prev_page"
+                                    class="flex items-center rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700 disabled:cursor-not-allowed disabled:opacity-50">
+                                    <svg class="mr-2 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 14 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4" />
+                                    </svg>
+                                    Previous
+                                </button>
+
+                                <div id="page_numbers" class="flex gap-1">
+                                    <!-- Page numbers will be generated by JavaScript -->
+                                </div>
+
+                                <button id="next_page"
+                                    class="flex items-center rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700 disabled:cursor-not-allowed disabled:opacity-50">
+                                    Next
+                                    <svg class="ml-2 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 14 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
                     @endif
                 </div>
             @endif
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtn = document.getElementById('filter_btn');
+            const resetBtn = document.getElementById('reset_filter_btn');
+            const startDateInput = document.getElementById('start_date');
+            const endDateInput = document.getElementById('end_date');
+            const rows = document.querySelectorAll('.kunjungan-row');
+            const quickFilterBtns = document.querySelectorAll('.quick-filter');
+            const filterInfo = document.getElementById('filter_info');
+            const filterCount = document.getElementById('filter_count');
+            const totalCount = document.getElementById('total_count');
+
+            // Pagination elements
+            const rowsPerPageSelect = document.getElementById('rows_per_page');
+            const prevPageBtn = document.getElementById('prev_page');
+            const nextPageBtn = document.getElementById('next_page');
+            const pageNumbersContainer = document.getElementById('page_numbers');
+            const showingStart = document.getElementById('showing_start');
+            const showingEnd = document.getElementById('showing_end');
+            const showingTotal = document.getElementById('showing_total');
+            const paginationControls = document.getElementById('pagination_controls');
+
+            // Pagination state
+            let currentPage = 1;
+            let rowsPerPage = 10;
+            let filteredRows = Array.from(rows);
+
+            // Get today's date
+            const today = new Date();
+            const formatDate = (date) => date.toISOString().split('T')[0];
+
+            // Quick filter functions
+            const getDateRange = (filter) => {
+                const today = new Date();
+                let startDate, endDate;
+
+                switch (filter) {
+                    case 'today':
+                        startDate = endDate = today;
+                        break;
+                    case 'week':
+                        const startOfWeek = new Date(today);
+                        startOfWeek.setDate(today.getDate() - today.getDay());
+                        const endOfWeek = new Date(today);
+                        endOfWeek.setDate(today.getDate() + (6 - today.getDay()));
+                        startDate = startOfWeek;
+                        endDate = endOfWeek;
+                        break;
+                    case 'month':
+                        startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+                        endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+                        break;
+                    case 'year':
+                        startDate = new Date(today.getFullYear(), 0, 1);
+                        endDate = new Date(today.getFullYear(), 11, 31);
+                        break;
+                    default:
+                        return null;
+                }
+
+                return {
+                    start: formatDate(startDate),
+                    end: formatDate(endDate)
+                };
+            };
+
+            // Filter function
+            function filterRows() {
+                const startDate = startDateInput.value;
+                const endDate = endDateInput.value;
+                filteredRows = [];
+
+                rows.forEach(row => {
+                    const rowDate = row.getAttribute('data-tanggal');
+                    let showRow = true;
+
+                    // Check start date filter
+                    if (startDate && rowDate < startDate) {
+                        showRow = false;
+                    }
+
+                    // Check end date filter
+                    if (endDate && rowDate > endDate) {
+                        showRow = false;
+                    }
+
+                    if (showRow) {
+                        filteredRows.push(row);
+                    }
+                });
+
+                // Reset to first page when filtering
+                currentPage = 1;
+
+                // Update display
+                updateDisplay();
+            }
+
+            // Update display based on current page and rows per page
+            function updateDisplay() {
+                const totalRows = filteredRows.length;
+                const totalPages = rowsPerPage === 'all' ? 1 : Math.ceil(totalRows / rowsPerPage);
+
+                // Hide all rows first
+                rows.forEach(row => {
+                    row.style.display = 'none';
+                });
+
+                if (totalRows === 0) {
+                    showNoDataMessage(true);
+                    paginationControls.style.display = 'none';
+                    return;
+                }
+
+                showNoDataMessage(false);
+
+                // Show rows for current page
+                if (rowsPerPage === 'all') {
+                    filteredRows.forEach(row => {
+                        row.style.display = '';
+                    });
+                } else {
+                    const startIndex = (currentPage - 1) * rowsPerPage;
+                    const endIndex = Math.min(startIndex + rowsPerPage, totalRows);
+
+                    for (let i = startIndex; i < endIndex; i++) {
+                        if (filteredRows[i]) {
+                            filteredRows[i].style.display = '';
+                        }
+                    }
+                }
+
+                // Update pagination info
+                updatePaginationInfo(totalRows, totalPages);
+                updateFilterInfo(totalRows);
+            }
+
+            // Update pagination info
+            function updatePaginationInfo(totalRows, totalPages) {
+                if (rowsPerPage === 'all') {
+                    showingStart.textContent = totalRows > 0 ? 1 : 0;
+                    showingEnd.textContent = totalRows;
+                    paginationControls.style.display = totalRows > 0 ? 'flex' : 'none';
+                    prevPageBtn.style.display = 'none';
+                    nextPageBtn.style.display = 'none';
+                    pageNumbersContainer.style.display = 'none';
+                } else {
+                    const startIndex = totalRows > 0 ? (currentPage - 1) * rowsPerPage + 1 : 0;
+                    const endIndex = Math.min(currentPage * rowsPerPage, totalRows);
+
+                    showingStart.textContent = startIndex;
+                    showingEnd.textContent = endIndex;
+
+                    paginationControls.style.display = totalRows > 0 ? 'flex' : 'none';
+                    prevPageBtn.style.display = 'flex';
+                    nextPageBtn.style.display = 'flex';
+                    pageNumbersContainer.style.display = 'flex';
+
+                    // Update button states
+                    prevPageBtn.disabled = currentPage === 1;
+                    nextPageBtn.disabled = currentPage === totalPages;
+
+                    // Generate page numbers
+                    generatePageNumbers(totalPages);
+                }
+
+                showingTotal.textContent = totalRows;
+            }
+
+            // Generate page numbers
+            function generatePageNumbers(totalPages) {
+                pageNumbersContainer.innerHTML = '';
+
+                if (totalPages <= 1) return;
+
+                const maxVisiblePages = 5;
+                let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+                let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+                // Adjust start page if we're near the end
+                if (endPage - startPage < maxVisiblePages - 1) {
+                    startPage = Math.max(1, endPage - maxVisiblePages + 1);
+                }
+
+                // First page and ellipsis
+                if (startPage > 1) {
+                    addPageButton(1);
+                    if (startPage > 2) {
+                        addEllipsis();
+                    }
+                }
+
+                // Page numbers
+                for (let i = startPage; i <= endPage; i++) {
+                    addPageButton(i);
+                }
+
+                // Ellipsis and last page
+                if (endPage < totalPages) {
+                    if (endPage < totalPages - 1) {
+                        addEllipsis();
+                    }
+                    addPageButton(totalPages);
+                }
+            }
+
+            // Add page button
+            function addPageButton(pageNum) {
+                const button = document.createElement('button');
+                button.textContent = pageNum;
+                button.className = `px-3 py-2 text-sm font-medium border rounded-lg ${
+                    pageNum === currentPage 
+                        ? 'bg-amber-500 text-white border-amber-500' 
+                        : 'text-gray-500 bg-white border-gray-300 hover:bg-gray-50 hover:text-gray-700'
+                }`;
+                button.addEventListener('click', () => goToPage(pageNum));
+                pageNumbersContainer.appendChild(button);
+            }
+
+            // Add ellipsis
+            function addEllipsis() {
+                const span = document.createElement('span');
+                span.textContent = '...';
+                span.className = 'px-3 py-2 text-sm font-medium text-gray-500';
+                pageNumbersContainer.appendChild(span);
+            }
+
+            // Go to specific page
+            function goToPage(pageNum) {
+                currentPage = pageNum;
+                updateDisplay();
+            }
+
+            // Reset filter function
+            function resetFilter() {
+                startDateInput.value = '';
+                endDateInput.value = '';
+
+                filteredRows = Array.from(rows);
+                currentPage = 1;
+
+                // Reset quick filter button styles
+                quickFilterBtns.forEach(btn => {
+                    btn.classList.remove('bg-amber-500', 'text-white');
+                    btn.classList.add('bg-amber-100', 'text-amber-800');
+                });
+
+                updateDisplay();
+            }
+
+            // Update filter info
+            function updateFilterInfo(visibleCount) {
+                filterCount.textContent = visibleCount;
+
+                if (startDateInput.value || endDateInput.value) {
+                    filterInfo.classList.remove('hidden');
+                } else {
+                    filterInfo.classList.add('hidden');
+                }
+            }
+
+            // Show/hide no data message
+            function showNoDataMessage(show) {
+                let noDataRow = document.getElementById('no-data-row');
+
+                if (show) {
+                    if (!noDataRow) {
+                        const tbody = document.getElementById('kunjungan-tbody');
+                        noDataRow = document.createElement('tr');
+                        noDataRow.id = 'no-data-row';
+                        noDataRow.className = 'border-b hover:bg-gray-50';
+                        noDataRow.innerHTML = `
+                            <td colspan="7" class="px-6 py-8 text-center text-gray-500">
+                                <div class="flex flex-col items-center">
+                                    <i class="fas fa-search text-3xl mb-2 text-gray-400"></i>
+                                    <p class="text-lg font-medium">Tidak ada data kunjungan</p>
+                                    <p class="text-sm">yang sesuai dengan filter tanggal yang dipilih</p>
+                                </div>
+                            </td>
+                        `;
+                        tbody.appendChild(noDataRow);
+                    }
+                    noDataRow.style.display = '';
+                } else {
+                    if (noDataRow) {
+                        noDataRow.style.display = 'none';
+                    }
+                }
+            }
+
+            // Event listeners
+            filterBtn.addEventListener('click', filterRows);
+            resetBtn.addEventListener('click', resetFilter);
+
+            // Rows per page change
+            rowsPerPageSelect.addEventListener('change', function() {
+                rowsPerPage = this.value === 'all' ? 'all' : parseInt(this.value);
+                currentPage = 1;
+                updateDisplay();
+            });
+
+            // Pagination navigation
+            prevPageBtn.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    goToPage(currentPage - 1);
+                }
+            });
+
+            nextPageBtn.addEventListener('click', function() {
+                const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+                if (currentPage < totalPages) {
+                    goToPage(currentPage + 1);
+                }
+            });
+
+            // Quick filter event listeners
+            quickFilterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    const dateRange = getDateRange(filter);
+
+                    if (dateRange) {
+                        // Update input values
+                        startDateInput.value = dateRange.start;
+                        endDateInput.value = dateRange.end;
+
+                        // Update button styles
+                        quickFilterBtns.forEach(b => {
+                            b.classList.remove('bg-amber-500', 'text-white');
+                            b.classList.add('bg-amber-100', 'text-amber-800');
+                        });
+
+                        this.classList.remove('bg-amber-100', 'text-amber-800');
+                        this.classList.add('bg-amber-500', 'text-white');
+
+                        // Apply filter
+                        filterRows();
+                    }
+                });
+            });
+
+            // Auto filter when date inputs change
+            startDateInput.addEventListener('change', function() {
+                if (startDateInput.value || endDateInput.value) {
+                    filterRows();
+                } else {
+                    resetFilter();
+                }
+            });
+
+            endDateInput.addEventListener('change', function() {
+                if (startDateInput.value || endDateInput.value) {
+                    filterRows();
+                } else {
+                    resetFilter();
+                }
+            });
+
+            // Validate date range
+            startDateInput.addEventListener('change', function() {
+                if (endDateInput.value && startDateInput.value > endDateInput.value) {
+                    Swal.fire({
+                        title: 'Peringatan!',
+                        text: 'Tanggal mulai tidak boleh lebih besar dari tanggal akhir',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    });
+                    startDateInput.value = '';
+                }
+            });
+
+            endDateInput.addEventListener('change', function() {
+                if (startDateInput.value && endDateInput.value < startDateInput.value) {
+                    Swal.fire({
+                        title: 'Peringatan!',
+                        text: 'Tanggal akhir tidak boleh lebih kecil dari tanggal mulai',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    });
+                    endDateInput.value = '';
+                }
+            });
+
+            // Initialize
+            filteredRows = Array.from(rows);
+            updateDisplay();
+        });
+    </script>
+@endpush
