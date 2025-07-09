@@ -29,7 +29,7 @@
                             </h2>
                             <p class="font-semibold text-gray-700">No. Rekam Medis: {{ $pasien->nomor_rekam_medis ?? '-' }}
                             </p>
-                            <p class="text-gray-700">ID Pasien: {{ $pasien->id_pasien ?? '-' }}</p>
+                            <p class="text-gray-700">NIK Pasien: {{ $pasien->nik ?? '-' }}</p>
                             <div class="mt-4 flex flex-col gap-2 md:flex-row">
                                 <div>
                                     <a href="{{ route('edit.pasien', $pasien->id_pasien) }}" data-tooltip-target="tooltip-1"
@@ -78,6 +78,10 @@
                             <i class="fas fa-id-card mr-2"></i>Informasi Identitas
                         </h3>
                         <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span class="font-medium text-gray-600">No ID:</span>
+                                <span class="text-gray-800">{{ $pasien->id_pasien ?? '-' }}</span>
+                            </div>
                             <div class="flex justify-between">
                                 <span class="font-medium text-gray-600">NIK:</span>
                                 <span class="text-gray-800">{{ $pasien->nik ?? '-' }}</span>

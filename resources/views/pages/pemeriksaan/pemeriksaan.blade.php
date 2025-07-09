@@ -28,36 +28,6 @@
                         <span class="text-sm text-red-500">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div class="mb-3 grid w-full items-center">
-                        <label class="mb-1 block text-sm font-medium text-gray-700">
-                            Diagnosa <span class="text-red-500">*</span>
-                        </label>
-                        <div class="flex w-full">
-                            <input type="text" id="diagnosa" name="diagnosa"
-                                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                value="{{ $kunjungan->assessment->diagnosa ?? '' }}">
-                        </div>
-                        <span class="text-sm text-gray-500">contoh: Batuk, Pilek</span>
-                        @error('diagnosa')
-                            <span class="text-sm text-red-500">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="mb-3 grid w-full items-center">
-                        <label class="mb-1 block text-sm font-medium text-gray-700">
-                            ICD-10 <span class="text-red-500">*</span>
-                        </label>
-                        <div class="flex w-full">
-                            <input type="text" id="icd_10" name="icd_10"
-                                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                value="{{ $kunjungan->assessment->kode_icd10 ?? '' }}">
-                        </div>
-                        <span class="text-sm text-gray-500">contoh: A00-B99, Penyakit Jantung</span>
-                        @error('icd_10')
-                            <span class="text-sm text-red-500">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
                 <div class="mb-3 grid gap-3 lg:grid-cols-3">
                     <div class="mb-3 grid w-full items-center">
                         <label class="mb-1 block text-sm font-medium text-gray-700">
@@ -167,8 +137,7 @@
                     Bagian tubuh yang sakit <span class="text-red-500">*</span>
                 </label>
                 <div class="flex w-full">
-                    <select id="bagian_tubuh_sakit" name="bagian_tubuh_sakit"
-                        onchange="showBodyPartImage(this.value)"
+                    <select id="bagian_tubuh_sakit" name="bagian_tubuh_sakit" onchange="showBodyPartImage(this.value)"
                         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400">
                         <option value="" disabled
                             {{ empty($kunjungan->assessment->bagian_tubuh_sakit) ? 'selected' : '' }}>Pilih bagian
@@ -212,6 +181,37 @@
                 @error('detail_keluhan')
                     <span class="text-sm text-red-500">{{ $message }}</span>
                 @enderror
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div class="mb-3 grid w-full items-center">
+                    <label class="mb-1 block text-sm font-medium text-gray-700">
+                        Diagnosa <span class="text-red-500">*</span>
+                    </label>
+                    <div class="flex w-full">
+                        <input type="text" id="diagnosa" name="diagnosa"
+                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
+                            value="{{ $kunjungan->assessment->diagnosa ?? '' }}">
+                    </div>
+                    <span class="text-sm text-gray-500">contoh: Batuk, Pilek</span>
+                    @error('diagnosa')
+                        <span class="text-sm text-red-500">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-3 grid w-full items-center">
+                    <label class="mb-1 block text-sm font-medium text-gray-700">
+                        ICD-10 <span class="text-red-500">*</span>
+                    </label>
+                    <div class="flex w-full">
+                        <input type="text" id="icd_10" name="icd_10"
+                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
+                            value="{{ $kunjungan->assessment->kode_icd10 ?? '' }}">
+                    </div>
+                    <span class="text-sm text-gray-500">contoh: A00-B99, Penyakit Jantung</span>
+                    @error('icd_10')
+                        <span class="text-sm text-red-500">{{ $message }}</span>
+                    @enderror
+                </div>
             </div>
 
             {{-- button --}}

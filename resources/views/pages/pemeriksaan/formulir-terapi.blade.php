@@ -73,7 +73,8 @@
                         <input datepicker datepicker-format="yyyy-mm-dd" type="text" id="tanggal_tindakan"
                             name="tanggal_tindakan"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                            placeholder="Pilih tanggal" value="{{ $kunjungan->tindakan->tanggal_tindakan ?? '' }}">
+                            placeholder="Pilih tanggal"
+                            value="{{ $kunjungan->tindakan->tanggal_tindakan ?? date('Y-m-d') }}">
                     </div>
                     @error('tanggal_tindakan')
                         <span class="text-xs text-red-400">{{ $message }}</span>
@@ -86,7 +87,7 @@
                     <div class="flex w-full">
                         <input type="time" id="waktu_mulai" name="waktu_mulai"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                            value="{{ !empty($kunjungan->tindakan->waktu_mulai) ? \Carbon\Carbon::parse($kunjungan->tindakan->waktu_mulai)->format('H:i') : '' }}">
+                            value="{{ !empty($kunjungan->tindakan->waktu_mulai) ? \Carbon\Carbon::parse($kunjungan->tindakan->waktu_mulai)->format('H:i') : date('H:i') }}">
                     </div>
                 </div>
 

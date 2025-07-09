@@ -28,7 +28,7 @@
                             name="tanggal_pembayaran"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
                             placeholder="Pilih tanggal pembayaran"
-                            value="{{ $kunjungan->pembayaran->tanggal_pembayaran ?? '' }}">
+                            value="{{ $kunjungan->pembayaran->tanggal_pembayaran ?? date('Y-m-d') }}">
                     </div>
                     @error('tanggal_pembayaran')
                         <span class="text-xs text-red-400">{{ $message }}</span>
@@ -40,7 +40,7 @@
                     </label>
                     <input type="time" id="waktu_pembayaran" name="waktu_pembayaran"
                         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                        value="{{ $kunjungan?->pembayaran?->waktu_pembayaran?->format('H:i') ?? '' }}">
+                        value="{{ $kunjungan?->pembayaran?->waktu_pembayaran?->format('H:i') ?? date('H:i') }}">
                     @error('waktu_pembayaran')
                         <span class="text-xs text-red-400">{{ $message }}</span>
                     @enderror

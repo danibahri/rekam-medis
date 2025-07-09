@@ -82,7 +82,8 @@
                             <input datepicker datepicker-format="yyyy-mm-dd" type="text" id="tanggal"
                                 name="tanggal"
                                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                placeholder="Pilih tanggal" value="{{ $kunjungan->resep->tanggal_resep ?? '' }}">
+                                placeholder="Pilih tanggal"
+                                value="{{ $kunjungan->resep->tanggal_resep ?? date('Y-m-d') }}">
                         </div>
                         @error('tanggal')
                             <span class="text-xs text-red-400">{{ $message }}</span>
@@ -95,7 +96,7 @@
                         <div class="flex w-full">
                             <input type="time" id="waktu_resep" name="waktu_resep"
                                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-amber-400 focus:ring-amber-400"
-                                value="{{ $kunjungan?->resep?->waktu_resep?->format('H:i') ?? '' }}">
+                                value="{{ $kunjungan?->resep?->waktu_resep?->format('H:i') ?? date('H:i') }}">
                         </div>
                         @error('waktu_resep')
                             <span class="text-xs text-red-400">{{ $message }}</span>
