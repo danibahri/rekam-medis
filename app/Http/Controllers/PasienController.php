@@ -20,14 +20,14 @@ class PasienController extends Controller
 {
     public function show_pasien()
     {
-        $data_pasien = Pasien::with(['jenisKelamin', 'agama', 'pendidikan', 'pekerjaan', 'statusPernikahan', 'caraPembayaran'])->get();
+        $data_pasien = Pasien::with(['jenisKelamin', 'agama', 'pendidikan', 'pekerjaan', 'statusPernikahan'])->get();
         $data_dokter = Dokter::all();
         return view('pages.pasien.index', compact('data_pasien', 'data_dokter'));
     }
 
     public function profile_pasien($id)
     {
-        $pasien = Pasien::with(['jenisKelamin', 'agama', 'pendidikan', 'pekerjaan', 'statusPernikahan', 'caraPembayaran'])->findOrFail($id);
+        $pasien = Pasien::with(['jenisKelamin', 'agama', 'pendidikan', 'pekerjaan', 'statusPernikahan'])->findOrFail($id);
 
         // kunjungan pasien dengan status selesai
         $kunjungan = Kunjungan::where('id_pasien', $id)
@@ -173,9 +173,9 @@ class PasienController extends Controller
             'foto_pasien_path.mimes' => 'Format file harus jpeg, png, jpg, atau gif',
             'foto_pasien_path.max' => 'Ukuran file maksimal 2MB',
         ]);
-        // dd($request->all());
+
         try {
-            $id = 'PSN' . time() . rand(100, 999);
+            $id = 'PSN' . uniqid(true);
 
             // Handle file upload
             $foto_path = null;
